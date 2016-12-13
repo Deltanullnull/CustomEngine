@@ -8,7 +8,10 @@ public:
 	Geometry();
 	~Geometry();
 
-	void add_vertices(GLfloat * buffer, int size);
+	void addVertices(GLfloat * buffer, int size);
+	void addUV(GLfloat * buffer, int size);
+	void addNormals(GLfloat * buffer, int size);
+	void addTriangles(GLuint * buffer, int size);
 
 	void accept(Renderer * renderer);
 
@@ -16,8 +19,8 @@ private:
 	GLuint m_vao;
 	GLuint m_vbo[3];
 
-	void bind_buffer(void * buffer, int size, int stride, int attrib_pointer);
+	void bindBuffer(void * buffer, int size, int stride, int attrib_pointer);
 
-	int m_n_faces;
+	int m_nFaces;
 };
 

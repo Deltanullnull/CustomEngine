@@ -123,6 +123,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCore.cpp" />
+    <ClCompile Include="TextureCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCore.h" />
+    <ClInclude Include="TextureCore.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
