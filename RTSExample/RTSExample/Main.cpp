@@ -1,4 +1,27 @@
-#include "ShaderClass.h"
+#include "Model.h"
+
+Model * model0;
+Renderer * renderer;
+
+void processMouseButton(int x, int y, int a, int b)
+{
+
+}
+
+void processKey(unsigned char key, int x, int y)
+{
+
+}
+
+void reshapeWindow(int width, int height)
+{
+
+}
+
+void display()
+{
+	model0->render(renderer);
+}
 
 int main(int argc, char ** argv)
 {
@@ -14,17 +37,17 @@ int main(int argc, char ** argv)
 
 	glutCreateWindow("Trainer");
 
-	/*init(width, height);
+	//init(width, height);
 
 	glutDisplayFunc(display);
 	glutIdleFunc(display);
 	glutMouseFunc(processMouseButton);
 	glutKeyboardUpFunc(processKey);
-	glutReshapeFunc(reshapeWindow);*/
+	glutReshapeFunc(reshapeWindow);
 
 	glewInit();
 
-
+	renderer = new Renderer();
 
 	glutMainLoop();
 }
