@@ -1,16 +1,24 @@
 #pragma once
 
-#include "Renderer.h"
+#include "Core.h"
 
-class TextureCore
+class TextureCore : Core
 {
 public:
 	TextureCore();
 	~TextureCore();
 
-	void CreateTexture(GLubyte * imageBuffer, int width, int height);
+	void AddTexture(GLubyte * imageBuffer, int width, int height);
+
+	void BindTexture();
+
+	void UnbindTexture();
 
 private:
 	GLuint m_texture;
+
+	vector<GLuint> m_listTextures;
+
+
 };
 

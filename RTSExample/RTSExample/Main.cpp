@@ -1,26 +1,28 @@
-#include "Model.h"
+#include "RenderTraverser.h"
+#include "RenderState.h"
+#include "Core.h"
 
-Model * model0;
-Renderer * renderer;
+RenderState * m_pRenderState;
+RenderTraverser * m_pRenderTraverser;
 
-void processMouseButton(int x, int y, int a, int b)
+void ProcessMouseButton(int x, int y, int a, int b)
 {
 
 }
 
-void processKey(unsigned char key, int x, int y)
+void ProcessKey(unsigned char key, int x, int y)
 {
 
 }
 
-void reshapeWindow(int width, int height)
+void ReshapeWindow(int width, int height)
 {
 
 }
 
-void display()
+void Display()
 {
-	model0->render(renderer);
+	
 }
 
 int main(int argc, char ** argv)
@@ -39,15 +41,16 @@ int main(int argc, char ** argv)
 
 	//init(width, height);
 
-	glutDisplayFunc(display);
-	glutIdleFunc(display);
-	glutMouseFunc(processMouseButton);
-	glutKeyboardUpFunc(processKey);
-	glutReshapeFunc(reshapeWindow);
+	glutDisplayFunc(Display);
+	glutIdleFunc(Display);
+	glutMouseFunc(ProcessMouseButton);
+	glutKeyboardUpFunc(ProcessKey);
+	glutReshapeFunc(ReshapeWindow);
 
 	glewInit();
 
-	renderer = new Renderer();
+	m_pRenderState = new RenderState();
+	m_pRenderTraverser = new RenderTraverser();
 
 	glutMainLoop();
 }
