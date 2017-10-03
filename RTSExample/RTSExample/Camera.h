@@ -8,7 +8,8 @@ public:
 	Camera();
 	~Camera();
 
-	void Accept(Renderer * renderer);
+	void Visit(Renderer * renderer);
+	void PostVisit(Renderer * renderer);
 
 	void Move(glm::vec3 direction);
 

@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Traverser">
       <UniqueIdentifier>{022f93bb-c06d-44b1-b21a-3b158ded63a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="glsl">
+      <UniqueIdentifier>{0af7f1f9-7951-41a9-a532-60067e41b452}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -93,6 +96,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="glsl\texture.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\body.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\body.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\default.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\default.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\points.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\points.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\shadow.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\shadow.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\skeleton.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\skeleton.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="glsl\texture.frag">
+      <Filter>glsl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderClass.h">

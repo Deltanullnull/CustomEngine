@@ -9,7 +9,7 @@ public:
 	GeometryCore();
 	~GeometryCore();
 
-	void SetVertices(glm::vec3 * buffer, int size);
+	void SetVertices(GLfloat * buffer, int size);
 	void SetUV(glm::vec2 * buffer, int size);
 	void SetNormals(glm::vec3 * buffer, int size);
 	void SetFaces(GLuint * buffer, int size);
@@ -22,9 +22,9 @@ private:
 
 	void BindBuffer(void * buffer, int size, int stride, int attrib_pointer);
 
-	GLuint m_vao;
-	GLuint m_vbo[3];
+	GLuint m_vao = 0;
+	GLuint m_vbo[10];
 
-	int m_nFaces;
+	int m_nFaces = 0;
 };
 

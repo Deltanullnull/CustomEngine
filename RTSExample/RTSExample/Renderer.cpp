@@ -53,6 +53,56 @@ mat4 Renderer::ProjectionTop()
 	return mat4();
 }
 
+mat4 Renderer::GetModelView()
+{
+	glm::mat4 mat(1.0f);
+
+	stack<glm::mat4> temp;
+
+	while (!modelViewStack.empty())
+	{
+		mat = modelViewStack.top() * mat;
+
+		temp.push(modelViewStack.top());
+
+		modelViewStack.pop();
+	}
+
+	while (!temp.empty())
+	{
+		modelViewStack.push(temp.top());
+
+		temp.pop();
+	}
+
+	return mat;
+}
+
+mat4 Renderer::GetProjection()
+{
+	glm::mat4 mat(1.0f);
+
+	stack<glm::mat4> temp;
+
+	while (!projectionStack.empty())
+	{
+		mat = projectionStack.top() * mat;
+
+		temp.push(projectionStack.top());
+
+		projectionStack.pop();
+	}
+
+	while (!temp.empty())
+	{
+		projectionStack.push(temp.top());
+
+		temp.pop();
+	}
+
+	return mat;
+}
+
 void Renderer::SetModelViewTop(mat4 matrix)
 {
 	modelViewStack.top() = matrix;

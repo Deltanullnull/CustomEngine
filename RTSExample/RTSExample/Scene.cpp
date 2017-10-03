@@ -18,7 +18,7 @@ void Scene::Accept(Renderer * renderer)
 
 	//traverser->Visit(m_pMainCamera);
 
-	m_pMainCamera->Accept(renderer);
+	m_pMainCamera->Visit(renderer);
 
 	// TODO visit light
 
@@ -29,6 +29,8 @@ void Scene::Accept(Renderer * renderer)
 
 		child->Accept(renderer);
 	}
+
+	m_pMainCamera->PostVisit(renderer);
 
 	//traverser->PostVisit(m_pMainCamera);
 }

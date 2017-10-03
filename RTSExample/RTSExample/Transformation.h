@@ -19,6 +19,8 @@ public:
 	void PopTransformation(Renderer * renderer);
 
 	void Render(Renderer * renderer);
+
+	void AddTranslation(glm::vec3 translation);
 	
 	void AddCore(ShaderCore * core);
 	void AddCore(TextureCore * core);
@@ -28,7 +30,11 @@ public:
 
 private:
 
-	glm::mat4 m_matModel;
+	glm::mat4 m_matModel = glm::mat4(1.0f);
+
+	glm::vec3 m_position = glm::vec3(2.0f, 0.0f, 0.0f);
+
+	glm::mat4 m_rotation = glm::mat4(1.0f);
 
 	ShaderCore * m_pShaderCore = NULL;
 	TextureCore * m_pTextureCore = NULL;

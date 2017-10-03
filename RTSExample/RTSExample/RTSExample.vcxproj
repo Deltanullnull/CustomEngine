@@ -46,7 +46,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -137,6 +137,18 @@
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="glsl\body.frag" />
+    <None Include="glsl\body.vert" />
+    <None Include="glsl\default.frag" />
+    <None Include="glsl\default.vert" />
+    <None Include="glsl\points.frag" />
+    <None Include="glsl\points.vert" />
+    <None Include="glsl\shadow.frag" />
+    <None Include="glsl\shadow.vert" />
+    <None Include="glsl\skeleton.frag" />
+    <None Include="glsl\skeleton.vert" />
+    <None Include="glsl\texture.frag" />
+    <None Include="glsl\texture.vert" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

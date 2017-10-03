@@ -4,6 +4,9 @@
 
 GeometryCore::GeometryCore()
 {
+	glGenVertexArrays(1, &m_vao);
+
+	glGenBuffers(10, m_vbo);
 }
 
 
@@ -11,9 +14,14 @@ GeometryCore::~GeometryCore()
 {
 }
 
-void GeometryCore::SetVertices(glm::vec3 * buffer, int size)
+void GeometryCore::SetVertices(GLfloat * buffer, int size)
 {
 	glBindVertexArray(m_vao);
+
+	for (int i = 0; i < size / sizeof(GLfloat); i+=3)
+	{
+		cout << buffer[i] << " " << buffer[i+1] << " " << buffer[i+2] << endl;
+	}
 
 	cout << "Setting vertices with size " << size << endl;
 
@@ -38,18 +46,20 @@ void GeometryCore::SetFaces(GLuint * buffer, int size)
 {
 	m_nFaces = (GLuint)size / sizeof(GLuint);
 
-	cout << "Created " << m_nFaces << " faces at vbo " << m_vbo[4] << endl;
-
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbo[4]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, buffer, GL_DYNAMIC_DRAW);
+
+	cout << "Created " << m_nFaces << " faces at vbo " << m_vbo[4] << endl;
 }
 
 
 void GeometryCore::Render()
 {
+	cout << "Rendering " << m_nFaces << " faces" << endl;
+
 	glBindBuffer(GL_ARRAY_BUFFER, m_vao);
 
-	//glDrawArrays()
+	glDrawElements(GL_TRIANGLES, m_nFaces, GL_UNSIGNED_INT, 0);
 }
 
 void GeometryCore::BindBuffer(void * buffer, int size, int stride, int attrib_pointer)
@@ -62,4 +72,6 @@ void GeometryCore::BindBuffer(void * buffer, int size, int stride, int attrib_po
 	//set attributes
 	glEnableVertexAttribArray(i);
 	glVertexAttribPointer(i, stride, GL_FLOAT, false, 0, 0);
+
+	cout << "Binding buffer at vbo " << m_vbo[i] << endl;
 }

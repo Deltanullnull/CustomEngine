@@ -16,7 +16,7 @@ public:
 	void AddChild(Object * child);
 
 public:
-	Camera * m_pMainCamera;
+	Camera * m_pMainCamera = nullptr;
 
 	list<Object*> m_listChildren;
 };

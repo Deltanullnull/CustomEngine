@@ -31,7 +31,7 @@ public:
 public:
 
 	// TODO: add matrix stack
-	Renderer * m_pRenderer;
+	Renderer * m_pRenderer = nullptr;
 
 };
 

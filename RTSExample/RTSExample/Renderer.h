@@ -24,6 +24,9 @@ public:
 	mat4 ModelViewTop();
 	mat4 ProjectionTop();
 
+	mat4 GetModelView();
+	mat4 GetProjection();
+
 	void SetModelViewTop(mat4 matrix);
 	void SetProjectionTop();
 
