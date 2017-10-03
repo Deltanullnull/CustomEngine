@@ -1,9 +1,12 @@
 #include "RenderTraverser.h"
 #include "RenderState.h"
 #include "Core.h"
+#include "Scene.h"
 
 RenderState * m_pRenderState;
 RenderTraverser * m_pRenderTraverser;
+
+Scene * m_pMainScene;
 
 void ProcessMouseButton(int x, int y, int a, int b)
 {
@@ -22,7 +25,7 @@ void ReshapeWindow(int width, int height)
 
 void Display()
 {
-	
+	m_pMainScene->Accept(m_pRenderTraverser);
 }
 
 int main(int argc, char ** argv)
@@ -51,6 +54,21 @@ int main(int argc, char ** argv)
 
 	m_pRenderState = new RenderState();
 	m_pRenderTraverser = new RenderTraverser();
+
+	m_pRenderTraverser->m_pRenderer = new Renderer();
+
+	m_pMainScene = new Scene();
+
+	Camera * mainCamera = new Camera();
+	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+	mainCamera->CreateProjection(90.f, (float)width / (float)height, 0.1f, 100.f);
+
+	m_pMainScene->SetMainCamera(mainCamera);
+
+	Object * transformation0 = new Object();
+
+	m_pMainScene->AddChild(transformation0);
+
 
 	glutMainLoop();
 }

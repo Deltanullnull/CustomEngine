@@ -2,50 +2,59 @@
 
 #include "Renderer.h"
 
-Transformation::Transformation()
+Object::Object()
 {
 }
 
 
-Transformation::~Transformation()
+Object::~Object()
 {
 }
 
-void Transformation::PushTransformation(Renderer * renderer)
+void Object::PushTransformation(Renderer * renderer)
 {
-	renderer->pushModelViewMatrix(m_matModel);
+	renderer->PushModelViewMatrix(m_matModel);
 }
 
-void Transformation::PopTransformation(Renderer * renderer)
+void Object::PopTransformation(Renderer * renderer)
 {
-	renderer->popModelViewMatrix();
+	renderer->PopModelViewMatrix();
+
 }
 
-void Transformation::Render()
+void Object::Render(Renderer * renderer)
 {
-	if (m_pShaderCore != NULL)
+	if (m_pShaderCore != nullptr)
 		m_pShaderCore->BindShader();
 	
-	if (m_pTextureCore != NULL)
+	if (m_pTextureCore != nullptr)
 		m_pTextureCore->BindTexture();
 
-	// TODO: bind uniform to shader
+	
 
-	if (m_pGeometryCore != NULL)
+	// TODO: bind uniform to shader
+	glm::mat4 modelView = renderer->ModelViewTop();
+	glm::mat4 projection = renderer->ProjectionTop();
+
+	glm::mat4 mvp = projection * modelView;
+
+	m_pShaderCore->SetUniformMatrix4f("mvp", 1, &mvp[0][0]);
+
+	if (m_pGeometryCore != nullptr)
 		m_pGeometryCore->Render();
 }
 
-void Transformation::AddCore(ShaderCore * core)
+void Object::AddCore(ShaderCore * core)
 {
 	m_pShaderCore = core;
 }
 
-void Transformation::AddCore(TextureCore * core)
+void Object::AddCore(TextureCore * core)
 {
 	m_pTextureCore = core;
 }
 
-void Transformation::AddCore(GeometryCore * core)
+void Object::AddCore(GeometryCore * core)
 {
 	m_pGeometryCore = core;
 }

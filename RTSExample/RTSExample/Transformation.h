@@ -9,16 +9,16 @@
 class Renderer;
 
 #pragma once
-class Transformation : public Component
+class Object : public Component
 {
 public:
-	Transformation();
-	~Transformation();
+	Object();
+	~Object();
 
 	void PushTransformation(Renderer * renderer);
 	void PopTransformation(Renderer * renderer);
 
-	void Render();
+	void Render(Renderer * renderer);
 	
 	void AddCore(ShaderCore * core);
 	void AddCore(TextureCore * core);

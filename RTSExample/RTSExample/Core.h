@@ -1,7 +1,7 @@
 #include "Component.h"
 
 #pragma once
-class Core
+class Core 
 {
 public:
 	Core();

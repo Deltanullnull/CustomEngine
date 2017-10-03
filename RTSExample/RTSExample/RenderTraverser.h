@@ -5,6 +5,7 @@
 #include "GeometryCore.h"
 
 #include "Camera.h"
+#include "Scene.h"
 
 #pragma once
 class RenderTraverser : public Traverser
@@ -19,18 +20,18 @@ public:
 	void Visit(Camera * camera);
 	void PostVisit(Camera * camera);
 
+	void Visit(Scene * scene);
+	void PostVisit(Scene * scene);
 
 	void Visit(Transformation * transformation);
-
-
 	void PostVisit(Transformation * transformation);
 
 	// TODO: visit for different kinds of component (transformation, geometry, shader, texture etc.)
 
-private:
+public:
 
 	// TODO: add matrix stack
-	Renderer * renderer;
+	Renderer * m_pRenderer;
 
 };
 

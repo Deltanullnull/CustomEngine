@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class Core;
+
 class Component
 {
 public:
@@ -18,9 +20,12 @@ public:
 
 	virtual void Accept(Traverser * traverser);
 
-private:
+
+protected:
 
 	list<Component*> m_listChildren;
+
+	list<Core*> m_listCores;
 	
 	Component * m_pParent = nullptr;
 };

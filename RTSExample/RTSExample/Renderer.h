@@ -13,24 +13,24 @@ public:
 	Renderer();
 	~Renderer();
 
-	void renderModel();
+	void RenderModel();
 
-	void pushModelViewMatrix(mat4 matrix);
-	void pushProjectionMatrix(mat4 matrix);
+	void PushModelViewMatrix(mat4 matrix);
+	void PushProjectionMatrix(mat4 matrix);
 
-	void popModelViewMatrix();
-	void popProjectionMatrix();
+	void PopModelViewMatrix();
+	void PopProjectionMatrix();
 
-	mat4 modelViewTop();
-	mat4 projectionTop();
+	mat4 ModelViewTop();
+	mat4 ProjectionTop();
 
-	void setModelViewTop(mat4 matrix);
-	void setProjectionTop();
+	void SetModelViewTop(mat4 matrix);
+	void SetProjectionTop();
 
-	int modelViewCount();
-	int projectionCount();
+	int ModelViewCount();
+	int ProjectionCount();
 
-	void traverse(Core * core);
+	void Traverse(Core * core);
 
 private:
 	stack<mat4> modelViewStack;
