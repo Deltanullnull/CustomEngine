@@ -32,7 +32,7 @@ void Display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//object0->AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
+	object0->AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
 
 	//m_pMainScene->m_pMainCamera->Move(glm::vec3(0.01f, 0, 0));
 
