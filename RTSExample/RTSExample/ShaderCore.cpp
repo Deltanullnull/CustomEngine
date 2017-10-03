@@ -18,7 +18,8 @@ void ShaderCore::GenerateShader(string vertex_shader, string geometry_shader, st
 
 void ShaderCore::BindShader()
 {
-	
+	cout << "Binding shader " << m_shader << endl;
+
 	glUseProgram(m_shader);
 }
 

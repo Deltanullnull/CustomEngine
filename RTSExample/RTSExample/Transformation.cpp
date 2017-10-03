@@ -31,7 +31,6 @@ void Object::Render(Renderer * renderer)
 		m_pTextureCore->BindTexture();
 
 	
-
 	// TODO: bind uniform to shader
 	glm::mat4 modelView = renderer->ModelViewTop();
 	glm::mat4 projection = renderer->ProjectionTop();
@@ -57,6 +56,30 @@ void Object::AddCore(TextureCore * core)
 void Object::AddCore(GeometryCore * core)
 {
 	m_pGeometryCore = core;
+}
+
+void Object::Accept(Renderer * renderer)
+{
+	if (renderer == nullptr)
+		return;
+
+	//traverser->Visit(this);
+
+	PushTransformation(renderer);
+
+	Render(renderer);
+
+	for (Object * child : m_listChildren)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->Accept(renderer);
+	}
+
+	PopTransformation(renderer);
+
+	//traverser->PostVisit(this);
 }
 
 

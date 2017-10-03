@@ -23,8 +23,8 @@ public:
 	void Visit(Scene * scene);
 	void PostVisit(Scene * scene);
 
-	void Visit(Transformation * transformation);
-	void PostVisit(Transformation * transformation);
+	void Visit(Object * transformation);
+	void PostVisit(Object * transformation);
 
 	// TODO: visit for different kinds of component (transformation, geometry, shader, texture etc.)
 

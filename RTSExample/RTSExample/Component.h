@@ -7,6 +7,7 @@
 using namespace std;
 
 class Core;
+class Transformation;
 
 class Component
 {
@@ -15,6 +16,7 @@ public:
 	~Component();
 
 	virtual void AddChild(Component * child);
+
 
 	virtual void RemoveChild(Component * child);
 

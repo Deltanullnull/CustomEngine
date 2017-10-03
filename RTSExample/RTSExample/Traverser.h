@@ -1,7 +1,7 @@
 #include <GL\glew.h>
 
 class Component;
-class Transformation;
+class Object;
 class Camera;
 class Scene;
 
@@ -21,8 +21,8 @@ public:
 	virtual void Visit(Scene * scene) = 0;
 	virtual void PostVisit(Scene * scene) = 0;
 
-	virtual void Visit(Transformation * transformation) = 0;
-	virtual void PostVisit(Transformation * transformation) = 0;
+	virtual void Visit(Object * transformation) = 0;
+	virtual void PostVisit(Object * transformation) = 0;
 };
 
 

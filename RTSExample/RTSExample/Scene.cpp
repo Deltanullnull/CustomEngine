@@ -11,29 +11,34 @@ Scene::~Scene()
 {
 }
 
-void Scene::Accept(Traverser * traverser)
+void Scene::Accept(Renderer * renderer)
 {
-	if (traverser == nullptr)
+	if (renderer == nullptr)
 		return;
 
-	traverser->Visit(m_pMainCamera);
+	//traverser->Visit(m_pMainCamera);
+
+	m_pMainCamera->Accept(renderer);
 
 	// TODO visit light
 
-	for (list<Component *>::iterator it = m_listChildren.begin(); it != m_listChildren.end(); it++)
+	for (Object * child : m_listChildren)
 	{
-		Component * child = (*it);
-
 		if (child == nullptr)
 			continue;
 
-		child->Accept(traverser);
+		child->Accept(renderer);
 	}
 
-	traverser->PostVisit(m_pMainCamera);
+	//traverser->PostVisit(m_pMainCamera);
 }
 
 void Scene::SetMainCamera(Camera * camera)
 {
 	m_pMainCamera = camera;
+}
+
+void Scene::AddChild(Object * child)
+{
+	m_listChildren.push_back(child);
 }

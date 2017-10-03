@@ -11,6 +11,12 @@ Camera::~Camera()
 {
 }
 
+void Camera::Accept(Renderer * renderer)
+{
+	PushCameraMatrix(renderer);
+	
+}
+
 void Camera::Move(glm::vec3 direction)
 {
 	m_position += glm::normalize(direction);

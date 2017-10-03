@@ -47,16 +47,16 @@ void RenderTraverser::PostVisit(Scene * scene)
 
 void RenderTraverser::Visit(Object * transformation)
 {
-	cout << "Visit: transformation" << endl;
+	cout << "Visit: object" << endl;
 
 	transformation->PushTransformation(m_pRenderer);	
 
-	transformation->Render();
+	transformation->Render(m_pRenderer);
 }
 
 void RenderTraverser::PostVisit(Object * transformation)
 {
-	cout << "Post visit: transformation" << endl;
+	cout << "Post visit: object" << endl;
 
 	transformation->PopTransformation(m_pRenderer);
 }

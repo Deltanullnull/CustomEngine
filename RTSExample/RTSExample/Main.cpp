@@ -3,7 +3,6 @@
 #include "Core.h"
 #include "Scene.h"
 
-RenderState * m_pRenderState;
 RenderTraverser * m_pRenderTraverser;
 
 Scene * m_pMainScene;
@@ -25,7 +24,7 @@ void ReshapeWindow(int width, int height)
 
 void Display()
 {
-	m_pMainScene->Accept(m_pRenderTraverser);
+	m_pMainScene->Accept(m_pRenderTraverser->m_pRenderer);
 }
 
 int main(int argc, char ** argv)
@@ -52,7 +51,6 @@ int main(int argc, char ** argv)
 
 	glewInit();
 
-	m_pRenderState = new RenderState();
 	m_pRenderTraverser = new RenderTraverser();
 
 	m_pRenderTraverser->m_pRenderer = new Renderer();
@@ -68,6 +66,10 @@ int main(int argc, char ** argv)
 	Object * transformation0 = new Object();
 
 	m_pMainScene->AddChild(transformation0);
+
+	ShaderCore * sCore = new ShaderCore();
+	sCore->GenerateShader("vertex.glsl", "", "fragment.glsl");
+	GeometryCore * gCore = new GeometryCore();
 
 
 	glutMainLoop();

@@ -2,13 +2,13 @@
 #include "Renderer.h"
 
 #pragma once
-class Camera : public Component
+class Camera 
 {
 public:
 	Camera();
 	~Camera();
 
-	//void Accept(Traverser * traverser);
+	void Accept(Renderer * renderer);
 
 	void Move(glm::vec3 direction);
 

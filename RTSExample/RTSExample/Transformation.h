@@ -9,7 +9,7 @@
 class Renderer;
 
 #pragma once
-class Object : public Component
+class Object
 {
 public:
 	Object();
@@ -24,6 +24,7 @@ public:
 	void AddCore(TextureCore * core);
 	void AddCore(GeometryCore * core);
 
+	void Accept(Renderer* renderer);
 
 private:
 
@@ -32,6 +33,8 @@ private:
 	ShaderCore * m_pShaderCore = NULL;
 	TextureCore * m_pTextureCore = NULL;
 	GeometryCore * m_pGeometryCore = NULL;
+
+	list<Object*> m_listChildren;
 
 };
 
