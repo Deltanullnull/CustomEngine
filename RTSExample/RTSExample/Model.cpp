@@ -15,5 +15,5 @@ void Model::render(Renderer * renderer)
 {
 	shader_core->BindShader();
 
-	geometry_core->accept(renderer);
+	//geometry_core->accept(renderer);
 }

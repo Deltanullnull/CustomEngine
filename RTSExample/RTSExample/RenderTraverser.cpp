@@ -13,31 +13,50 @@ RenderTraverser::~RenderTraverser()
 
 void RenderTraverser::Visit(Component * component)
 {
-	
+	cout << "Visit: component" << endl;
 }
 
 void RenderTraverser::PostVisit(Component * component)
 {
+	cout << "Post visit: component" << endl;
 }
 
 void RenderTraverser::Visit(Camera * camera)
 {
-	camera->PushCameraMatrix(renderer);
+	cout << "Visit: camera" << endl;
+
+	camera->PushCameraMatrix(m_pRenderer);
 }
 
 void RenderTraverser::PostVisit(Camera * camera)
 {
-	camera->PopCameraMatrix(renderer);
+	cout << "Post visit: camera" << endl;
+
+	camera->PopCameraMatrix(m_pRenderer);
 }
 
-void RenderTraverser::Visit(Transformation * transformation)
+void RenderTraverser::Visit(Scene * scene)
 {
-	transformation->PushTransformation(renderer);	
-
-	transformation->Render();
+	cout << "Visit: scene" << endl;
 }
 
-void RenderTraverser::PostVisit(Transformation * transformation)
+void RenderTraverser::PostVisit(Scene * scene)
 {
-	transformation->PopTransformation(renderer);
+	cout << "Post visit: scene" << endl;
+}
+
+void RenderTraverser::Visit(Object * transformation)
+{
+	cout << "Visit: object" << endl;
+
+	transformation->PushTransformation(m_pRenderer);	
+
+	transformation->Render(m_pRenderer);
+}
+
+void RenderTraverser::PostVisit(Object * transformation)
+{
+	cout << "Post visit: object" << endl;
+
+	transformation->PopTransformation(m_pRenderer);
 }

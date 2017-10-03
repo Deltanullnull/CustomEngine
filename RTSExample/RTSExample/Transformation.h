@@ -9,21 +9,22 @@
 class Renderer;
 
 #pragma once
-class Transformation : public Component
+class Object
 {
 public:
-	Transformation();
-	~Transformation();
+	Object();
+	~Object();
 
 	void PushTransformation(Renderer * renderer);
 	void PopTransformation(Renderer * renderer);
 
-	void Render();
+	void Render(Renderer * renderer);
 	
 	void AddCore(ShaderCore * core);
 	void AddCore(TextureCore * core);
 	void AddCore(GeometryCore * core);
 
+	void Accept(Renderer* renderer);
 
 private:
 
@@ -32,6 +33,8 @@ private:
 	ShaderCore * m_pShaderCore = NULL;
 	TextureCore * m_pTextureCore = NULL;
 	GeometryCore * m_pGeometryCore = NULL;
+
+	list<Object*> m_listChildren;
 
 };
 

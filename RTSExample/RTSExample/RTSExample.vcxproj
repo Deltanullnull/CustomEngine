@@ -46,7 +46,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -128,6 +128,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderState.cpp" />
     <ClCompile Include="RenderTraverser.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCore.cpp" />
     <ClCompile Include="TextureCore.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderState.h" />
     <ClInclude Include="RenderTraverser.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCore.h" />
     <ClInclude Include="TextureCore.h" />

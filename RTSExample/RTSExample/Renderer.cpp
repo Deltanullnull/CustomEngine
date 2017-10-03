@@ -11,33 +11,33 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::renderModel()
+void Renderer::RenderModel()
 {
 }
 
-void Renderer::pushModelViewMatrix(mat4 matrix)
+void Renderer::PushModelViewMatrix(mat4 matrix)
 {
 	modelViewStack.push(matrix);
 }
 
-void Renderer::pushProjectionMatrix(mat4 matrix)
+void Renderer::PushProjectionMatrix(mat4 matrix)
 {
 	projectionStack.push(matrix);
 }
 
-void Renderer::popModelViewMatrix()
+void Renderer::PopModelViewMatrix()
 {
-	if (modelViewCount() > 0)
+	if (ModelViewCount() > 0)
 		modelViewStack.pop();
 }
 
-void Renderer::popProjectionMatrix()
+void Renderer::PopProjectionMatrix()
 {
-	if (projectionCount() > 0)
+	if (ProjectionCount() > 0)
 		projectionStack.pop();
 }
 
-mat4 Renderer::modelViewTop()
+mat4 Renderer::ModelViewTop()
 {
 	if (modelViewStack.size() > 0)
 		return modelViewStack.top();
@@ -45,34 +45,34 @@ mat4 Renderer::modelViewTop()
 	return mat4();
 }
 
-mat4 Renderer::projectionTop()
+mat4 Renderer::ProjectionTop()
 {
-	if (projectionCount() > 0)
+	if (ProjectionCount() > 0)
 		return projectionStack.top();
 
 	return mat4();
 }
 
-void Renderer::setModelViewTop(mat4 matrix)
+void Renderer::SetModelViewTop(mat4 matrix)
 {
 	modelViewStack.top() = matrix;
 }
 
-void Renderer::setProjectionTop()
+void Renderer::SetProjectionTop()
 {
 }
 
-int Renderer::modelViewCount()
+int Renderer::ModelViewCount()
 {
 	return modelViewStack.size();
 }
 
-int Renderer::projectionCount()
+int Renderer::ProjectionCount()
 {
 	return projectionStack.size();
 }
 
-void Renderer::traverse(Core * core)
+void Renderer::Traverse(Core * core)
 {
 	
 }
