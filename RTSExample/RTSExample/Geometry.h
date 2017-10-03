@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Renderer.h"
+#include "GeometryCore.h"
+
+
 
 class Geometry
 {
@@ -8,12 +10,7 @@ public:
 	Geometry();
 	~Geometry();
 
-	void addVertices(GLfloat * buffer, int size);
-	void addUV(GLfloat * buffer, int size);
-	void addNormals(GLfloat * buffer, int size);
-	void addTriangles(GLuint * buffer, int size);
-
-	void accept(Renderer * renderer);
+	static GeometryCore * CreatePlane(float width, float height);
 
 private:
 	GLuint m_vao;

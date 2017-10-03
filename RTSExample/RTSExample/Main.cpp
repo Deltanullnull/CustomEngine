@@ -2,6 +2,7 @@
 #include "RenderState.h"
 #include "Core.h"
 #include "Scene.h"
+#include "Geometry.h"
 
 RenderTraverser * m_pRenderTraverser;
 
@@ -69,8 +70,10 @@ int main(int argc, char ** argv)
 
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("vertex.glsl", "", "fragment.glsl");
-	GeometryCore * gCore = new GeometryCore();
+	GeometryCore * gCore = Geometry::CreatePlane(10.f, 10.f);
 
+	transformation0->AddCore(sCore);
+	transformation0->AddCore(gCore);
 
 	glutMainLoop();
 }
