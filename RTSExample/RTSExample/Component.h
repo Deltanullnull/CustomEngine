@@ -1,5 +1,6 @@
 #include <list>
 #include <vector>
+#include <iostream>
 #include "Traverser.h"
 
 #pragma once

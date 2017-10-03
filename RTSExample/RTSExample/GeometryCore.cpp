@@ -15,6 +15,8 @@ void GeometryCore::SetVertices(glm::vec3 * buffer, int size)
 {
 	glBindVertexArray(m_vao);
 
+	cout << "Setting vertices with size " << size << endl;
+
 	BindBuffer((void*)buffer, size, 3, 0);
 }
 
@@ -35,6 +37,8 @@ void GeometryCore::SetNormals(glm::vec3 * buffer, int size)
 void GeometryCore::SetFaces(GLuint * buffer, int size)
 {
 	m_nFaces = (GLuint)size / sizeof(GLuint);
+
+	cout << "Created " << m_nFaces << " faces at vbo " << m_vbo[4] << endl;
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbo[4]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, buffer, GL_DYNAMIC_DRAW);
