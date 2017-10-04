@@ -49,7 +49,7 @@ void RenderTraverser::Visit(GameObject * transformation)
 {
 	cout << "Visit: object" << endl;
 
-	transformation->PushTransformation(m_pRenderer);	
+	//transformation->PushTransformation(m_pRenderer);	
 
 	transformation->Render(m_pRenderer);
 }
@@ -58,5 +58,5 @@ void RenderTraverser::PostVisit(GameObject * transformation)
 {
 	cout << "Post visit: object" << endl;
 
-	transformation->PopTransformation(m_pRenderer);
+	//transformation->PopTransformation(m_pRenderer);
 }

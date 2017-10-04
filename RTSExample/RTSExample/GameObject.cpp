@@ -4,33 +4,14 @@
 
 GameObject::GameObject()
 {
-	glm::mat4 translationMatrix(1.0f);
+	m_transformation = new Transformation();
 
-	translationMatrix[3][0] = m_position.x;
-	translationMatrix[3][1] = m_position.y;
-	translationMatrix[3][2] = m_position.z;
-
-	/*translationMatrix[0][3] = m_position.x;
-	translationMatrix[1][3] = m_position.y;
-	translationMatrix[2][3] = m_position.z;*/
-
-	m_matModel = m_rotation * translationMatrix;
+	m_transformation->m_gameObject = this;
 }
 
 
 GameObject::~GameObject()
 {
-}
-
-void GameObject::PushTransformation(Renderer * renderer)
-{
-	renderer->PushModelViewMatrix(m_matModel);
-}
-
-void GameObject::PopTransformation(Renderer * renderer)
-{
-	renderer->PopModelViewMatrix();
-
 }
 
 void GameObject::Render(Renderer * renderer)
@@ -56,15 +37,18 @@ void GameObject::Render(Renderer * renderer)
 
 void GameObject::AddTranslation(glm::vec3 translation)
 {
-	glm::mat4 translationMatrix(1.0f);
+	if (m_transformation)
+	{
+		m_transformation->AddTranslation(translation);
+	}
+}
 
-	m_position += translation;
-
-	translationMatrix[3][0] = m_position.x;
-	translationMatrix[3][1] = m_position.y;
-	translationMatrix[3][2] = m_position.z;
-
-	m_matModel = m_rotation * translationMatrix;
+void GameObject::AddRotation(glm::vec3 euler)
+{
+	if (m_transformation)
+	{
+		m_transformation->AddRotation(euler);
+	}
 }
 
 void GameObject::AddCore(ShaderCore * core)
@@ -89,19 +73,19 @@ void GameObject::Accept(Renderer * renderer)
 
 	//traverser->Visit(this);
 
-	PushTransformation(renderer);
+	//PushTransformation(renderer);
 
 	Render(renderer);
 
-	for (GameObject * child : m_listChildren)
+	/*for (GameObject * child : m_listChildren)
 	{
 		if (child == nullptr)
 			continue;
 
 		child->Accept(renderer);
-	}
+	}*/
 
-	PopTransformation(renderer);
+	//PopTransformation(renderer);
 
 	//traverser->PostVisit(this);
 }

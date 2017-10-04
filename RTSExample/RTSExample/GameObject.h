@@ -1,4 +1,4 @@
-#include "Component.h"
+#include "Transformation.h"
 
 #include "TextureCore.h"
 #include "ShaderCore.h"
@@ -15,12 +15,11 @@ public:
 	GameObject();
 	~GameObject();
 
-	void PushTransformation(Renderer * renderer);
-	void PopTransformation(Renderer * renderer);
-
 	void Render(Renderer * renderer);
 
 	void AddTranslation(glm::vec3 translation);
+
+	void AddRotation(glm::vec3 euler);
 	
 	/// Shader
 	void AddCore(ShaderCore * core);
@@ -33,13 +32,11 @@ public:
 
 	void Accept(Renderer* renderer) override;
 
+public:
+
+	Transformation * m_transformation = nullptr;
+
 private:
-
-	glm::mat4 m_matModel = glm::mat4(1.0f);
-
-	glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);
-
-	glm::mat4 m_rotation = glm::mat4(1.0f);
 
 	ShaderCore * m_pShaderCore = NULL;
 	TextureCore * m_pTextureCore = NULL;

@@ -18,23 +18,33 @@ void Renderer::RenderModel()
 void Renderer::PushModelViewMatrix(mat4 matrix)
 {
 	modelViewStack.push(matrix);
+
+	modelViewMatrix = matrix * modelViewMatrix;
 }
 
 void Renderer::PushProjectionMatrix(mat4 matrix)
 {
 	projectionStack.push(matrix);
+	
+	projectionMatrix = matrix * projectionMatrix;
 }
 
 void Renderer::PopModelViewMatrix()
 {
 	if (ModelViewCount() > 0)
+	{
 		modelViewStack.pop();
+	}
 }
 
 void Renderer::PopProjectionMatrix()
 {
 	if (ProjectionCount() > 0)
+	{
+		
+
 		projectionStack.pop();
+	}
 }
 
 mat4 Renderer::ModelViewTop()

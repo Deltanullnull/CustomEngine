@@ -10,6 +10,7 @@ Scene * m_pMainScene = nullptr;
 
 
 GameObject * object0 = nullptr;
+GameObject * object1 = nullptr;
 
 void ProcessMouseButton(int x, int y, int a, int b)
 {
@@ -32,7 +33,10 @@ void Display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	object0->AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
+	//object0->AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
+	object0->AddRotation(glm::vec3(0.01f, 0.f, 0.f));
+
+	object1->AddRotation(glm::vec3(-0.02f, 0.f, 0.f));
 
 	//m_pMainScene->m_pMainCamera->Move(glm::vec3(0.01f, 0, 0));
 
@@ -81,7 +85,7 @@ int main(int argc, char ** argv)
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	glViewport(0, 0, width, height);
 
 	m_pRenderTraverser = new RenderTraverser();
@@ -91,14 +95,21 @@ int main(int argc, char ** argv)
 	m_pMainScene = new Scene();
 
 	Camera * mainCamera = new Camera();
-	mainCamera->LookAt(glm::vec3(0, 0, 10), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(90.f, (float)width / (float)height, 0.1f, 100.f);
+	mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	mainCamera->CreateProjection(45.f, (float)width / (float)height, 0.1f, 100.f);
 	 
 	m_pMainScene->SetMainCamera(mainCamera);
 
 	object0 = new GameObject();
 
-	m_pMainScene->AddChild(object0);
+	m_pMainScene->AddChild(object0->m_transformation);
+
+	object1 = new GameObject();
+
+	object0->m_transformation->AddChild(object1->m_transformation);
+
+
+	object1->AddTranslation(glm::vec3(5.f, 10.f, 0.f));
 
 
 	ShaderCore * sCore = new ShaderCore(); 
@@ -107,6 +118,9 @@ int main(int argc, char ** argv)
 	
 	object0->AddCore(sCore);
 	object0->AddCore(gCore);
+
+	object1->AddCore(sCore);
+	object1->AddCore(gCore);
 
 	glutMainLoop();
 }

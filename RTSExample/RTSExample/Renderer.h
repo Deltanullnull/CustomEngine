@@ -36,5 +36,8 @@ private:
 	stack<mat4> modelViewStack;
 	stack<mat4> projectionStack;
 
+	mat4 modelViewMatrix;
+	mat4 projectionMatrix;
+
 };
 
