@@ -9,11 +9,11 @@
 class Renderer;
 
 #pragma once
-class Object
+class GameObject
 {
 public:
-	Object();
-	~Object();
+	GameObject();
+	~GameObject();
 
 	void PushTransformation(Renderer * renderer);
 	void PopTransformation(Renderer * renderer);
@@ -45,7 +45,7 @@ private:
 	TextureCore * m_pTextureCore = NULL;
 	GeometryCore * m_pGeometryCore = NULL;
 
-	list<Object*> m_listChildren;
+	list<GameObject*> m_listChildren;
 
 };
 

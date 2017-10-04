@@ -9,7 +9,7 @@ RenderTraverser * m_pRenderTraverser = nullptr;
 Scene * m_pMainScene = nullptr;
 
 
-Object * object0 = nullptr;
+GameObject * object0 = nullptr;
 
 void ProcessMouseButton(int x, int y, int a, int b)
 {
@@ -96,7 +96,7 @@ int main(int argc, char ** argv)
 	 
 	m_pMainScene->SetMainCamera(mainCamera);
 
-	object0 = new Object();
+	object0 = new GameObject();
 
 	m_pMainScene->AddChild(object0);
 

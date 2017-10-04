@@ -2,7 +2,7 @@
 
 #include "Renderer.h"
 
-Object::Object()
+GameObject::GameObject()
 {
 	glm::mat4 translationMatrix(1.0f);
 
@@ -18,22 +18,22 @@ Object::Object()
 }
 
 
-Object::~Object()
+GameObject::~GameObject()
 {
 }
 
-void Object::PushTransformation(Renderer * renderer)
+void GameObject::PushTransformation(Renderer * renderer)
 {
 	renderer->PushModelViewMatrix(m_matModel);
 }
 
-void Object::PopTransformation(Renderer * renderer)
+void GameObject::PopTransformation(Renderer * renderer)
 {
 	renderer->PopModelViewMatrix();
 
 }
 
-void Object::Render(Renderer * renderer)
+void GameObject::Render(Renderer * renderer)
 {
 	if (m_pShaderCore != nullptr)
 		m_pShaderCore->BindShader();
@@ -54,7 +54,7 @@ void Object::Render(Renderer * renderer)
 		m_pGeometryCore->Render();
 }
 
-void Object::AddTranslation(glm::vec3 translation)
+void GameObject::AddTranslation(glm::vec3 translation)
 {
 	glm::mat4 translationMatrix(1.0f);
 
@@ -67,22 +67,22 @@ void Object::AddTranslation(glm::vec3 translation)
 	m_matModel = m_rotation * translationMatrix;
 }
 
-void Object::AddCore(ShaderCore * core)
+void GameObject::AddCore(ShaderCore * core)
 {
 	m_pShaderCore = core;
 }
 
-void Object::AddCore(TextureCore * core)
+void GameObject::AddCore(TextureCore * core)
 {
 	m_pTextureCore = core;
 }
 
-void Object::AddCore(GeometryCore * core)
+void GameObject::AddCore(GeometryCore * core)
 {
 	m_pGeometryCore = core;
 }
 
-void Object::Accept(Renderer * renderer)
+void GameObject::Accept(Renderer * renderer)
 {
 	if (renderer == nullptr)
 		return;
@@ -93,7 +93,7 @@ void Object::Accept(Renderer * renderer)
 
 	Render(renderer);
 
-	for (Object * child : m_listChildren)
+	for (GameObject * child : m_listChildren)
 	{
 		if (child == nullptr)
 			continue;

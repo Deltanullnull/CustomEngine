@@ -22,7 +22,7 @@ void Scene::Accept(Renderer * renderer)
 
 	// TODO visit light
 
-	for (Object * child : m_listChildren)
+	for (GameObject * child : m_listChildren)
 	{
 		if (child == nullptr)
 			continue;
@@ -40,7 +40,7 @@ void Scene::SetMainCamera(Camera * camera)
 	m_pMainCamera = camera;
 }
 
-void Scene::AddChild(Object * child)
+void Scene::AddChild(GameObject * child)
 {
 	m_listChildren.push_back(child);
 }
