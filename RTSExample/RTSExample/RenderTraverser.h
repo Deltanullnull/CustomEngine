@@ -1,5 +1,5 @@
 #include "Traverser.h"
-#include "Transformation.h"
+#include "GameObject.h"
 #include "Renderer.h"
 
 #include "GeometryCore.h"
@@ -23,8 +23,8 @@ public:
 	void Visit(Scene * scene);
 	void PostVisit(Scene * scene);
 
-	void Visit(Object * transformation);
-	void PostVisit(Object * transformation);
+	void Visit(GameObject * transformation);
+	void PostVisit(GameObject * transformation);
 
 	// TODO: visit for different kinds of component (transformation, geometry, shader, texture etc.)
 

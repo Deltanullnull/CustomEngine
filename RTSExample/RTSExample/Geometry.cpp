@@ -20,10 +20,10 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 	vertices[2] = glm::vec3(width / 2.f, 0.f, height / 2.f);
 	vertices[3] = glm::vec3(-width / 2.f, 0.f, height / 2.f);*/
 
-	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, -2.f);
-	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, -2.f);
-	vertices[2] = glm::vec3(width / 2.f, height / 2.f, -2.f);
-	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, -2.f);
+	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, 0);
+	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, 0);
+	vertices[2] = glm::vec3(width / 2.f, height / 2.f, 0);
+	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, 0);
 
 	GLuint faces[6] = {0, 1, 3, 1, 2, 3};
 

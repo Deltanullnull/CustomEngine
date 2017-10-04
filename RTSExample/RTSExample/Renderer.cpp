@@ -122,7 +122,3 @@ int Renderer::ProjectionCount()
 	return projectionStack.size();
 }
 
-void Renderer::Traverse(Core * core)
-{
-	
-}

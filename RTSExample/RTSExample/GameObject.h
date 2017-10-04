@@ -9,7 +9,7 @@
 class Renderer;
 
 #pragma once
-class GameObject
+class GameObject : public Component
 {
 public:
 	GameObject();
@@ -31,7 +31,7 @@ public:
 	/// Mesh
 	void AddCore(GeometryCore * core);
 
-	void Accept(Renderer* renderer);
+	void Accept(Renderer* renderer) override;
 
 private:
 

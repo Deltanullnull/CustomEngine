@@ -22,12 +22,12 @@ void Component::RemoveChild(Component * child)
 	m_listChildren.remove(child);
 }
 
-void Component::Accept(Traverser * traverser)
+void Component::Accept(Renderer * renderer)
 {
-	if (traverser == nullptr)
+	if (renderer == nullptr)
 		return;
 
-	traverser->Visit(this);
+	//traverser->Visit(this);
 
 	for (list<Component *>::iterator it = m_listChildren.begin(); it != m_listChildren.end(); it++)
 	{
@@ -36,8 +36,8 @@ void Component::Accept(Traverser * traverser)
 		if (child == nullptr)
 			continue;
 
-		child->Accept(traverser);
+		child->Accept(renderer);
 	}
 
-	traverser->PostVisit(this);
+	//traverser->PostVisit(this);
 }

@@ -45,7 +45,7 @@ void RenderTraverser::PostVisit(Scene * scene)
 	cout << "Post visit: scene" << endl;
 }
 
-void RenderTraverser::Visit(Object * transformation)
+void RenderTraverser::Visit(GameObject * transformation)
 {
 	cout << "Visit: object" << endl;
 
@@ -54,7 +54,7 @@ void RenderTraverser::Visit(Object * transformation)
 	transformation->Render(m_pRenderer);
 }
 
-void RenderTraverser::PostVisit(Object * transformation)
+void RenderTraverser::PostVisit(GameObject * transformation)
 {
 	cout << "Post visit: object" << endl;
 

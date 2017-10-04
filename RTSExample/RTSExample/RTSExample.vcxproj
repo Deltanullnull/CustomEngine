@@ -132,7 +132,7 @@
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCore.cpp" />
     <ClCompile Include="TextureCore.cpp" />
-    <ClCompile Include="Transformation.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Traverser.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>
@@ -167,7 +167,7 @@
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCore.h" />
     <ClInclude Include="TextureCore.h" />
-    <ClInclude Include="Transformation.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Traverser.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>

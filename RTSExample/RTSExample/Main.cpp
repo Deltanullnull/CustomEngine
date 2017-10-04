@@ -100,6 +100,7 @@ int main(int argc, char ** argv)
 
 	m_pMainScene->AddChild(object0);
 
+
 	ShaderCore * sCore = new ShaderCore(); 
 	sCore->GenerateShader("./glsl/default.vert", "", "./glsl/default.frag");
 	GeometryCore * gCore = Geometry::CreatePlane(20.f, 10.f); 

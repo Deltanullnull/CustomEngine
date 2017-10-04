@@ -1,9 +1,9 @@
-#include "Transformation.h"
+#include "Component.h"
 #include "Camera.h"
 
 #pragma once
 
-class Scene
+class Scene : public Component
 {
 public:
 	Scene();
@@ -13,11 +13,11 @@ public:
 
 	void SetMainCamera(Camera * camera);
 
-	void AddChild(Object * child);
+	//void AddChild(Component * child);
 
 public:
 	Camera * m_pMainCamera = nullptr;
 
-	list<Object*> m_listChildren;
+	//list<Component*> m_listChildren;
 };
 

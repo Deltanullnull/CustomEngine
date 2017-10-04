@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ShaderClass.h"
-#include "Core.h"
 #include <stack>
 
 using namespace std;
@@ -32,8 +31,6 @@ public:
 
 	int ModelViewCount();
 	int ProjectionCount();
-
-	void Traverse(Core * core);
 
 private:
 	stack<mat4> modelViewStack;

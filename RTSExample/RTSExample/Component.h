@@ -1,14 +1,13 @@
 #include <list>
 #include <vector>
 #include <iostream>
-#include "Traverser.h"
+#include "Renderer.h"
 
 #pragma once
 
 using namespace std;
 
 class Core;
-class Transformation;
 
 class Component
 {
@@ -21,7 +20,7 @@ public:
 
 	virtual void RemoveChild(Component * child);
 
-	virtual void Accept(Traverser * traverser);
+	virtual void Accept(Renderer * renderer);
 
 
 protected:
