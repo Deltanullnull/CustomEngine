@@ -20,7 +20,7 @@ void ShaderCore::GenerateShader(string vertex_shader, string geometry_shader, st
 
 void ShaderCore::BindShader()
 {
-	cout << "Binding shader " << m_shader << endl;
+	//cout << "Binding shader " << m_shader << endl;
 
 	glUseProgram(m_shader);
 }
@@ -30,7 +30,7 @@ void ShaderCore::SetUniformMatrix4f(string name, GLsizei count, const GLfloat * 
 
 	int loc = glGetUniformLocation(m_shader, name.c_str());
 
-	cout << "Setting uniform matrix at " << loc << endl;
+	//cout << "Setting uniform matrix at " << loc << endl;
 
 	glUniformMatrix4fv(loc, count, false, parameter);
 }

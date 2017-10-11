@@ -32,6 +32,10 @@ public:
 
 	void Accept(Renderer* renderer) override;
 
+	void MoveForward();
+
+	void AddInput(unsigned char key, void(GameObject::*func) ());
+
 public:
 
 	Transformation * m_transformation = nullptr;
@@ -43,6 +47,8 @@ private:
 	GeometryCore * m_pGeometryCore = NULL;
 
 	list<GameObject*> m_listChildren;
+
+	std::map<unsigned char, void (GameObject::*)()> m_functionMap;
 
 };
 

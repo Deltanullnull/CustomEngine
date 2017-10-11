@@ -12,39 +12,190 @@ Scene * m_pMainScene = nullptr;
 GameObject * object0 = nullptr;
 GameObject * object1 = nullptr;
 
+bool keyPressedW = false;
+bool keyPressedA = false;
+bool keyPressedS = false;
+bool keyPressedD = false;
+
+std::map<unsigned char, bool> keyMap;
+
+std::map<unsigned char, void(*) ()> keyFuncMap;
+
+std::map<unsigned char, void(*) (int)> mouseFuncMap;
+
+std::chrono::time_point < std::chrono::steady_clock> start_time, end_time;
+
+INT64 deltaTime = 0;
+
+float deltaTimeSeconds = 0.f;
+
+float mouseAxisX = 0, mouseAxisY = 0;
+float mouseAxisXPre = 0, mouseAxisYPre = 0;
+float mouseAxisXDelta = 0, mouseAxisYDelta = 0;
+
+float cameraYaw = 0;
+
+
 void ProcessMouseButton(int x, int y, int a, int b)
 {
 
 }
 
-void ProcessKey(unsigned char key, int x, int y)
+void PassiveMotionFunc(int x, int y)
 {
+	mouseAxisX = x ;
+	mouseAxisY = 600 - y;
+}
 
+void MoveForward()
+{
+	Camera * camera = m_pMainScene->m_pMainCamera;
+
+	if (camera)
+	{
+		camera->Move(camera->GetForwardVector()  * deltaTimeSeconds);
+	}
+}
+
+void MoveBackwards()
+{
+	Camera * camera = m_pMainScene->m_pMainCamera;
+
+	if (camera)
+	{
+		camera->Move(-camera->GetForwardVector()  * deltaTimeSeconds);
+	}
+}
+
+void MoveUp()
+{
+	Camera * camera = m_pMainScene->m_pMainCamera;
+
+	if (camera)
+	{
+		camera->Move(camera->GetUpVector()  * deltaTimeSeconds);
+	}
+}
+
+void MoveDown()
+{
+	Camera * camera = m_pMainScene->m_pMainCamera;
+
+	if (camera)
+	{
+		camera->Move(-camera->GetUpVector()  * deltaTimeSeconds);
+	}
+}
+
+void MoveLeft()
+{
+	Camera * camera = m_pMainScene->m_pMainCamera;
+
+	if (camera)
+	{
+		camera->Move(-camera->GetRightVector() * deltaTimeSeconds);
+	}
+}
+
+void MoveRight()
+{
+	Camera * camera = m_pMainScene->m_pMainCamera;
+
+	if (camera)
+	{
+		camera->Move(camera->GetRightVector() * deltaTimeSeconds);
+	}
+}
+
+void KeyDown(unsigned char key, int x, int y)
+{
+	keyMap[key] = true;
+}
+
+void KeyUp(unsigned char key, int x, int y)
+{
+	keyMap[key] = false;
+}
+
+void InitKeyMap()
+{
+	for (unsigned char letter = 'a'; letter <= 'z'; letter++)
+	{
+		keyMap[letter] = false;
+	}
 }
 
 void ReshapeWindow(int width, int height)
 {
 	glViewport(0, 0, width, height);
+}
+
+void Exit()
+{
+	exit(1);
+}
+
+void ProcessKey()
+{
+	for (std::map<unsigned char, bool>::iterator it = keyMap.begin(); it != keyMap.end(); it++)
+	{
+		unsigned char key = (*it).first;
+
+		if (keyMap[key])
+		{
+			if (keyFuncMap.find(key) != keyFuncMap.end())
+				keyFuncMap[key]();
+		}
+	}
 
 
+	
 }
 
 void Display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//object0->AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
-	object0->AddRotation(glm::vec3(0.01f, 0.f, 0.f));
+	
+	ProcessKey();
 
-	object1->AddRotation(glm::vec3(-0.02f, 0.f, 0.f));
+	mouseAxisXDelta = mouseAxisX - 400;
+	mouseAxisYDelta = mouseAxisY - 300;
 
-	//m_pMainScene->m_pMainCamera->Move(glm::vec3(0.01f, 0, 0));
+	if (m_pMainScene->m_pMainCamera)
+	{
+		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * 0.005f, mouseAxisYDelta * 0.005f);
+	}
 
 	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
+	{
+		m_pMainScene->UpdateInput();
+	}
+
+	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
+	{
 		m_pMainScene->Accept(m_pRenderTraverser->m_pRenderer);
+	}
 
 	glFlush();
 	glFinish();
+
+	end_time = std::chrono::high_resolution_clock::now();
+
+	auto time = end_time - start_time;
+
+	deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(time).count();
+
+	deltaTimeSeconds = deltaTime / 1000.f;
+
+	int sleepTime = std::max(0, (int) (1000 / 60 - deltaTime));
+
+	start_time = std::chrono::high_resolution_clock::now();
+
+	glutWarpPointer(400, 300);
+
+	Sleep(sleepTime);
+	
 }
 
 int main(int argc, char ** argv)
@@ -65,7 +216,9 @@ int main(int argc, char ** argv)
 	glutDisplayFunc(Display);
 	glutIdleFunc(Display);
 	glutMouseFunc(ProcessMouseButton);
-	glutKeyboardUpFunc(ProcessKey);
+	glutPassiveMotionFunc(PassiveMotionFunc);
+	glutKeyboardUpFunc(KeyUp);
+	glutKeyboardFunc(KeyDown);
 	glutReshapeFunc(ReshapeWindow);
 
 	GLenum err = glewInit();
@@ -88,6 +241,20 @@ int main(int argc, char ** argv)
 	//glEnable(GL_CULL_FACE);
 	glViewport(0, 0, width, height);
 
+
+	InitKeyMap();
+
+	keyFuncMap['a'] = &MoveLeft;
+	keyFuncMap['d'] = &MoveRight;
+
+	keyFuncMap['w'] = &MoveForward;
+	keyFuncMap['s'] = &MoveBackwards;
+
+	keyFuncMap['q'] = &MoveDown;
+	keyFuncMap['e'] = &MoveUp;
+
+	keyFuncMap[27] = &Exit;
+
 	m_pRenderTraverser = new RenderTraverser();
 
 	m_pRenderTraverser->m_pRenderer = new Renderer();
@@ -96,9 +263,11 @@ int main(int argc, char ** argv)
 
 	Camera * mainCamera = new Camera();
 	mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(45.f, (float)width / (float)height, 0.1f, 100.f);
+	mainCamera->CreateProjection(45.f, (float)width / (float)height, 0.1f, 1000.f);
 	 
 	m_pMainScene->SetMainCamera(mainCamera);
+
+	mainCamera->RotateVertical(0.5f);
 
 	object0 = new GameObject();
 
@@ -107,7 +276,7 @@ int main(int argc, char ** argv)
 	object1 = new GameObject();
 
 	object0->m_transformation->AddChild(object1->m_transformation);
-
+	//object0->AddInput('w', &GameObject::MoveForward);
 
 	object1->AddTranslation(glm::vec3(5.f, 10.f, 0.f));
 
@@ -121,6 +290,8 @@ int main(int argc, char ** argv)
 
 	object1->AddCore(sCore);
 	object1->AddCore(gCore);
+
+	start_time = std::chrono::high_resolution_clock::now();
 
 	glutMainLoop();
 }

@@ -15,6 +15,10 @@ public:
 
 	void Accept(Renderer * renderer) override;
 
+	void Foo();
+
+	void AddInput(unsigned char key, void(Transformation::*func) (), Transformation& obj);
+
 private:
 	void PushTransformation(Renderer * renderer);
 	void PopTransformation(Renderer * renderer);

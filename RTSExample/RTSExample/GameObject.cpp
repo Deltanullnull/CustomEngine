@@ -7,6 +7,8 @@ GameObject::GameObject()
 	m_transformation = new Transformation();
 
 	m_transformation->m_gameObject = this;
+
+	//AddInput('w', &GameObject::MoveForward);
 }
 
 
@@ -16,6 +18,8 @@ GameObject::~GameObject()
 
 void GameObject::Render(Renderer * renderer)
 {
+	//(this->*m_functionMap['w'])();
+
 	if (m_pShaderCore != nullptr)
 		m_pShaderCore->BindShader();
 	
@@ -88,6 +92,16 @@ void GameObject::Accept(Renderer * renderer)
 	//PopTransformation(renderer);
 
 	//traverser->PostVisit(this);
+}
+
+void GameObject::MoveForward()
+{
+	AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
+}
+
+void GameObject::AddInput(unsigned char key, void(GameObject::* func)())
+{
+	m_functionMap[key] = func;
 }
 
 

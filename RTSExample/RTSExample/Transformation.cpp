@@ -45,6 +45,14 @@ void Transformation::Accept(Renderer * renderer)
 	PopTransformation(renderer);
 }
 
+void Transformation::Foo()
+{
+}
+
+void Transformation::AddInput(unsigned char key, void(Transformation::* func)(), Transformation & obj)
+{
+}
+
 void Transformation::PushTransformation(Renderer * renderer)
 {
 	//renderer->PushModelViewMatrix(m_rotation * m_translation);

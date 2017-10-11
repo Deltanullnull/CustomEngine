@@ -10,6 +10,28 @@ Component::~Component()
 {
 }
 
+void Component::UpdateInput()
+{
+	/*for (std::map<unsigned char, bool>::iterator it = m_keyMap.begin(); it != m_keyMap.end(); it++)
+	{
+		unsigned char key = (*it).first;
+
+		if (m_keyMap[key])
+		{
+			if (m_keyFuncMap.find(key) != m_keyFuncMap.end())
+				(this->*m_keyFuncMap[key])();
+		}
+	}
+
+	for (Component * child : m_listChildren)
+	{
+		if (child == nullptr)
+			continue;
+
+		child->UpdateInput();
+	}*/
+}
+
 void Component::AddChild(Component * child)
 {
 	m_listChildren.push_back(child);
@@ -40,4 +62,11 @@ void Component::Accept(Renderer * renderer)
 	}
 
 	//traverser->PostVisit(this);
+}
+
+void Component::AddInput(unsigned char key, void(Component::*func) (), Component& obj)
+{
+	//m_keyMap[key] = false;
+
+	//m_keyFuncMap[key] = func;
 }

@@ -55,7 +55,7 @@ void GeometryCore::SetFaces(GLuint * buffer, int size)
 
 void GeometryCore::Render()
 {
-	cout << "Rendering " << m_nFaces << " faces" << endl;
+	//cout << "Rendering " << m_nFaces << " faces" << endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vao);
 
