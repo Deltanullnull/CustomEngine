@@ -4,6 +4,7 @@
 
 Scene::Scene()
 {
+	cType = "Scene";
 }
 
 
@@ -11,14 +12,12 @@ Scene::~Scene()
 {
 }
 
-void Scene::Accept(Renderer * renderer)
+void Scene::Accept(Traverser * traverser)
 {
-	if (renderer == nullptr)
+	if (traverser == nullptr)
 		return;
 
-	//traverser->Visit(m_pMainCamera);
-
-	m_pMainCamera->Visit(renderer);
+	traverser->Visit(this);
 
 	// TODO visit light
 
@@ -27,12 +26,10 @@ void Scene::Accept(Renderer * renderer)
 		if (child == nullptr)
 			continue;
 
-		child->Accept(renderer);
+		child->Accept(traverser);
 	}
 
-	m_pMainCamera->PostVisit(renderer);
-
-	//traverser->PostVisit(m_pMainCamera);
+	traverser->PostVisit(this);
 }
 
 void Scene::SetMainCamera(Camera * camera)

@@ -14,30 +14,33 @@ public:
 
 	void RenderModel();
 
-	void PushModelViewMatrix(mat4 matrix);
+	void PushModelMatrix(mat4 matrix);
+	void PushViewMatrix(mat4 matrix);
 	void PushProjectionMatrix(mat4 matrix);
 
-	void PopModelViewMatrix();
+	void PopModelMatrix();
+	void PopViewMatrix();
 	void PopProjectionMatrix();
 
-	mat4 ModelViewTop();
+	mat4 ModelTop();
+	mat4 ViewTop();
 	mat4 ProjectionTop();
 
-	mat4 GetModelView();
+	mat4 GetModel();
+	mat4 GetView();
 	mat4 GetProjection();
 
 	void SetModelViewTop(mat4 matrix);
 	void SetProjectionTop();
 
-	int ModelViewCount();
+	int ModelCount();
+	int ViewCount();
 	int ProjectionCount();
 
 private:
-	stack<mat4> modelViewStack;
+	stack<mat4> viewStack;
 	stack<mat4> projectionStack;
-
-	mat4 modelViewMatrix;
-	mat4 projectionMatrix;
+	stack<mat4> modelStack;
 
 };
 

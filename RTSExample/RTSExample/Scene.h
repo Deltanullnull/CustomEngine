@@ -9,15 +9,14 @@ public:
 	Scene();
 	~Scene();
 	
-	void Accept(Renderer * renderer);
+	void Accept(Traverser * traverser) override;
 
 	void SetMainCamera(Camera * camera);
-
-	//void AddChild(Component * child);
 
 public:
 	Camera * m_pMainCamera = nullptr;
 
-	//list<Component*> m_listChildren;
+private:
+	
 };
 

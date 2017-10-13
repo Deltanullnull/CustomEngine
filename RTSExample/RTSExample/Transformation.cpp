@@ -23,26 +23,22 @@ void Transformation::AddRotation(glm::vec3 euler)
 	 m_rotation = glm::yawPitchRoll(euler.x, euler.y, euler.z) * m_rotation;
 }
 
-void Transformation::Accept(Renderer * renderer)
+void Transformation::Accept(Traverser * traverser)
 {
-	if (renderer == nullptr)
+	if (traverser == nullptr)
 		return;
 
-	//traverser->Visit(this);
-
-	PushTransformation(renderer);
-
-	m_gameObject->Accept(renderer);
+	traverser->Visit(this);
 
 	for (Component * child : m_listChildren)
 	{
 		if (child == nullptr)
 			continue;
 
-		child->Accept(renderer);
+		child->Accept(traverser);
 	}
 
-	PopTransformation(renderer);
+	traverser->PostVisit(this);
 }
 
 void Transformation::Foo()
@@ -55,11 +51,10 @@ void Transformation::AddInput(unsigned char key, void(Transformation::* func)(),
 
 void Transformation::PushTransformation(Renderer * renderer)
 {
-	//renderer->PushModelViewMatrix(m_rotation * m_translation);
-	renderer->PushModelViewMatrix(m_translation * m_rotation);
+	renderer->PushModelMatrix(m_translation * m_rotation);
 }
 
 void Transformation::PopTransformation(Renderer * renderer)
 {
-	renderer->PopModelViewMatrix();
+	renderer->PopModelMatrix();
 }

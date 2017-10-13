@@ -122,6 +122,7 @@
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryCore.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MatrixStack.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryCore.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="MatrixStack.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />

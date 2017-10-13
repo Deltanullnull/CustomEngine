@@ -11,16 +11,6 @@ Camera::~Camera()
 {
 }
 
-void Camera::Visit(Renderer * renderer)
-{
-	PushCameraMatrix(renderer);
-	
-}
-
-void Camera::PostVisit(Renderer * renderer)
-{
-	PopCameraMatrix(renderer);
-}
 
 void Camera::Move(glm::vec3 direction)
 {
@@ -125,7 +115,7 @@ void Camera::PushCameraMatrix(Renderer * renderer)
 	if (renderer == nullptr)
 		return;
 
-	renderer->PushModelViewMatrix(m_matView);
+	renderer->PushViewMatrix(m_matView);
 	renderer->PushProjectionMatrix(m_matProjection);
 }
 
@@ -134,7 +124,7 @@ void Camera::PopCameraMatrix(Renderer * renderer)
 	if (renderer == nullptr)
 		return;
 
-	renderer->PopModelViewMatrix();
+	renderer->PopViewMatrix();
 	renderer->PopProjectionMatrix();
 }
 

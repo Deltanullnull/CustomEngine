@@ -8,20 +8,19 @@ public:
 	Transformation();
 	~Transformation();
 
+	void PushTransformation(Renderer * renderer);
+	void PopTransformation(Renderer * renderer);
 	
 	void AddTranslation(glm::vec3 translation);
 
 	void AddRotation(glm::vec3 euler);
 
-	void Accept(Renderer * renderer) override;
+	void Accept(Traverser * traverser) override;
 
 	void Foo();
 
 	void AddInput(unsigned char key, void(Transformation::*func) (), Transformation& obj);
 
-private:
-	void PushTransformation(Renderer * renderer);
-	void PopTransformation(Renderer * renderer);
 
 public:
 

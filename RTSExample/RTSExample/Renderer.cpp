@@ -15,25 +15,40 @@ void Renderer::RenderModel()
 {
 }
 
-void Renderer::PushModelViewMatrix(mat4 matrix)
+void Renderer::PushModelMatrix(mat4 matrix)
 {
-	modelViewStack.push(matrix);
+	glm::mat4 matTop = ModelTop();
 
-	modelViewMatrix = matrix * modelViewMatrix;
+	modelStack.push(matrix * matTop);
+}
+
+void Renderer::PushViewMatrix(mat4 matrix)
+{
+	glm::mat4 matTop = ViewTop();
+	
+	viewStack.push(matrix * matTop);
 }
 
 void Renderer::PushProjectionMatrix(mat4 matrix)
 {
-	projectionStack.push(matrix);
-	
-	projectionMatrix = matrix * projectionMatrix;
+	glm::mat4 matTop = ProjectionTop();
+
+	projectionStack.push(matrix * matTop);
 }
 
-void Renderer::PopModelViewMatrix()
+void Renderer::PopModelMatrix()
 {
-	if (ModelViewCount() > 0)
+	if (ModelCount() > 0)
 	{
-		modelViewStack.pop();
+		modelStack.pop();
+	}
+}
+
+void Renderer::PopViewMatrix()
+{
+	if (ViewCount() > 0)
+	{
+		viewStack.pop();
 	}
 }
 
@@ -41,18 +56,24 @@ void Renderer::PopProjectionMatrix()
 {
 	if (ProjectionCount() > 0)
 	{
-		
-
 		projectionStack.pop();
 	}
 }
 
-mat4 Renderer::ModelViewTop()
+mat4 Renderer::ModelTop()
 {
-	if (modelViewStack.size() > 0)
-		return modelViewStack.top();
+	if (modelStack.size() > 0)
+		return modelStack.top();
 
-	return mat4();
+	return mat4(1.0f);
+}
+
+mat4 Renderer::ViewTop()
+{
+	if (viewStack.size() > 0)
+		return viewStack.top();
+
+	return mat4(1.0f);
 }
 
 mat4 Renderer::ProjectionTop()
@@ -60,71 +81,41 @@ mat4 Renderer::ProjectionTop()
 	if (ProjectionCount() > 0)
 		return projectionStack.top();
 
-	return mat4();
+	return mat4(1.0f);
 }
 
-mat4 Renderer::GetModelView()
+mat4 Renderer::GetModel()
 {
-	glm::mat4 mat(1.0f);
+	return ModelTop();
+}
 
-	stack<glm::mat4> temp;
-
-	while (!modelViewStack.empty())
-	{
-		mat = modelViewStack.top() * mat;
-
-		temp.push(modelViewStack.top());
-
-		modelViewStack.pop();
-	}
-
-	while (!temp.empty())
-	{
-		modelViewStack.push(temp.top());
-
-		temp.pop();
-	}
-
-	return mat;
+mat4 Renderer::GetView()
+{
+	return ViewTop();
 }
 
 mat4 Renderer::GetProjection()
 {
-	glm::mat4 mat(1.0f);
-
-	stack<glm::mat4> temp;
-
-	while (!projectionStack.empty())
-	{
-		mat = projectionStack.top() * mat;
-
-		temp.push(projectionStack.top());
-
-		projectionStack.pop();
-	}
-
-	while (!temp.empty())
-	{
-		projectionStack.push(temp.top());
-
-		temp.pop();
-	}
-
-	return mat;
+	return ProjectionTop();
 }
 
 void Renderer::SetModelViewTop(mat4 matrix)
 {
-	modelViewStack.top() = matrix;
+	viewStack.top() = matrix;
 }
 
 void Renderer::SetProjectionTop()
 {
 }
 
-int Renderer::ModelViewCount()
+int Renderer::ModelCount()
 {
-	return modelViewStack.size();
+	return modelStack.size();
+}
+
+int Renderer::ViewCount()
+{
+	return viewStack.size();
 }
 
 int Renderer::ProjectionCount()

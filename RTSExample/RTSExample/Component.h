@@ -4,6 +4,7 @@
 #include <map>
 #include <chrono>
 #include "Renderer.h"
+#include "Traverser.h"
 
 #pragma once
 
@@ -23,7 +24,11 @@ public:
 
 	virtual void RemoveChild(Component * child);
 
+	virtual void Accept(Traverser * traverser);
+
 	virtual void Accept(Renderer * renderer);
+
+	
 
 	virtual void AddInput(unsigned char key, void(Component::*func) (), Component& obj);
 
@@ -38,5 +43,7 @@ protected:
 	std::map<unsigned char, void(Component::*) ()> m_keyFuncMap;
 	
 	Component * m_pParent = nullptr;
+
+	string cType = "Component";
 };
 

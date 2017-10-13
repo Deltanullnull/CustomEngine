@@ -8,9 +8,6 @@ public:
 	Camera();
 	~Camera();
 
-	void Visit(Renderer * renderer);
-	void PostVisit(Renderer * renderer);
-
 	void Move(glm::vec3 direction);
 
 	void SetRotationHorizontal(float angle);
@@ -44,6 +41,6 @@ private:
 	float angleHorizontal = 0.f;
 	float angleVertical = 0.f;
 
-	float moveSpeed = 10.f;
+	float moveSpeed = 100.f;
 };
 

@@ -30,7 +30,7 @@ public:
 	/// Mesh
 	void AddCore(GeometryCore * core);
 
-	void Accept(Renderer* renderer) override;
+	void Accept(Traverser* traverser) override;
 
 	void MoveForward();
 

@@ -18,8 +18,6 @@ GameObject::~GameObject()
 
 void GameObject::Render(Renderer * renderer)
 {
-	//(this->*m_functionMap['w'])();
-
 	if (m_pShaderCore != nullptr)
 		m_pShaderCore->BindShader();
 	
@@ -27,7 +25,7 @@ void GameObject::Render(Renderer * renderer)
 		m_pTextureCore->BindTexture();
 
 	// bind uniform to shader
-	glm::mat4 modelView = renderer->GetModelView();
+	glm::mat4 modelView = renderer->GetView() * renderer->GetModel();
 	glm::mat4 projection = renderer->GetProjection();
 
 	glm::mat4 mvp = projection * modelView;
@@ -70,28 +68,11 @@ void GameObject::AddCore(GeometryCore * core)
 	m_pGeometryCore = core;
 }
 
-void GameObject::Accept(Renderer * renderer)
+void GameObject::Accept(Traverser * traverser)
 {
-	if (renderer == nullptr)
-		return;
+	traverser->Visit(this);
 
-	//traverser->Visit(this);
-
-	//PushTransformation(renderer);
-
-	Render(renderer);
-
-	/*for (GameObject * child : m_listChildren)
-	{
-		if (child == nullptr)
-			continue;
-
-		child->Accept(renderer);
-	}*/
-
-	//PopTransformation(renderer);
-
-	//traverser->PostVisit(this);
+	traverser->PostVisit(this);
 }
 
 void GameObject::MoveForward()

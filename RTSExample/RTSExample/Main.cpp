@@ -45,6 +45,8 @@ void PassiveMotionFunc(int x, int y)
 {
 	mouseAxisX = x ;
 	mouseAxisY = 600 - y;
+
+	cout << x << ", " << y << endl;
 }
 
 void MoveForward()
@@ -164,7 +166,9 @@ void Display(void)
 
 	if (m_pMainScene->m_pMainCamera)
 	{
-		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * 0.005f, mouseAxisYDelta * 0.005f);
+		//m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * 0.005f, mouseAxisYDelta * 0.005f);
+
+		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds, mouseAxisYDelta * deltaTimeSeconds);
 	}
 
 	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
@@ -174,7 +178,7 @@ void Display(void)
 
 	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
 	{
-		m_pMainScene->Accept(m_pRenderTraverser->m_pRenderer);
+		m_pMainScene->Accept(m_pRenderTraverser);
 	}
 
 	glFlush();
@@ -190,12 +194,11 @@ void Display(void)
 
 	int sleepTime = std::max(0, (int) (1000 / 60 - deltaTime));
 
-	start_time = std::chrono::high_resolution_clock::now();
-
 	glutWarpPointer(400, 300);
 
 	Sleep(sleepTime);
-	
+
+	start_time = std::chrono::high_resolution_clock::now();
 }
 
 int main(int argc, char ** argv)
@@ -267,8 +270,6 @@ int main(int argc, char ** argv)
 	 
 	m_pMainScene->SetMainCamera(mainCamera);
 
-	mainCamera->RotateVertical(0.5f);
-
 	object0 = new GameObject();
 
 	m_pMainScene->AddChild(object0->m_transformation);
@@ -290,6 +291,8 @@ int main(int argc, char ** argv)
 
 	object1->AddCore(sCore);
 	object1->AddCore(gCore);
+
+	glutWarpPointer(400, 300);
 
 	start_time = std::chrono::high_resolution_clock::now();
 
