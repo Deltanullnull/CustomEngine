@@ -76,3 +76,11 @@ void RenderTraverser::PostVisit(Transformation * transformation)
 
 	transformation->PopTransformation(m_pRenderer);
 }
+
+void RenderTraverser::Visit(Light * light)
+{
+}
+
+void RenderTraverser::PostVisit(Light * light)
+{
+}

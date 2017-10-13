@@ -5,6 +5,7 @@ class GameObject;
 class Camera;
 class Scene;
 class Transformation;
+class Light;
 
 #pragma once
 class Traverser
@@ -27,6 +28,9 @@ public:
 
 	virtual void Visit(Transformation * transformation) = 0;
 	virtual void PostVisit(Transformation * transformation) = 0;
+
+	virtual void Visit(Light * light) = 0;
+	virtual void PostVisit(Light * light) = 0;
 };
 
 
