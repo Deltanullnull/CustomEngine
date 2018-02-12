@@ -15,26 +15,30 @@ public:
 	GameObject();
 	~GameObject();
 
-	void Render(Renderer * renderer);
+	virtual void Render(Renderer * renderer);
 
-	void AddTranslation(glm::vec3 translation);
+	virtual void Init() = 0;
 
-	void AddRotation(glm::vec3 euler);
+	virtual void Update() = 0;
+
+	virtual void AddTranslation(glm::vec3 translation);
+
+	virtual void AddRotation(glm::vec3 euler);
 	
 	/// Shader
-	void AddCore(ShaderCore * core);
+	virtual void AddCore(ShaderCore * core);
 	
 	/// Texture
-	void AddCore(TextureCore * core);
+	virtual void AddCore(TextureCore * core);
 
 	/// Mesh
-	void AddCore(GeometryCore * core);
+	virtual void AddCore(GeometryCore * core);
 
-	void Accept(Traverser* traverser) override;
+	virtual void Accept(Traverser* traverser) override;
 
-	void MoveForward();
+	virtual void MoveForward();
 
-	void AddInput(unsigned char key, void(GameObject::*func) ());
+	virtual void AddInput(unsigned char key, void(GameObject::*func) ());
 
 public:
 

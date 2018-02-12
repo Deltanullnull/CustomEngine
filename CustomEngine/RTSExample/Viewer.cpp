@@ -183,11 +183,11 @@ void Viewer::CreateSampleObject()
 	GameObject * object0 = nullptr;
 	GameObject * object1 = nullptr;
 
-	object0 = new GameObject();
+	//object0 = new GameObject();
 
 	m_pMainScene->AddChild(object0->m_transformation);
 
-	object1 = new GameObject();
+	//object1 = new GameObject();
 
 	object0->m_transformation->AddChild(object1->m_transformation);
 	
@@ -234,7 +234,7 @@ void Viewer::Exit()
 
 void Viewer::InitKeyMap()
 {
-	for (unsigned char letter = 'a'; letter <= 'z'; letter++)
+	for (unsigned char letter = 0; letter < 255; letter++)
 	{
 		keyMap[letter] = false;
 	}

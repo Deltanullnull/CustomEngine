@@ -1,9 +1,10 @@
 #include ".\..\RTSExample\Viewer.h"
+#include "CustomObject.h"
 #include <Windows.h>
 
 void DoSth(Viewer * viewer)
 {
-	viewer->CreateSampleObject();
+	//viewer->CreateSampleObject();
 }
 
 void Foo(Component * comp)
@@ -18,7 +19,7 @@ void AddSampleGameObject(Viewer * viewer)
 {
 	cout << "Creating a new object" << endl;
 
-	GameObject * obj = new GameObject();
+	GameObject * obj = new CustomObject();
 
 	obj->AddAction('u', std::bind(&Foo, std::placeholders::_1));
 

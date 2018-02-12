@@ -205,11 +205,11 @@ void CreateSampleObject()
 	GameObject * object0 = nullptr;
 	GameObject * object1 = nullptr;
 
-	object0 = new GameObject();
+	//object0 = new CustomObject();
 
 	m_pMainScene->AddChild(object0->m_transformation);
 
-	object1 = new GameObject();
+	//object1 = new GameObject();
 
 	object0->m_transformation->AddChild(object1->m_transformation);
 	//object0->AddInput('w', &GameObject::MoveForward);
