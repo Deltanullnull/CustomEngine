@@ -69,6 +69,8 @@ artifacts/
 *.svclog
 *.scc
 
+CustomEngine/glm/*
+
 # Chutzpah Test files
 _Chutzpah*
 
@@ -240,3 +242,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+RTSExample/RTSExample/RTSExample.vcxproj
+RTSExample/RTSExample/RTSExample.vcxproj
