@@ -8,7 +8,10 @@ public:
 	CustomObject();
 	~CustomObject();
 
-	void Update() ;
-	void Init() ;
+	virtual void Update() override;
+	virtual void Init() override;
+
+	void MoveForward(Component * comp);
+
 };
 

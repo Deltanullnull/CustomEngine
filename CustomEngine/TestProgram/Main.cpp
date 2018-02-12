@@ -11,7 +11,7 @@ void Foo(Component * comp)
 {
 	GameObject * obj = (GameObject*)comp;
 
-	obj->MoveForward();
+	obj->MoveForward(0.1f);
 }
 
 
@@ -19,9 +19,9 @@ void AddSampleGameObject(Viewer * viewer)
 {
 	cout << "Creating a new object" << endl;
 
-	GameObject * obj = new CustomObject();
+	CustomObject * obj = new CustomObject();
 
-	obj->AddAction('u', std::bind(&Foo, std::placeholders::_1));
+	//obj->AddAction('u', std::bind(&Foo, std::placeholders::_1));
 
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("./../glsl/default.vert", "", "./../glsl/default.frag");

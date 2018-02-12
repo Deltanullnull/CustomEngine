@@ -17,9 +17,9 @@ public:
 
 	virtual void Render(Renderer * renderer);
 
-	virtual void Init() = 0;
+	virtual void Init() { };
 
-	virtual void Update() = 0;
+	virtual void Update() { };
 
 	virtual void AddTranslation(glm::vec3 translation);
 
@@ -36,9 +36,7 @@ public:
 
 	virtual void Accept(Traverser* traverser) override;
 
-	virtual void MoveForward();
-
-	virtual void AddInput(unsigned char key, void(GameObject::*func) ());
+	virtual void MoveForward(float distance);
 
 public:
 
@@ -51,8 +49,6 @@ private:
 	GeometryCore * m_pGeometryCore = NULL;
 
 	list<GameObject*> m_listChildren;
-
-	std::map<unsigned char, void (GameObject::*)()> m_functionMap;
 
 };
 

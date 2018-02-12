@@ -99,10 +99,13 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LightTraverser.cpp">
+    <ClCompile Include="Randomizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Randomizer.cpp">
+    <ClCompile Include="LightTraverser.cpp">
+      <Filter>Source Files\Traverser</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicTraverser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -206,10 +209,13 @@
     <ClInclude Include="Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LightTraverser.h">
+    <ClInclude Include="Randomizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Randomizer.h">
+    <ClInclude Include="LightTraverser.h">
+      <Filter>Header Files\Traverser</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicTraverser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

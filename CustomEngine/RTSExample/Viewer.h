@@ -1,4 +1,5 @@
 #include "RenderTraverser.h"
+#include "LogicTraverser.h"
 #include "RenderState.h"
 #include "Core.h"
 #include "Scene.h"
@@ -16,6 +17,8 @@ public:
 
 	void ProcessMouseButton(int x, int y, int a, int b);
 
+	void ToggleFastForward(Viewer * viewer);
+
 	void MoveForward(Viewer * viewer);
 
 	void MoveBackwards(Viewer * viewer);
@@ -30,6 +33,8 @@ public:
 
 	void ExitF(Viewer * viewer);
 
+	void ToggleMouseLocked(Viewer * viewer);
+
 	void AddObjectToScene(GameObject * obj);
 
 	void CreateSampleObject();
@@ -37,6 +42,10 @@ public:
 	void KeyDown(unsigned char key, int x, int y);
 
 	void KeyUp(unsigned char key, int x, int y);
+
+	void SpecialFunc(int key, int x, int y);
+
+	void SpecialFuncUp(int key, int x, int y);
 
 
 	void PassiveMotionFunc(int x, int y);
@@ -63,6 +72,12 @@ private:
 	bool keyPressedS = false;
 	bool keyPressedD = false;
 
+	bool fastForward = false;
+
+	const float moveSpeed = 0.1f;
+
+	bool mouseLocked = true;
+
 	std::map<unsigned char, bool> keyMap;
 
 	
@@ -84,6 +99,7 @@ private:
 	float cameraYaw = 0;
 
 	RenderTraverser * m_pRenderTraverser = nullptr;
+	LogicTraverser * m_pLogicTraverser = nullptr;
 
 	Scene * m_pMainScene = nullptr;
 };

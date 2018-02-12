@@ -27,7 +27,7 @@ public:
 
 	void Foo();
 
-	void AddInput(unsigned char key, void(Transformation::*func) (), Transformation& obj);
+	//void AddInput(unsigned char key, void(Transformation::*func) (), Transformation& obj);
 
 
 public:

@@ -74,9 +74,9 @@ void Transformation::Foo()
 {
 }
 
-void Transformation::AddInput(unsigned char key, void(Transformation::* func)(), Transformation & obj)
+/*void Transformation::AddInput(unsigned char key, void(Transformation::* func)(), Transformation & obj)
 {
-}
+}*/
 
 void Transformation::PushTransformation(Renderer * renderer)
 {

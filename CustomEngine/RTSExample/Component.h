@@ -36,10 +36,6 @@ public:
 
 	virtual void Accept(Renderer * renderer);
 
-	
-
-	virtual void AddInput(unsigned char key, void(Component::*func) (), Component& obj);
-
 	virtual void AddAction(unsigned char key, std::function<void(Component*)>);
 
 

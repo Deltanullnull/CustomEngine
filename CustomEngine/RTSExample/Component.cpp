@@ -120,13 +120,6 @@ void Component::Accept(Traverser * traverser)
 	traverser->PostVisit(this);
 }
 
-void Component::AddInput(unsigned char key, void(Component::*func) (), Component& obj)
-{
-	//m_keyMap[key] = false;
-
-	//m_keyFuncMap[key] = func;
-}
-
 void Component::AddAction(unsigned char key, std::function<void(Component*)> func)
 {
 	int keyC = (int)key;

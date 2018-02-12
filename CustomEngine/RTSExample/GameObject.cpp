@@ -9,6 +9,8 @@ GameObject::GameObject()
 	m_transformation->m_gameObject = this;
 
 	GenerateID();
+
+	Init();
 }
 
 
@@ -75,14 +77,7 @@ void GameObject::Accept(Traverser * traverser)
 	traverser->PostVisit(this);
 }
 
-void GameObject::MoveForward()
+void GameObject::MoveForward(float distance)
 {
-	AddTranslation(glm::vec3(-0.01f, 0.f, 0.f));
+	AddTranslation(glm::vec3(distance, 0.f, 0.f));
 }
-
-void GameObject::AddInput(unsigned char key, void(GameObject::* func)())
-{
-	m_functionMap[key] = func;
-}
-
-
