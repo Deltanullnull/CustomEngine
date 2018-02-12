@@ -69,7 +69,7 @@ artifacts/
 *.svclog
 *.scc
 
-CustomEngine/glm/*
+RTSExample/glm/*
 
 # Chutzpah Test files
 _Chutzpah*
