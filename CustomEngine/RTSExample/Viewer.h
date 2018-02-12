@@ -16,6 +16,8 @@ public:
 
 	void ProcessMouseButton(int x, int y, int a, int b);
 
+	void ToggleFastForward(Viewer * viewer);
+
 	void MoveForward(Viewer * viewer);
 
 	void MoveBackwards(Viewer * viewer);
@@ -30,6 +32,8 @@ public:
 
 	void ExitF(Viewer * viewer);
 
+	void ToggleMouseLocked(Viewer * viewer);
+
 	void AddObjectToScene(GameObject * obj);
 
 	void CreateSampleObject();
@@ -38,6 +42,9 @@ public:
 
 	void KeyUp(unsigned char key, int x, int y);
 
+	void SpecialFunc(int key, int x, int y);
+
+	void SpecialFuncUp(int key, int x, int y);
 
 	void PassiveMotionFunc(int x, int y);
 
@@ -75,6 +82,11 @@ private:
 	INT64 deltaTime = 0;
 
 	float deltaTimeSeconds = 0.f;
+
+	const float moveSpeed = 0.1f;
+
+	bool fastForward = false;
+	bool mouseLocked = true;
 
 	float mouseAxisX = 0;
 	float mouseAxisY = 0;

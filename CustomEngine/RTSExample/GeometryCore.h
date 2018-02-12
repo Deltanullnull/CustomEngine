@@ -2,6 +2,7 @@
 
 #include <glm\glm.hpp>
 
+
 #pragma once
 class GeometryCore : Core
 {
