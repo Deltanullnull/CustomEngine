@@ -1,6 +1,7 @@
 #include "Geometry.h"
-
-
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
 
 Geometry::Geometry()
 {
@@ -33,5 +34,14 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 	core->SetFaces(faces, 6 * sizeof(GLuint));
 
 	return core;
+}
+
+GeometryCore * Geometry::LoadFile(string file)
+{
+	Assimp::Importer importer;
+
+	const aiScene * scene = importer.ReadFile(file, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+
+	return nullptr;
 }
 

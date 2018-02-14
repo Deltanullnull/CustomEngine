@@ -2,6 +2,7 @@
 
 std::mt19937 Randomizer::engine;
 std::uniform_int_distribution<> Randomizer::distInt;
+std::uniform_real_distribution<> Randomizer::distReal;
 
 void Randomizer::Init()
 {
@@ -10,11 +11,13 @@ void Randomizer::Init()
 	engine = std::mt19937(seed_gen());
 
 	distInt = std::uniform_int_distribution<>();
+
+	distReal = std::uniform_real_distribution<>();
 }
 
 double Randomizer::GetRandomDouble()
 {
-	
+	return distReal(engine);
 }
 
 

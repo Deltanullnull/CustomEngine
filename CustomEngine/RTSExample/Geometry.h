@@ -12,6 +12,8 @@ public:
 
 	static GeometryCore * CreatePlane(float width, float height);
 
+	static GeometryCore * LoadFile(string file);
+
 private:
 	GLuint m_vao;
 	GLuint m_vbo[3];

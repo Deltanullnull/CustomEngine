@@ -18,4 +18,5 @@ private:
 	static std::mt19937 engine;
 
 	static std::uniform_int_distribution<> distInt;
+	static std::uniform_real_distribution<> distReal;
 };
