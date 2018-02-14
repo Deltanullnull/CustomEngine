@@ -16,11 +16,6 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 {
 	glm::vec3 vertices[4];
 
-	/*vertices[0] = glm::vec3(-width / 2.f, 0.f, -height / 2.f);
-	vertices[1] = glm::vec3(width / 2.f, 0.f, -height / 2.f);
-	vertices[2] = glm::vec3(width / 2.f, 0.f, height / 2.f);
-	vertices[3] = glm::vec3(-width / 2.f, 0.f, height / 2.f);*/
-
 	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, 0);
 	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, 0);
 	vertices[2] = glm::vec3(width / 2.f, height / 2.f, 0);
@@ -42,6 +37,29 @@ GeometryCore * Geometry::LoadFile(string file)
 
 	const aiScene * scene = importer.ReadFile(file, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
 
-	return nullptr;
+	if (!scene)
+		return nullptr;
+
+	GeometryCore * core = new GeometryCore();
+
+	vector<glm::vec3> vertices;
+
+	for (int i = 0; i < scene->mNumMeshes; i++)
+	{
+		aiMesh * mesh = scene->mMeshes[i];
+
+		for (int v = 0; v < mesh->mNumVertices; v++)
+		{
+			aiVector3D vertex = mesh->mVertices[v];
+
+			glm::vec3 vertex3(vertex.x, vertex.y, vertex.z);
+
+			vertices.push_back(vertex3);
+		}
+	}
+
+	core->SetVertices((GLfloat*)&vertices[0], vertices.size() * sizeof(glm::vec3));
+
+	return core;
 }
 
