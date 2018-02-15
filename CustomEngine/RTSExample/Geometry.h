@@ -12,6 +12,8 @@ public:
 
 	static GeometryCore * CreatePlane(float width, float height);
 
+	static GeometryCore * CreateBox(float width, float height, float depth);
+
 	static GeometryCore * LoadFile(string file);
 
 private:
