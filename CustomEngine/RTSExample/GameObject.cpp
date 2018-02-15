@@ -28,13 +28,17 @@ void GameObject::Render(Renderer * renderer)
 
 	// bind uniform to shader
 	glm::mat4 modelView = renderer->GetView() * renderer->GetModel();
+	glm::mat4 viewProjection = renderer->GetProjection() * renderer->GetView();
 	glm::mat4 projection = renderer->GetProjection();
 
 	glm::mat4 mvp = projection * modelView;
 
 	if (m_pShaderCore != nullptr)
+	{
+		m_pShaderCore->SetUniformMatrix4f("modelView", 1, &modelView[0][0]);
+		m_pShaderCore->SetUniformMatrix4f("viewProjection", 1, &viewProjection[0][0]);
 		m_pShaderCore->SetUniformMatrix4f("mvp", 1, &mvp[0][0]);
-
+	}
 	if (m_pGeometryCore != nullptr)
 		m_pGeometryCore->Render();
 }
