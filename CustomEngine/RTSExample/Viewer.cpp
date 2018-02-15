@@ -324,6 +324,8 @@ void Viewer::ProcessKey()
 
 void Viewer::Start()
 {
+	mouseAxisX = 400;
+	mouseAxisY = 300;
 	glutWarpPointer(400, 300);
 
 	glutMainLoop();
