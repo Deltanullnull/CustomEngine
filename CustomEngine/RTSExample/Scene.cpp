@@ -21,8 +21,6 @@ void Scene::Accept(Traverser * traverser)
 
 	traverser->Visit(this);
 
-	// TODO visit light
-
 	for (Component * child : m_listChildren)
 	{
 		if (child == nullptr)
