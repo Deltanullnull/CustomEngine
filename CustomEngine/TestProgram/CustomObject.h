@@ -12,6 +12,9 @@ public:
 	virtual void Init() override;
 
 	void MoveForward(Component * comp);
+	void MoveDown(Component * comp);
+
+	
 
 };
 

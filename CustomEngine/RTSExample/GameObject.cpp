@@ -28,7 +28,7 @@ void GameObject::Render(Renderer * renderer)
 
 	// bind uniform to shader
 	glm::mat4 modelView = renderer->GetView() * renderer->GetModel();
-	glm::mat4 viewProjection = renderer->GetProjection() * renderer->GetView();
+	glm::mat4 view = renderer->GetView();
 	glm::mat4 projection = renderer->GetProjection();
 
 	glm::mat4 mvp = projection * modelView;
@@ -38,7 +38,7 @@ void GameObject::Render(Renderer * renderer)
 	if (m_pShaderCore != nullptr)
 	{
 		m_pShaderCore->SetUniformMatrix4f("modelView", 1, &modelView[0][0]);
-		m_pShaderCore->SetUniformMatrix4f("viewProjection", 1, &viewProjection[0][0]);
+		m_pShaderCore->SetUniformMatrix4f("view", 1, &view[0][0]);
 		m_pShaderCore->SetUniformMatrix4f("mvp", 1, &mvp[0][0]);
 
 		m_pShaderCore->SetUniformVector3f("lightPosition", 1, &lightPosition[0]);
@@ -87,5 +87,10 @@ void GameObject::Accept(Traverser * traverser)
 
 void GameObject::MoveForward(float distance)
 {
-	AddTranslation(glm::vec3(distance, 0.f, 0.f));
+	AddTranslation(glm::vec3(0.f, 0.f, distance));
+}
+
+void GameObject::MoveUp(float distance)
+{
+	AddTranslation(glm::vec3(0.f, distance, 0.f));
 }

@@ -11,5 +11,7 @@ public:
 	virtual void Update() override;
 	virtual void Init() override;
 
+	void Rotate(Component * comp);
+
 };
 

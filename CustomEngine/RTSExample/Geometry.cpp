@@ -16,25 +16,35 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 {
 	glm::vec3 vertices[4];
 
+	glm::vec3 normals[1];
+
 	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, 0);
 	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, 0);
 	vertices[2] = glm::vec3(width / 2.f, height / 2.f, 0);
 	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, 0);
 
-	GLuint faces[6] = {0, 1, 3, 1, 2, 3};
+	normals[0] = glm::vec3(1.f);
+
+	GLuint facesVertices[6] = {0, 1, 3, 1, 2, 3};
+	GLuint facesNormals[6] = { 0, 0, 0, 0, 0, 0 };
 
 	GeometryCore * core = new GeometryCore();
 
-	vector<glm::vec3> vertexList;
+	vector<glm::vec3> vertexList, normalList;
 
 	for (int i = 0; i < 6; i++)
 	{
-		int idx = faces[i];
+		int idx = facesVertices[i];
 
 		vertexList.push_back(vertices[idx]);
+
+		idx = facesVertices[i];
+
+		normalList.push_back(normals[idx]);
 	}
 
 	core->SetVertices((GLfloat*)&vertexList[0], vertexList.size() * sizeof(glm::vec3));
+	core->SetNormals((GLfloat*)&normalList[0], normalList.size() * sizeof(glm::vec3));
 	  
 	return core;
 }
@@ -65,7 +75,7 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 
 	GLuint facesVertices[nIndices] = { 0, 1, 3, 1, 2, 3, // front
 						5, 4, 7, 5, 7, 6, // back
-						0, 3, 4, 0, 7, 4, // left
+						0, 3, 4, 4, 3, 7, // left
 						1, 5, 6, 1, 6, 2, // right
 						0, 4, 1, 4, 5, 1, // up
 						7, 3, 2, 7, 2, 6 // down

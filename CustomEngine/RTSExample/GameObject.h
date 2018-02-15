@@ -38,6 +38,8 @@ public:
 
 	virtual void MoveForward(float distance);
 
+	void MoveUp(float distance);
+
 public:
 
 	Transformation * m_transformation = nullptr;
