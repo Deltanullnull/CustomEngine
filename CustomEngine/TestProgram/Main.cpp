@@ -1,5 +1,6 @@
 #include ".\..\RTSExample\Viewer.h"
 #include "CustomObject.h"
+#include "CustomObject0.h"
 #include <Windows.h>
 
 void DoSth(Viewer * viewer)
@@ -20,17 +21,22 @@ void AddSampleGameObject(Viewer * viewer)
 	cout << "Creating a new object" << endl;
 
 	CustomObject * obj = new CustomObject();
-
-	//obj->AddAction('u', std::bind(&Foo, std::placeholders::_1));
+	CustomObject0 * obj0 = new CustomObject0();
 
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("./../glsl/default.vert", "", "./../glsl/default.frag");
 	GeometryCore * gCore = Geometry::CreatePlane(20.f, 10.f);
 
+	GeometryCore * gCore0 = Geometry::CreateBox(5.f, 5.f, 5.f);
+
 	obj->AddCore(sCore);
 	obj->AddCore(gCore);
 
+	obj0->AddCore(sCore);
+	obj0->AddCore(gCore0);
+
 	viewer->AddObjectToScene(obj);
+	viewer->AddObjectToScene(obj0);
 
 }
 
