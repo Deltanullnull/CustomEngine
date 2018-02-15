@@ -152,6 +152,8 @@
     <None Include="..\glsl\body.vert" />
     <None Include="..\glsl\default.frag" />
     <None Include="..\glsl\default.vert" />
+    <None Include="..\glsl\phong.frag" />
+    <None Include="..\glsl\phong.vert" />
     <None Include="..\glsl\points.frag" />
     <None Include="..\glsl\points.vert" />
     <None Include="..\glsl\shadow.frag" />

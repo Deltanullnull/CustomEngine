@@ -6,6 +6,7 @@
 
 #include "Camera.h"
 #include "Scene.h"
+#include "Light.h"
 
 #pragma once
 class RenderTraverser : public Traverser

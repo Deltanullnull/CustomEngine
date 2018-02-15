@@ -27,17 +27,29 @@ void AddSampleGameObject(Viewer * viewer)
 	sCore->GenerateShader("./../glsl/default.vert", "", "./../glsl/default.frag");
 	GeometryCore * gCore = Geometry::CreatePlane(20.f, 10.f);
 
-	GeometryCore * gCore0 = Geometry::CreateBox(5.f, 5.f, 5.f);
+	ShaderCore * sCorePhong = new ShaderCore();
+	sCorePhong->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
+
+	GeometryCore * gCoreBox = Geometry::CreateBox(5.f, 5.f, 5.f);
 
 	obj->AddCore(sCore);
 	obj->AddCore(gCore);
 
-	obj0->AddCore(sCore);
-	obj0->AddCore(gCore0);
+	obj0->AddCore(sCorePhong);
+	obj0->AddCore(gCoreBox);
 
 	viewer->AddObjectToScene(obj);
 	viewer->AddObjectToScene(obj0);
 
+}
+
+void AddLight(Viewer * viewer)
+{
+	Light * light0 = new Light();
+
+	light0->UpdateOrientation(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+
+	viewer->AddLightToScene(light0);
 }
 
 int main(int argc, char ** argv)
@@ -45,6 +57,8 @@ int main(int argc, char ** argv)
 	Viewer * mainViewer = new Viewer();
 
 	mainViewer->InitViewer(argc, argv);
+
+	AddLight(mainViewer);
 
 	std::function<void(Viewer*)> testFunc = std::bind(&DoSth, std::placeholders::_1);
 

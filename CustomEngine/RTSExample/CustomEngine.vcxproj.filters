@@ -147,6 +147,12 @@
     <None Include="..\glsl\texture.frag">
       <Filter>glsl</Filter>
     </None>
+    <None Include="..\glsl\phong.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="..\glsl\phong.vert">
+      <Filter>glsl</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderClass.h">

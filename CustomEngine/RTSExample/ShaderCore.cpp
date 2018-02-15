@@ -33,6 +33,16 @@ void ShaderCore::SetUniformMatrix4f(string name, GLsizei count, const GLfloat * 
 	//cout << "Setting uniform matrix at " << loc << endl;
 
 	glUniformMatrix4fv(loc, count, false, parameter);
+
+}
+
+void ShaderCore::SetUniformVector3f(string name, GLsizei count, const GLfloat *parameter )
+{
+	int loc = glGetUniformLocation(m_shader, name.c_str());
+
+	//cout << "Setting uniform matrix at " << loc << endl;
+
+	glUniform3fv(loc, count, parameter);
 }
 
 

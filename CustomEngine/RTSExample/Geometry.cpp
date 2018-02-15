@@ -61,23 +61,29 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 	normals[4] = glm::vec3(0.f, 0.f, 1.f);
 	normals[5] = glm::vec3(0.f, 0.f, -1.f);
 
-	GLuint facesVertices[24] = { 0, 1, 3, 1, 2, 3, // front
+	const int nIndices = 36;
+
+	GLuint facesVertices[nIndices] = { 0, 1, 3, 1, 2, 3, // front
 						5, 4, 7, 5, 7, 6, // back
-						0, 4, 3, 0, 7, 4, // left
-						1, 5, 6, 2, 6, 5 // right
+						0, 3, 4, 0, 7, 4, // left
+						1, 5, 6, 1, 6, 2, // right
+						0, 4, 1, 4, 5, 1, // up
+						7, 3, 2, 7, 2, 6 // down
 	};
 
-	GLuint facesNormals[24] = { 4, 4, 4, 4, 4, 4, // front
+	GLuint facesNormals[nIndices] = { 4, 4, 4, 4, 4, 4, // front
 								5, 5, 5, 5, 5, 5, // back
 								1, 1, 1, 1, 1, 1, // left
-								0, 0, 0, 0, 0, 0 // right
+								0, 0, 0, 0, 0, 0, // right
+								3, 3, 3, 3, 3, 3, // up
+								2, 2, 2, 2, 2, 2 // down
 	};
 
 	vector<glm::vec3> vertexList;
 
 	vector<glm::vec3> normalList;
 
-	for (int i = 0; i < 24; i++)
+	for (int i = 0; i < nIndices; i++)
 	{
 		int idx = facesVertices[i];
 

@@ -224,6 +224,11 @@ void Viewer::AddObjectToScene(GameObject * obj)
 	m_pMainScene->AddChild(obj->m_transformation);
 }
 
+void Viewer::AddLightToScene(Light * light)
+{
+	m_pMainScene->AddChild(light);
+}
+
 void Viewer::CreateSampleObject()
 {
 	cout << "Creating sample object" << endl;

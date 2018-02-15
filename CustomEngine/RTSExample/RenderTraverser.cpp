@@ -79,8 +79,10 @@ void RenderTraverser::PostVisit(Transformation * transformation)
 
 void RenderTraverser::Visit(Light * light)
 {
+	light->PushPosition(m_pRenderer);
 }
 
 void RenderTraverser::PostVisit(Light * light)
 {
+	light->PopPosition(m_pRenderer);
 }

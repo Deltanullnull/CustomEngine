@@ -33,11 +33,15 @@ void GameObject::Render(Renderer * renderer)
 
 	glm::mat4 mvp = projection * modelView;
 
+	glm::vec3 lightPosition = renderer->GetLightPosition();
+
 	if (m_pShaderCore != nullptr)
 	{
 		m_pShaderCore->SetUniformMatrix4f("modelView", 1, &modelView[0][0]);
 		m_pShaderCore->SetUniformMatrix4f("viewProjection", 1, &viewProjection[0][0]);
 		m_pShaderCore->SetUniformMatrix4f("mvp", 1, &mvp[0][0]);
+
+		m_pShaderCore->SetUniformVector3f("lightPosition", 1, &lightPosition[0]);
 	}
 	if (m_pGeometryCore != nullptr)
 		m_pGeometryCore->Render();

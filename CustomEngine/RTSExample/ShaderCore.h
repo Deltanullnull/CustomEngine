@@ -14,6 +14,7 @@ public:
 	void BindShader();
 
 	void SetUniformMatrix4f(string name, GLsizei count, const GLfloat * parameter);
+	void SetUniformVector3f(string name, GLsizei count, const GLfloat *parameter);
 		
 private:
 	GLuint m_shader;

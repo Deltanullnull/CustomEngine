@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "Scene.h"
 #include "Geometry.h"
+#include "Light.h"
 #include <functional>
 
 #pragma once
@@ -36,6 +37,8 @@ public:
 	void ToggleMouseLocked(Viewer * viewer);
 
 	void AddObjectToScene(GameObject * obj);
+
+	void AddLightToScene(Light * light);
 
 	void CreateSampleObject();
 

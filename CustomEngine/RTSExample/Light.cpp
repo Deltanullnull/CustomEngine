@@ -16,6 +16,8 @@ void Light::UpdateOrientation(glm::vec3 position, glm::vec3 direction, glm::vec3
 	m_position = position;
 	m_direction = direction;
 	m_up = up;
+
+	m_orientation = glm::lookAt(m_position, m_position + m_direction, m_up);
 }
 
 void Light::UpdateProjection(float left, float right, float bottom, float top, float zNear, float zFar)
@@ -23,7 +25,12 @@ void Light::UpdateProjection(float left, float right, float bottom, float top, f
 	m_projection = glm::ortho<GLfloat>(left, right, bottom, top, zNear, zFar);
 }
 
-void Light::PushLight(Renderer * renderer)
+void Light::Accept(Traverser * traverser)
+{
+	traverser->Visit(this);
+}
+
+void Light::PushTransformation(Renderer * renderer)
 {
 	if (renderer == nullptr)
 		return;
@@ -32,11 +39,27 @@ void Light::PushLight(Renderer * renderer)
 	renderer->PushProjectionMatrix(m_projection);
 }
 
-void Light::PopLight(Renderer * renderer)
+void Light::PopTransformation(Renderer * renderer)
 {
 	if (renderer == nullptr)
 		return;
 
 	renderer->PopViewMatrix();
 	renderer->PopProjectionMatrix();
+}
+
+void Light::PushPosition(Renderer * renderer)
+{
+	if (renderer == nullptr)
+		return;
+
+	renderer->PushLightPosition(m_position);
+}
+
+void Light::PopPosition(Renderer * renderer)
+{
+	if (renderer == nullptr)
+		return;
+
+	renderer->PopLightPosition();
 }

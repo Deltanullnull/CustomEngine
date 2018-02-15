@@ -38,6 +38,11 @@ void Renderer::PushProjectionMatrix(mat4 matrix)
 	projectionStack.push(matrix);
 }
 
+void Renderer::PushLightPosition(vec3 pos)
+{
+	lightPositionStack.push(pos);
+}
+
 void Renderer::PopModelMatrix()
 {
 	if (ModelCount() > 0)
@@ -59,6 +64,14 @@ void Renderer::PopProjectionMatrix()
 	if (ProjectionCount() > 0)
 	{
 		projectionStack.pop();
+	}
+}
+
+void Renderer::PopLightPosition()
+{
+	if (lightPositionStack.size() > 0)
+	{
+		lightPositionStack.pop();
 	}
 }
 
@@ -99,6 +112,14 @@ mat4 Renderer::GetView()
 mat4 Renderer::GetProjection()
 {
 	return ProjectionTop();
+}
+
+vec3 Renderer::GetLightPosition()
+{
+	if (lightPositionStack.size() > 0)
+		return lightPositionStack.top();
+
+	return vec3();
 }
 
 void Renderer::SetModelViewTop(mat4 matrix)
