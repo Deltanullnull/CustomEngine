@@ -29,5 +29,5 @@ void CustomObject0::Rotate(Component * comp)
 {
 	GameObject * obj = (GameObject*)comp;
 
-	obj->AddRotation(glm::vec3(0, 0.01f, 0));
+	obj->AddRotation(glm::vec3(0, 0, 0.01f));
 }

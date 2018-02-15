@@ -25,7 +25,7 @@ void AddSampleGameObject(Viewer * viewer)
 
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
-	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
+	GeometryCore * gCore = Geometry::CreatePlane(10.f, 10.f);
 
 	ShaderCore * sCorePhong = new ShaderCore();
 	sCorePhong->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
@@ -37,7 +37,7 @@ void AddSampleGameObject(Viewer * viewer)
 
 	
 	obj->AddRotation(glm::vec3(0, glm::pi<float>() / 2, 0));
-	obj->MoveUp(-10.f);
+	obj->MoveUp(-1.f);
 
 	obj0->AddCore(sCorePhong);
 	obj0->AddCore(gCoreBox);

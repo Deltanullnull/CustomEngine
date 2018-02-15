@@ -23,7 +23,7 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 	vertices[2] = glm::vec3(width / 2.f, height / 2.f, 0);
 	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, 0);
 
-	normals[0] = glm::vec3(1.f);
+	normals[0] = glm::vec3(0.f, 0.f, 1.f);
 
 	GLuint facesVertices[6] = {0, 1, 3, 1, 2, 3};
 	GLuint facesNormals[6] = { 0, 0, 0, 0, 0, 0 };
@@ -38,7 +38,7 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 
 		vertexList.push_back(vertices[idx]);
 
-		idx = facesVertices[i];
+		idx = facesNormals[i];
 
 		normalList.push_back(normals[idx]);
 	}
@@ -53,15 +53,15 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 {
 	glm::vec3 vertices[8], normals[6];
 
-	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, -depth / 2.f);
-	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, -depth / 2.f);
-	vertices[2] = glm::vec3(width / 2.f, height / 2.f, -depth / 2.f);
-	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, -depth / 2.f);
+	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, depth / 2.f);
+	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, depth / 2.f);
+	vertices[2] = glm::vec3(width / 2.f, height / 2.f, depth / 2.f);
+	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, depth / 2.f);
 
-	vertices[4] = glm::vec3(-width / 2.f, -height / 2.f, depth / 2.f);
-	vertices[5] = glm::vec3(width / 2.f, -height / 2.f, depth / 2.f);
-	vertices[6] = glm::vec3(width / 2.f, height / 2.f, depth / 2.f);
-	vertices[7] = glm::vec3(-width / 2.f, height / 2.f, depth / 2.f);
+	vertices[4] = glm::vec3(-width / 2.f, -height / 2.f, -depth / 2.f);
+	vertices[5] = glm::vec3(width / 2.f, -height / 2.f, -depth / 2.f);
+	vertices[6] = glm::vec3(width / 2.f, height / 2.f, -depth / 2.f);
+	vertices[7] = glm::vec3(-width / 2.f, height / 2.f, -depth / 2.f);
 
 
 	normals[0] = glm::vec3(1.f, 0.f, 0.f);
@@ -81,13 +81,12 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 						7, 3, 2, 7, 2, 6 // down
 	};
 
-	GLuint facesNormals[nIndices] = { 4, 4, 4, 4, 4, 4, // front
-								5, 5, 5, 5, 5, 5, // back
-								1, 1, 1, 1, 1, 1, // left
-								0, 0, 0, 0, 0, 0, // right
-								3, 3, 3, 3, 3, 3, // up
-								2, 2, 2, 2, 2, 2 // down
-	};
+	GLuint facesNormals[nIndices] = {	5, 5, 5, 5, 5, 5, // back
+										4, 4, 4, 4, 4, 4, // front
+										0, 0, 0, 0, 0, 0, // left
+										1, 1, 1, 1, 1, 1, // right
+										2, 2, 2, 2, 2, 2, // down						
+										3, 3, 3, 3, 3, 3  };
 
 	vector<glm::vec3> vertexList;
 
