@@ -5,7 +5,8 @@ layout(location = 1) in vec2 uv;
 layout(location = 2) in vec3 normal;
 
 uniform mat4 mvp;
-uniform mat4 viewProjection;
+uniform mat4 model;
+uniform mat4 view;
 uniform mat4 modelView;
 uniform mat4 mvpDepth;
 
@@ -33,6 +34,6 @@ void main()
 
 	gl_Position = mvp * vec4(position, 1.0);
 
-	Light_Position = viewProjection * vec4(lightPosition, 1.0f);
+	Light_Position = view * vec4(lightPosition, 1.0f);
 
 }
