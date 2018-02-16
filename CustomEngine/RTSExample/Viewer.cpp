@@ -91,7 +91,7 @@ void Viewer::Display()
 
 	if (m_pMainScene->m_pMainCamera && mouseLocked)
 	{
-		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds, mouseAxisYDelta * deltaTimeSeconds);
+		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds * lookSpeed, mouseAxisYDelta * deltaTimeSeconds* lookSpeed);
 
 		glutWarpPointer(400, 300);
 	}
@@ -217,6 +217,12 @@ void Viewer::ExitF(Viewer * viewer)
 void Viewer::ToggleMouseLocked(Viewer * viewer)
 {
 	mouseLocked = !mouseLocked;
+
+	if (mouseLocked)
+	{
+		mouseAxisX = 400;
+		mouseAxisY = 300;
+	}
 }
 
 void Viewer::AddObjectToScene(GameObject * obj)
@@ -269,6 +275,8 @@ void Viewer::KeyUp(unsigned char key, int x, int y)
 {
 	keyMap[key] = false;
 
+	keyMapTap[key] = false;
+
 	m_pMainScene->KeyUp(key);
 }
 
@@ -303,19 +311,23 @@ void Viewer::InitKeyMap()
 
 void Viewer::ProcessKey()
 {
-
-
 	for (std::map<unsigned char, bool>::iterator it = keyMap.begin(); it != keyMap.end(); it++)
 	{
 		unsigned char key = (*it).first;
 
 		if (keyMap[key])
 		{
-			if (keyFu.find(key) != keyFu.end())
+			if (keyFunctionMap.find(key) != keyFunctionMap.end())
 			{
-				for (std::function<void(Viewer*)> func : keyFu[key])
+				for (auto func : keyFunctionMap[key])
 				{
-					func(this);
+					std::function<void(Viewer*)> function = func.first;
+					KeyInputType inputType = func.second;
+
+					if (inputType == KeyInputType::Hold || (inputType == KeyInputType::Tap && !keyMapTap[key]))
+						function(this);
+
+					keyMapTap[key] = true; // key is down, won't call function again until key released
 				}
 			}
 		}
@@ -383,17 +395,17 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 	InitKeyMap();
 
-	BindFunctionToKey('a', std::bind(&Viewer::MoveLeft, this, this));
-	BindFunctionToKey('d', std::bind(&Viewer::MoveRight, this, this));
+	BindFunctionToKey('a', std::bind(&Viewer::MoveLeft, this, this), KeyInputType::Hold);
+	BindFunctionToKey('d', std::bind(&Viewer::MoveRight, this, this), KeyInputType::Hold);
 
-	BindFunctionToKey('w', std::bind(&Viewer::MoveForward, this, this));
-	BindFunctionToKey('s', std::bind(&Viewer::MoveBackwards, this, this));
+	BindFunctionToKey('w', std::bind(&Viewer::MoveForward, this, this), KeyInputType::Hold);
+	BindFunctionToKey('s', std::bind(&Viewer::MoveBackwards, this, this), KeyInputType::Hold);
 
-	BindFunctionToKey('q', std::bind(&Viewer::MoveDown, this, this));
-	BindFunctionToKey('e', std::bind(&Viewer::MoveUp, this, this));
+	BindFunctionToKey('q', std::bind(&Viewer::MoveDown, this, this), KeyInputType::Hold);
+	BindFunctionToKey('e', std::bind(&Viewer::MoveUp, this, this), KeyInputType::Hold);
 
-	BindFunctionToKey(32, std::bind(&Viewer::ToggleMouseLocked, this, this));
-	BindFunctionToKey(27, std::bind(&Viewer::ExitF, this, this));
+	BindFunctionToKey(32, std::bind(&Viewer::ToggleMouseLocked, this, this), KeyInputType::Tap);
+	BindFunctionToKey(27, std::bind(&Viewer::ExitF, this, this), KeyInputType::Tap);
 
 
 	m_pRenderTraverser = new RenderTraverser();
@@ -411,7 +423,7 @@ void Viewer::InitViewer(int argc, char ** argv)
 	m_pMainScene->SetMainCamera(mainCamera);
 }
 
-void Viewer::BindFunctionToKey(unsigned char key, std::function<void(Viewer*)> func)
+void Viewer::BindFunctionToKey(unsigned char key, std::function<void(Viewer*)> func,  KeyInputType inputType)
 {
-	keyFu[key].push_back(func);
+	keyFunctionMap[key].push_back(std::make_pair(func, inputType));
 }

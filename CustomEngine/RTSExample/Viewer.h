@@ -11,6 +11,9 @@
 class Viewer
 {
 public:
+
+	enum KeyInputType { Tap, Hold };
+
 	Viewer();
 	~Viewer();
 
@@ -63,9 +66,9 @@ public:
 
 	void InitViewer(int argc, char ** argv);
 
-	void BindFunctionToKey(unsigned char key, std::function<void(Viewer*)>);
+	void BindFunctionToKey(unsigned char key, std::function<void(Viewer*)>, KeyInputType inputType);
 
-	std::map<unsigned char, std::vector<std::function<void(Viewer*)>>> keyFu;
+	
 
 
 private:
@@ -82,9 +85,9 @@ private:
 	bool mouseLocked = true;
 
 	std::map<unsigned char, bool> keyMap;
+	std::map<unsigned char, bool> keyMapTap; // key, active
 
-	
-	std::map<unsigned char, void(*) ()> keyFuncMap;
+	std::map<unsigned char, std::vector<std::pair<std::function<void(Viewer*)>, KeyInputType>>> keyFunctionMap;
 
 	std::map<unsigned char, void(*) (int)> mouseFuncMap;
 
@@ -99,7 +102,7 @@ private:
 	float mouseAxisXPre = 0, mouseAxisYPre = 0;
 	float mouseAxisXDelta = 0, mouseAxisYDelta = 0;
 
-	float cameraYaw = 0;
+	float lookSpeed = 0.5f;
 
 	RenderTraverser * m_pRenderTraverser = nullptr;
 	LogicTraverser * m_pLogicTraverser = nullptr;

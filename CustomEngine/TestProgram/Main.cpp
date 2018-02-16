@@ -64,9 +64,8 @@ int main(int argc, char ** argv)
 
 	AddLight(mainViewer);
 
-	std::function<void(Viewer*)> testFunc = std::bind(&DoSth, std::placeholders::_1);
-
-	mainViewer->BindFunctionToKey(32, testFunc);
+	//std::function<void(Viewer*)> testFunc = std::bind(&DoSth, std::placeholders::_1);
+	//mainViewer->BindFunctionToKey(32, testFunc);
 
 	AddSampleGameObject(mainViewer);
 
