@@ -72,11 +72,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <IncludePath>$(SolutionDir)glm;$(ASSIMP_ROOT)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ASSIMP_ROOT)\lib\x64\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ASSIMP_ROOT)\lib\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)glm;$(ASSIMP_ROOT)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ASSIMP_ROOT)\lib\x64\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ASSIMP_ROOT)\lib\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

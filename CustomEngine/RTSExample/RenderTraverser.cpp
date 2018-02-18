@@ -66,8 +66,6 @@ void RenderTraverser::Visit(Transformation * transformation)
 	//cout << "Visit: transformation" << endl;
 
 	transformation->PushTransformation(m_pRenderer);
-
-	transformation->m_gameObject->Accept(this);
 }
 
 void RenderTraverser::PostVisit(Transformation * transformation)

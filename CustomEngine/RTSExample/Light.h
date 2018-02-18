@@ -19,6 +19,8 @@ public:
 	void PushPosition(Renderer * renderer);
 	void PopPosition(Renderer * renderer);
 
+	void InitRenderBuffer();
+
 public:
 
 	glm::mat4 m_projection = glm::mat4(1.0f);
@@ -29,6 +31,11 @@ public:
 	glm::vec3 m_up;
 
 	float strength = 1.f;
+
+	GLuint frameBuffer;
+	GLuint depthTexture;
+
+	
 
 };
 
