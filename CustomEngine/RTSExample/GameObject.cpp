@@ -66,6 +66,17 @@ void GameObject::AddRotation(glm::vec3 euler)
 void GameObject::AddCore(ShaderCore * core)
 {
 	m_pShaderCore = core;
+
+	string vertexShader = m_pShaderCore->m_pVertexShader;
+	string geometryShader = m_pShaderCore->m_pGeometryShader;
+	
+
+	string shaderRoot = "./../glsl/"; // TODO get root of other shaders
+	string fragmentShader = shaderRoot + "default.frag";
+
+	m_pShadowShaderCore = new ShaderCore();
+	m_pShadowShaderCore->GenerateShader(vertexShader, geometryShader, fragmentShader);
+
 }
 
 void GameObject::AddCore(TextureCore * core)

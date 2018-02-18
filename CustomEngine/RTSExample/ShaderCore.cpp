@@ -13,6 +13,10 @@ ShaderCore::~ShaderCore()
 
 void ShaderCore::GenerateShader(string vertex_shader, string geometry_shader, string fragment_shader)
 {
+	m_pVertexShader = vertex_shader;
+	m_pGeometryShader = geometry_shader;
+	m_pFragmentShader = fragment_shader;
+
 	m_shader = ShaderClass::loadShader(vertex_shader.c_str(), fragment_shader.c_str());
 
 	BindShader();
