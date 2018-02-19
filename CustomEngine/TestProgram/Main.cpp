@@ -49,6 +49,7 @@ void AddLight(Viewer * viewer)
 	Light * light0 = new Light();
 
 	light0->UpdateOrientation(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
+	light0->UpdateProjection(-10, 10, -10, 10, 0.1, 100);
 
 	viewer->AddLightToScene(light0);
 }

@@ -411,8 +411,11 @@ void Viewer::InitViewer(int argc, char ** argv)
 	m_pMainScene = new Scene();
 
 	Camera * mainCamera = new Camera();
-	mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(70.f, (float)width / (float)height, 0.1f, 1000.f);
+	//mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	//mainCamera->CreateProjection(70.f, (float)width / (float)height, 0.1f, 1000.f);
+
+	mainCamera->LookAt(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
+	mainCamera->CreateProjection(-10, 10, -10, 10, 0.1, 100);
 
 	m_pMainScene->SetMainCamera(mainCamera);
 }

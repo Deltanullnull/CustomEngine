@@ -81,7 +81,7 @@ private:
 
 	const float moveSpeed = 0.1f;
 
-	bool mouseLocked = true;
+	bool mouseLocked = false;
 
 	std::map<unsigned char, bool> keyMap;
 	std::map<unsigned char, bool> keyMapTap; // key, active

@@ -18,11 +18,15 @@ public:
 	void PushViewMatrix(mat4 matrix);
 	void PushProjectionMatrix(mat4 matrix);
 
+	void PushLightMatrix(mat4 matrix);
+
 	void PushLightPosition(vec3 pos);
 
 	void PopModelMatrix();
 	void PopViewMatrix();
 	void PopProjectionMatrix();
+
+	void PopLightMatrix();
 
 	void PopLightPosition();
 
@@ -30,9 +34,13 @@ public:
 	mat4 ViewTop();
 	mat4 ProjectionTop();
 
+	mat4 LightTop();
+
 	mat4 GetModel();
 	mat4 GetView();
 	mat4 GetProjection();
+
+	mat4 GetLight();
 
 	vec3 GetLightPosition();
 

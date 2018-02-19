@@ -103,6 +103,7 @@ void Camera::LookAt(glm::vec3 eye, glm::vec3 direction, glm::vec3 up)
 {
 
 	m_position = eye;
+	m_lookAtPosition = direction;
 	m_lookDirection = glm::normalize(direction);
 	m_up = glm::normalize(up);
 
@@ -112,6 +113,11 @@ void Camera::LookAt(glm::vec3 eye, glm::vec3 direction, glm::vec3 up)
 void Camera::CreateProjection(float fov, float ratio, float zNear, float zFar)
 {
 	m_matProjection = glm::perspective(fov / 180.f * glm::pi<float>(), ratio, zNear, zFar);
+}
+
+void Camera::CreateProjection(float left, float right, float bottom, float top, float zNear, float zFar)
+{
+	m_matProjection = glm::ortho(left, right, bottom, top, zNear, zFar);
 }
 
 void Camera::PushCameraMatrix(Renderer * renderer)

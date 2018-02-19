@@ -17,6 +17,8 @@ public:
 
 	virtual void Render(Renderer * renderer);
 
+	virtual void RenderDepth(Renderer * renderer);
+
 	virtual void Init() { };
 
 	virtual void Update() { };

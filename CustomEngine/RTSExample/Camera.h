@@ -22,6 +22,8 @@ public:
 	void LookAt(glm::vec3 eye, glm::vec3 direction, glm::vec3 up);
 	void CreateProjection(float fov, float ratio, float zNear, float zFar);
 
+	void CreateProjection(float left, float right, float bottom, float top, float zNear, float zFar);
+
 	void PushCameraMatrix(Renderer * renderer);
 	void PopCameraMatrix(Renderer * renderer);
 
@@ -36,6 +38,7 @@ private:
 
 	glm::vec3 m_position;
 	glm::vec3 m_lookDirection;
+	glm::vec3 m_lookAtPosition;
 	glm::vec3 m_up;
 
 	float angleHorizontal = 0.f;
