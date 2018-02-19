@@ -73,6 +73,8 @@ void Component::AddChild(Component * child)
 	m_listChildren.push_back(child);
 
 	child->m_pParent = this;
+
+	// TODO traverse through subtree and collect all lights
 }
 
 void Component::RemoveChild(Component * child)

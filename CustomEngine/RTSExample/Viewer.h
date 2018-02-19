@@ -1,5 +1,6 @@
 #include "RenderTraverser.h"
 #include "LogicTraverser.h"
+#include "LightTraverser.h"
 #include "RenderState.h"
 #include "Core.h"
 #include "Scene.h"
@@ -42,8 +43,6 @@ public:
 	void AddObjectToScene(GameObject * obj);
 
 	void AddLightToScene(Light * light);
-
-	void CreateSampleObject();
 
 	void KeyDown(unsigned char key, int x, int y);
 
@@ -102,10 +101,11 @@ private:
 	float mouseAxisXPre = 0, mouseAxisYPre = 0;
 	float mouseAxisXDelta = 0, mouseAxisYDelta = 0;
 
-	float lookSpeed = 0.5f;
+	float lookSpeed = 0.2f;
 
 	RenderTraverser * m_pRenderTraverser = nullptr;
 	LogicTraverser * m_pLogicTraverser = nullptr;
+	LightTraverser * m_pLightTraverser = nullptr;
 
 	Scene * m_pMainScene = nullptr;
 };

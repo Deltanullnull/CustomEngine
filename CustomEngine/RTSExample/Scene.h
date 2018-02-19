@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "Camera.h"
+#include "Light.h"
 
 #pragma once
 
@@ -13,10 +14,14 @@ public:
 
 	void SetMainCamera(Camera * camera);
 
+	void AddLight(Light * light);
+
 public:
 	Camera * m_pMainCamera = nullptr;
 
-private:
-	
+	std::list<Light*> m_pLights;
+
+	Light * m_pCurrentLight;
+
 };
 

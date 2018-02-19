@@ -1,6 +1,14 @@
 #pragma once
 
 #include "Traverser.h"
+#include "GameObject.h"
+#include "Renderer.h"
+
+#include "GeometryCore.h"
+
+#include "Camera.h"
+#include "Scene.h"
+#include "Light.h"
 
 class LightTraverser : public Traverser
 {
@@ -21,5 +29,9 @@ public:
 	virtual void PostVisit(Transformation * transformation) override;
 	virtual void Visit(Light * light) override;
 	virtual void PostVisit(Light * light) override;
+
+public:
+	Renderer * m_pRenderer = nullptr;
+
 };
 

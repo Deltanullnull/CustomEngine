@@ -36,3 +36,8 @@ void Scene::SetMainCamera(Camera * camera)
 {
 	m_pMainCamera = camera;
 }
+
+void Scene::AddLight(Light * light)
+{
+	m_pLights.push_back(light);
+}

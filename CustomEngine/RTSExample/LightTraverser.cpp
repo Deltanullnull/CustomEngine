@@ -29,34 +29,44 @@ void LightTraverser::PostVisit(Camera * camera)
 
 void LightTraverser::Visit(Scene * scene)
 {
+	glBindFramebuffer(GL_FRAMEBUFFER, scene->m_pCurrentLight->frameBuffer);
+
+	scene->m_pCurrentLight->PushTransformation(m_pRenderer);
 }
 
 void LightTraverser::PostVisit(Scene * scene)
 {
+	scene->m_pCurrentLight->PopTransformation(m_pRenderer);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void LightTraverser::Visit(GameObject * transformation)
+void LightTraverser::Visit(GameObject * gameObject)
 {
+	gameObject->Render(m_pRenderer);
 }
 
-void LightTraverser::PostVisit(GameObject * transformation)
+void LightTraverser::PostVisit(GameObject * gameObject)
 {
 }
 
 void LightTraverser::Visit(Transformation * transformation)
 {
+	transformation->PushTransformation(m_pRenderer);
 }
 
 void LightTraverser::PostVisit(Transformation * transformation)
 {
+	transformation->PopTransformation(m_pRenderer);
 }
 
 void LightTraverser::Visit(Light * light)
 {
-	// Push view and projection from light
+	//light->PushTransformation(m_pRenderer);
+	
 }
 
 void LightTraverser::PostVisit(Light * light)
 {
-	// Pop view and projection from light
+
 }

@@ -46,7 +46,7 @@ public:
 
 private:
 
-	ShaderCore * m_pShaderCore = NULL;
+	ShaderCore * m_pShaderCore, * m_pShadowShaderCore = NULL;
 	TextureCore * m_pTextureCore = NULL;
 	GeometryCore * m_pGeometryCore = NULL;
 

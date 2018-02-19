@@ -81,30 +81,49 @@ void Viewer::Display()
 
 	ProcessKey();
 
-	if (m_pMainScene != nullptr && m_pLogicTraverser != nullptr)
-	{
-		m_pMainScene->Accept(m_pLogicTraverser);
-	}
-
-	mouseAxisXDelta = mouseAxisX - 400;
-	mouseAxisYDelta = mouseAxisY - 300;
-
-	if (m_pMainScene->m_pMainCamera && mouseLocked)
-	{
-		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds * lookSpeed, mouseAxisYDelta * deltaTimeSeconds* lookSpeed);
-
-		glutWarpPointer(400, 300);
-	}
-
-	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
+	if (m_pMainScene != nullptr)
 	{
 		m_pMainScene->UpdateInput();
+
+		if (m_pLogicTraverser != nullptr)
+		{
+			m_pMainScene->Accept(m_pLogicTraverser);
+		}
+
+		mouseAxisXDelta = mouseAxisX - 400;
+		mouseAxisYDelta = mouseAxisY - 300;
+
+		if (m_pMainScene->m_pMainCamera && mouseLocked)
+		{
+			m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds * lookSpeed, mouseAxisYDelta * deltaTimeSeconds* lookSpeed);
+
+			glutWarpPointer(400, 300);
+		}
+
+		if (m_pLightTraverser != nullptr)
+		{
+			// TODO set render buffer
+
+			for (Light * light : m_pMainScene->m_pLights) // Render to each framebuffer
+			{
+				m_pMainScene->m_pCurrentLight = light;
+
+				m_pMainScene->Accept(m_pLightTraverser);
+
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			}
+
+			
+
+		}
+
+		if (m_pRenderTraverser != nullptr)
+		{
+			m_pMainScene->Accept(m_pRenderTraverser);
+		}
 	}
 
-	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
-	{
-		m_pMainScene->Accept(m_pRenderTraverser);
-	}
+	
 
 	glFlush();
 	glFinish();
@@ -232,36 +251,8 @@ void Viewer::AddObjectToScene(GameObject * obj)
 
 void Viewer::AddLightToScene(Light * light)
 {
+	m_pMainScene->AddLight(light);
 	m_pMainScene->AddChild(light);
-}
-
-void Viewer::CreateSampleObject()
-{
-	cout << "Creating sample object" << endl;
-
-	GameObject * object0 = nullptr;
-	GameObject * object1 = nullptr;
-
-	//object0 = new GameObject();
-
-	m_pMainScene->AddChild(object0->m_transformation);
-
-	//object1 = new GameObject();
-
-	object0->m_transformation->AddChild(object1->m_transformation);
-
-	object1->AddTranslation(glm::vec3(5.f, 10.f, 0.f));
-
-
-	ShaderCore * sCore = new ShaderCore();
-	sCore->GenerateShader("./../glsl/default.vert", "", "./../glsl/default.frag");
-	GeometryCore * gCore = Geometry::CreatePlane(20.f, 10.f);
-
-	object0->AddCore(sCore);
-	object0->AddCore(gCore);
-
-	object1->AddCore(sCore);
-	object1->AddCore(gCore);
 }
 
 void Viewer::KeyDown(unsigned char key, int x, int y)
@@ -409,16 +400,19 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 
 	m_pRenderTraverser = new RenderTraverser();
+	m_pLightTraverser = new LightTraverser();
 
-	m_pRenderTraverser->m_pRenderer = new Renderer();
+	m_pLightTraverser->m_pRenderer = m_pRenderTraverser->m_pRenderer = new Renderer();
 
 	m_pLogicTraverser = new LogicTraverser();
+
+	
 
 	m_pMainScene = new Scene();
 
 	Camera * mainCamera = new Camera();
 	mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(45.f, (float)width / (float)height, 0.1f, 1000.f);
+	mainCamera->CreateProjection(70.f, (float)width / (float)height, 0.1f, 1000.f);
 
 	m_pMainScene->SetMainCamera(mainCamera);
 }

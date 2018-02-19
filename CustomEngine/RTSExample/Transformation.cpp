@@ -31,6 +31,11 @@ void Transformation::Accept(Traverser * traverser)
 
 	traverser->Visit(this);
 
+	if (m_gameObject != nullptr)
+	{
+		m_gameObject->Accept(traverser);
+	}
+
 	for (Component * child : m_listChildren)
 	{
 		if (child == nullptr)
