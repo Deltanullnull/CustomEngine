@@ -16,8 +16,6 @@ CustomObject0::~CustomObject0()
 void CustomObject0::Update()
 {
 	Rotate();
-
-	cout << "Custom update" << endl;
 }
 
 void CustomObject0::Init()

@@ -21,9 +21,6 @@ void CustomObject::Update()
 
 void CustomObject::Init()
 {
-	
-
-	//cout << "Init " << endl;
 	AddAction('u', std::bind(&CustomObject::MoveForward, this, std::placeholders::_1));
 	AddAction('i', std::bind(&CustomObject::MoveDown, this, std::placeholders::_1));
 }
