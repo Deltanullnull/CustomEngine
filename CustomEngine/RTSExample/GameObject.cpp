@@ -4,9 +4,9 @@
 
 GameObject::GameObject()
 {
-	m_transformation = new Transformation();
+	m_transform = new Transformation();
 
-	m_transformation->m_gameObject = this;
+	m_transform->Attach(this);
 
 	GenerateID();
 
@@ -78,17 +78,17 @@ void GameObject::RenderDepth(Renderer * renderer)
 
 void GameObject::AddTranslation(glm::vec3 translation)
 {
-	if (m_transformation)
+	if (m_transform)
 	{
-		m_transformation->AddTranslation(translation);
+		m_transform->AddTranslation(translation);
 	}
 }
 
 void GameObject::AddRotation(glm::vec3 euler)
 {
-	if (m_transformation)
+	if (m_transform)
 	{
-		m_transformation->AddRotation(euler);
+		m_transform->AddRotation(euler);
 	}
 }
 

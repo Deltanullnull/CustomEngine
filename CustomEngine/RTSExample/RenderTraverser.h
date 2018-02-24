@@ -33,10 +33,7 @@ public:
 	virtual void Visit(Light * light) override;
 	virtual void PostVisit(Light * light) override;
 
-public:
 
-	// TODO: add matrix stack
-	Renderer * m_pRenderer = nullptr;
 
 
 

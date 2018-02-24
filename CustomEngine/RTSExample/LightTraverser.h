@@ -30,8 +30,5 @@ public:
 	virtual void Visit(Light * light) override;
 	virtual void PostVisit(Light * light) override;
 
-public:
-	Renderer * m_pRenderer = nullptr;
-
 };
 

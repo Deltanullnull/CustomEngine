@@ -36,8 +36,10 @@ public:
 
 	virtual void Accept(Renderer * renderer);
 
-	virtual void AddAction(unsigned char key, std::function<void(Component*)>);
+	//virtual void AddAction(unsigned char key, std::function<void(Component*)>);
+	virtual void AddAction(unsigned char key, std::function<void()>);
 
+	
 
 protected:
 
@@ -48,7 +50,8 @@ protected:
 	std::map<unsigned char, bool> m_keyMap;
 	std::map<unsigned char, void(Component::*) ()> m_keyFuncMap;
 
-	std::map<unsigned char, std::vector<std::function<void(Component*)>>> functions;
+	//std::map<unsigned char, std::vector<std::function<void(Component*)>>> functions;
+	std::map<unsigned char, std::vector<std::function<void()>>> functions;
 	
 	Component * m_pParent = nullptr;
 

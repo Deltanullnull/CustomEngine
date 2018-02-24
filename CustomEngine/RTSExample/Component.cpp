@@ -25,13 +25,12 @@ void Component::UpdateInput()
 
 		if (m_keyMap[key])
 		{
-			//cout << "Update input " << to_string((int)key) << " at " << to_string(id) << endl;
 			if (functions.find(key) != functions.end())
 			{
-				for (std::function<void(Component*)> func : functions[key])
+				for (std::function<void()> func : functions[key])
 				{
 					cout << "Updating" << endl;
-					func(this);
+					func();
 				}
 
 			}
@@ -122,7 +121,8 @@ void Component::Accept(Traverser * traverser)
 	traverser->PostVisit(this);
 }
 
-void Component::AddAction(unsigned char key, std::function<void(Component*)> func)
+//void Component::AddAction(unsigned char key, std::function<void(Component*)> func)
+void Component::AddAction(unsigned char key, std::function<void()> func)
 {
 	int keyC = (int)key;
 

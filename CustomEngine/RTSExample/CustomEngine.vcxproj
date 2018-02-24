@@ -128,6 +128,7 @@
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryCore.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightTraverser.cpp" />
     <ClCompile Include="LogicTraverser.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="FileReader.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GeometryCore.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightTraverser.h" />
     <ClInclude Include="LogicTraverser.h" />

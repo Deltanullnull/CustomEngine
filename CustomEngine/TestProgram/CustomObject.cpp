@@ -21,21 +21,17 @@ void CustomObject::Update()
 
 void CustomObject::Init()
 {
-	AddAction('u', std::bind(&CustomObject::MoveForward, this, std::placeholders::_1));
-	AddAction('i', std::bind(&CustomObject::MoveDown, this, std::placeholders::_1));
+	AddAction('u', std::bind(&CustomObject::MoveForward, this));
+	AddAction('i', std::bind(&CustomObject::MoveDown, this));
 }
 
 
-void CustomObject::MoveForward(Component * comp)
+void CustomObject::MoveForward()
 {
-	GameObject * obj = (GameObject*)comp;
-
-	obj->MoveForward(0.1f);
+	this->AddTranslation(glm::vec3(0.f, 0.f, 0.1f));
 }
 
-void CustomObject::MoveDown(Component * comp)
+void CustomObject::MoveDown()
 {
-	GameObject * obj = (GameObject*)comp;
-
-	obj->MoveUp(-0.1f);
+	AddTranslation(glm::vec3(0.f, -0.1f, 0.f));
 }

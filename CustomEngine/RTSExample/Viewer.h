@@ -40,7 +40,7 @@ public:
 
 	void ToggleMouseLocked(Viewer * viewer);
 
-	void AddObjectToScene(GameObject * obj);
+	void AddObjectToScene(Transformation * obj);
 
 	void AddLightToScene(Light * light);
 
@@ -62,6 +62,8 @@ public:
 	void ProcessKey();
 
 	void Start();
+
+	void SetMainCamera(Camera * cam);
 
 	void InitViewer(int argc, char ** argv);
 

@@ -95,7 +95,7 @@ void Viewer::Display()
 
 		if (m_pMainScene->m_pMainCamera && mouseLocked)
 		{
-			m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds * lookSpeed, mouseAxisYDelta * deltaTimeSeconds* lookSpeed);
+			//m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds * lookSpeed, mouseAxisYDelta * deltaTimeSeconds* lookSpeed);
 
 			glutWarpPointer(400, 300);
 		}
@@ -164,7 +164,7 @@ void Viewer::MoveForward(Viewer * viewer)
 
 	if (camera)
 	{
-		camera->Move(camera->GetForwardVector()  * deltaTimeSeconds * speed);
+		//camera->Move(camera->GetForwardVector()  * deltaTimeSeconds * speed);
 	}
 }
 
@@ -176,7 +176,7 @@ void Viewer::MoveBackwards(Viewer * viewer)
 
 	if (camera)
 	{
-		camera->Move(-camera->GetForwardVector()  * deltaTimeSeconds* speed);
+		//camera->Move(-camera->GetForwardVector()  * deltaTimeSeconds* speed);
 	}
 }
 
@@ -188,7 +188,7 @@ void Viewer::MoveUp(Viewer * viewer)
 
 	if (camera)
 	{
-		camera->Move(camera->GetUpVector()  * deltaTimeSeconds* speed);
+		//camera->Move(camera->GetUpVector()  * deltaTimeSeconds* speed);
 	}
 }
 
@@ -200,7 +200,7 @@ void Viewer::MoveDown(Viewer * viewer)
 
 	if (camera)
 	{
-		camera->Move(-camera->GetUpVector()  * deltaTimeSeconds* speed);
+		//camera->Move(-camera->GetUpVector()  * deltaTimeSeconds* speed);
 	}
 }
 
@@ -212,7 +212,7 @@ void Viewer::MoveLeft(Viewer * viewer)
 
 	if (camera)
 	{
-		camera->Move(-camera->GetRightVector() * deltaTimeSeconds* speed);
+		//camera->Move(-camera->GetRightVector() * deltaTimeSeconds* speed);
 	}
 }
 
@@ -224,7 +224,7 @@ void Viewer::MoveRight(Viewer * viewer)
 
 	if (camera)
 	{
-		camera->Move(camera->GetRightVector() * deltaTimeSeconds * speed);
+		//camera->Move(camera->GetRightVector() * deltaTimeSeconds * speed);
 	}
 }
 
@@ -244,9 +244,10 @@ void Viewer::ToggleMouseLocked(Viewer * viewer)
 	}
 }
 
-void Viewer::AddObjectToScene(GameObject * obj)
+
+void Viewer::AddObjectToScene(Transformation * obj)
 {
-	m_pMainScene->AddChild(obj->m_transformation);
+	m_pMainScene->AddChild(obj);
 }
 
 void Viewer::AddLightToScene(Light * light)
@@ -334,6 +335,11 @@ void Viewer::Start()
 	glutMainLoop();
 }
 
+void Viewer::SetMainCamera(Camera * cam)
+{
+	m_pMainScene->SetMainCamera(cam);
+}
+
 void Viewer::InitViewer(int argc, char ** argv)
 {
 	Randomizer::Init();
@@ -401,23 +407,23 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 	m_pRenderTraverser = new RenderTraverser();
 	m_pLightTraverser = new LightTraverser();
-
-	m_pLightTraverser->m_pRenderer = m_pRenderTraverser->m_pRenderer = new Renderer();
-
 	m_pLogicTraverser = new LogicTraverser();
 
-	
+	Renderer * renderer = new Renderer();
+
+	m_pLightTraverser->m_pRenderer = m_pRenderTraverser->m_pRenderer = m_pLogicTraverser->m_pRenderer = renderer;
+
 
 	m_pMainScene = new Scene();
 
-	Camera * mainCamera = new Camera();
-	//mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	//mainCamera->CreateProjection(70.f, (float)width / (float)height, 0.1f, 1000.f);
+	/*Camera * mainCamera = new Camera();
+	mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	mainCamera->CreateProjection(70.f, (float)width / (float)height, 0.1f, 1000.f);
 
-	mainCamera->LookAt(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(-10, 10, -10, 10, 0.1, 100);
+	//mainCamera->LookAt(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
+	//mainCamera->CreateProjection(-10, 10, -10, 10, 0.1, 100);
 
-	m_pMainScene->SetMainCamera(mainCamera);
+	m_pMainScene->SetMainCamera(mainCamera);*/
 }
 
 void Viewer::BindFunctionToKey(unsigned char key, std::function<void(Viewer*)> func,  KeyInputType inputType)

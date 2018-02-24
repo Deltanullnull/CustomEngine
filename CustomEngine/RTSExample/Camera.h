@@ -1,23 +1,14 @@
-#include "Component.h"
+#include "Leaf.h"
 #include "Renderer.h"
+#include "Transformation.h"
 
 #pragma once
-class Camera 
+class Camera : 
+	public Leaf
 {
 public:
 	Camera();
 	~Camera();
-
-	void Move(glm::vec3 direction);
-
-	void SetRotationHorizontal(float angle);
-
-	void Rotate(float horizontal, float vertical);
-
-	void RotateHorizontal(float angle);
-	void RotateVertical(float angle);
-
-	void Rotate(glm::mat4 rotation);
 
 	void LookAt(glm::vec3 eye, glm::vec3 direction, glm::vec3 up);
 	void CreateProjection(float fov, float ratio, float zNear, float zFar);
@@ -27,23 +18,22 @@ public:
 	void PushCameraMatrix(Renderer * renderer);
 	void PopCameraMatrix(Renderer * renderer);
 
-	glm::vec3 GetForwardVector();
-	glm::vec3 GetUpVector();
-	glm::vec3 GetRightVector();
+	void Init()
+	{
+
+	}
+
+	void Update()
+	{
+
+	}
+
+	
 
 private:
 
-	glm::mat4 m_matView;
-	glm::mat4 m_matProjection;
+	glm::mat4 m_viewMatrix;
+	glm::mat4 m_projectionMatrix;
 
-	glm::vec3 m_position;
-	glm::vec3 m_lookDirection;
-	glm::vec3 m_lookAtPosition;
-	glm::vec3 m_up;
-
-	float angleHorizontal = 0.f;
-	float angleVertical = 0.f;
-
-	float moveSpeed = 100.f;
 };
 
