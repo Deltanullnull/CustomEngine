@@ -98,14 +98,9 @@ void Transformation::Foo()
 {
 }
 
-/*void Transformation::AddInput(unsigned char key, void(Transformation::* func)(), Transformation & obj)
-{
-}*/
-
 void Transformation::PushTransformation(Renderer * renderer)
 {
 	renderer->PushModelMatrix(m_orientation);
-	//renderer->PushModelMatrix(m_translation * m_rotation);
 }
 
 void Transformation::PopTransformation(Renderer * renderer)

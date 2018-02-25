@@ -74,11 +74,6 @@ public:
 
 private:
 
-	bool keyPressedW = false;
-	bool keyPressedA = false;
-	bool keyPressedS = false;
-	bool keyPressedD = false;
-
 	bool fastForward = false;
 
 	const float moveSpeed = 0.1f;
@@ -89,8 +84,6 @@ private:
 	std::map<unsigned char, bool> keyMapTap; // key, active
 
 	std::map<unsigned char, std::vector<std::pair<std::function<void(Viewer*)>, KeyInputType>>> keyFunctionMap;
-
-	std::map<unsigned char, void(*) (int)> mouseFuncMap;
 
 	std::chrono::time_point < std::chrono::steady_clock> start_time, end_time;
 

@@ -26,6 +26,7 @@ void CustomCamera::Init()
 	AddAction('d', std::bind(&CustomCamera::MoveRight, this));
 }
 
+
 void CustomCamera::MoveForward()
 {
 	m_transform->AddTranslation(vec3(0, 0, 0.1f));

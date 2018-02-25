@@ -83,6 +83,8 @@ void Viewer::Display()
 
 	if (m_pMainScene != nullptr)
 	{
+		
+
 		m_pMainScene->UpdateInput();
 
 		if (m_pLogicTraverser != nullptr)
@@ -90,8 +92,7 @@ void Viewer::Display()
 			m_pMainScene->Accept(m_pLogicTraverser);
 		}
 
-		mouseAxisXDelta = mouseAxisX - 400;
-		mouseAxisYDelta = mouseAxisY - 300;
+		
 
 		if (m_pMainScene->m_pMainCamera && mouseLocked)
 		{
@@ -286,6 +287,17 @@ void Viewer::PassiveMotionFunc(int x, int y)
 {
 	mouseAxisX = x;
 	mouseAxisY = 600 - y;
+
+	mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
+	mouseAxisYDelta = mouseAxisY - mouseAxisYPre;
+
+	mouseAxisXPre = mouseAxisX;
+	mouseAxisYPre = mouseAxisY;
+
+	
+	// update mouse position
+	m_pMainScene->MouseIdle(mouseAxisX, mouseAxisY);
+
 }
 
 void Viewer::Exit()
@@ -413,17 +425,7 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 	m_pLightTraverser->m_pRenderer = m_pRenderTraverser->m_pRenderer = m_pLogicTraverser->m_pRenderer = renderer;
 
-
 	m_pMainScene = new Scene();
-
-	/*Camera * mainCamera = new Camera();
-	mainCamera->LookAt(glm::vec3(0, 0, 30), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(70.f, (float)width / (float)height, 0.1f, 1000.f);
-
-	//mainCamera->LookAt(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
-	//mainCamera->CreateProjection(-10, 10, -10, 10, 0.1, 100);
-
-	m_pMainScene->SetMainCamera(mainCamera);*/
 }
 
 void Viewer::BindFunctionToKey(unsigned char key, std::function<void(Viewer*)> func,  KeyInputType inputType)

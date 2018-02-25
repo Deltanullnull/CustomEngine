@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraSocket.cpp" />
     <ClCompile Include="CustomCamera.cpp" />
     <ClCompile Include="CustomObject.cpp" />
     <ClCompile Include="CustomObject0.cpp" />
@@ -135,6 +136,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraSocket.h" />
     <ClInclude Include="CustomCamera.h" />
     <ClInclude Include="CustomObject.h" />
     <ClInclude Include="CustomObject0.h" />
