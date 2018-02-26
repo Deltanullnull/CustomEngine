@@ -294,9 +294,11 @@ void Viewer::PassiveMotionFunc(int x, int y)
 	mouseAxisXPre = mouseAxisX;
 	mouseAxisYPre = mouseAxisY;
 
+
+	//cout << "Mouse: " << mouseAxisX << ", " << mouseAxisY << endl;
 	
 	// update mouse position
-	m_pMainScene->MouseIdle(mouseAxisX, mouseAxisY);
+	m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
 
 }
 

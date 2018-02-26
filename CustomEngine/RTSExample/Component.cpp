@@ -86,14 +86,14 @@ void Component::GetMouseInput(int& x, int& y)
 	y = mouseY;
 }
 
-void Component::MouseIdle(int x, int y)
+void Component::SetMousePosition(int x, int y)
 {
 	mouseX = x;
 	mouseY = y;
 
 	for (Component * child : m_listChildren)
 	{
-		child->MouseIdle(x, y);
+		child->SetMousePosition(x, y);
 	}
 }
 

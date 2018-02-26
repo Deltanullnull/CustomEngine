@@ -2,13 +2,8 @@
 
 
 
-CustomCamera::CustomCamera()
+CustomCamera::CustomCamera() : Camera()
 {
-	m_transform = new Transformation();
-
-	m_transform->Attach(this);
-
-	GenerateID();
 
 	Init();
 }
@@ -24,6 +19,14 @@ void CustomCamera::Init()
 	AddAction('s', std::bind(&CustomCamera::MoveBackwards, this));
 	AddAction('a', std::bind(&CustomCamera::MoveLeft, this));
 	AddAction('d', std::bind(&CustomCamera::MoveRight, this));
+}
+
+void CustomCamera::Update()
+{
+	int mX, mY;
+	GetMouseInput(mX, mY);
+
+	printf("Mouse at: %d, %d \n", mX, mY);
 }
 
 

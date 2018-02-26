@@ -56,3 +56,10 @@ void Camera::PopCameraMatrix(Renderer * renderer)
 	renderer->PopViewMatrix();
 	renderer->PopProjectionMatrix();
 }
+
+void Camera::Accept(Traverser * traverser)
+{
+	traverser->Visit(this);
+
+	traverser->PostVisit(this);
+}

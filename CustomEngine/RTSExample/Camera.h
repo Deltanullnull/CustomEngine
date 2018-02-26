@@ -16,17 +16,14 @@ public:
 	void CreateProjection(float left, float right, float bottom, float top, float zNear, float zFar);
 
 	void PushCameraMatrix(Renderer * renderer);
+	
 	void PopCameraMatrix(Renderer * renderer);
 
-	void Init()
-	{
+	virtual void Accept(Traverser* traverser) override;
 
-	}
+	virtual void Init() {}
 
-	void Update()
-	{
-
-	}
+	virtual void Update() { cout << "Default camera update" << endl; }
 
 	
 

@@ -10,6 +10,8 @@ public:
 	Leaf();
 	~Leaf();
 
+	virtual void GetMouseInput(int& x, int& y);
+
 	virtual void Init() = 0;
 
 	virtual void Update() = 0;

@@ -8,7 +8,9 @@ public:
 	CustomCamera() ;
 	~CustomCamera();
 
-	void Init() override;
+	virtual void Init() override;
+
+	virtual void Update() override;
 
 	void MoveForward();
 

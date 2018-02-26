@@ -34,9 +34,9 @@ public:
 
 	virtual void KeyDown(unsigned char key);
 
-	void GetMouseInput(int & x, int & y);
+	virtual void GetMouseInput(int & x, int & y);
 
-	void MouseIdle(int deltaX, int deltaY);
+	void SetMousePosition(int deltaX, int deltaY);
 
 	virtual void MouseDown(int key);
 

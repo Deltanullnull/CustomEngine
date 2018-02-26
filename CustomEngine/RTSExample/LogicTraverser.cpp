@@ -21,6 +21,7 @@ void LogicTraverser::PostVisit(Component * component)
 
 void LogicTraverser::Visit(Camera * camera)
 {
+	camera->Update();
 }
 
 void LogicTraverser::PostVisit(Camera * camera)
