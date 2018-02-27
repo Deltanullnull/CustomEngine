@@ -23,18 +23,12 @@ void Renderer::PushModelMatrix(mat4 matrix)
 }
 
 void Renderer::PushViewMatrix(mat4 matrix)
-{
-	//glm::mat4 matTop = ViewTop();
-	//viewStack.push(matrix * matTop);
-
+{	
 	viewStack.push(matrix);
 }
 
 void Renderer::PushProjectionMatrix(mat4 matrix)
 {
-	//glm::mat4 matTop = ProjectionTop();
-	//projectionStack.push(matrix * matTop);
-
 	projectionStack.push(matrix);
 }
 
