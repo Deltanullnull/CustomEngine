@@ -2,6 +2,7 @@
 #include "CustomObject.h"
 #include "CustomObject0.h"
 #include "CustomCamera.h"
+#include "CameraSocket.h"
 #include <Windows.h>
 
 void DoSth(Viewer * viewer)
@@ -66,12 +67,17 @@ int main(int argc, char ** argv)
 	AddSampleGameObject(mainViewer);
 
 	CustomCamera * mainCamera = new CustomCamera();
-	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 	mainCamera->CreateProjection(70.f, 800.f / 600.f, 0.1f, 1000.f);
 
-	mainCamera->m_transform->AddTranslation(glm::vec3(0, 0, -10));
+	
+	CameraSocket * camSocket = new CameraSocket();
 
-	mainViewer->AddObjectToScene(mainCamera->m_transform);
+	camSocket->m_transform->AddTranslation(glm::vec3(0, 0, 0));
+
+	camSocket->m_transform->AddChild(mainCamera->m_transform);
+
+	mainViewer->AddObjectToScene(camSocket->m_transform);
 
 	mainViewer->SetMainCamera(mainCamera);
 

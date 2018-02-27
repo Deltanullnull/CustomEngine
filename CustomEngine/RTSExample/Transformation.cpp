@@ -27,9 +27,14 @@ void Transformation::AddRotation(glm::vec3 euler)
 
 	m_rotation = rot3x3 * m_rotation;
 
-	m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], m_translation.x,
+	/*m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], m_translation.x,
 								m_rotation[1][0], m_rotation[1][1], m_rotation[1][2], m_translation.y,
 								m_rotation[2][0], m_rotation[2][1], m_rotation[2][2], m_translation.z,
+								0.f, 0.f, 0.f, 1.f);*/
+
+	m_orientation = glm::mat4(m_rotation[0][0], m_rotation[1][0], m_rotation[2][0], m_translation.x,
+								m_rotation[0][1], m_rotation[1][1], m_rotation[2][1], m_translation.y,
+								m_rotation[0][2], m_rotation[1][2], m_rotation[2][2], m_translation.z,
 								0.f, 0.f, 0.f, 1.f);
 }
 
@@ -74,13 +79,6 @@ void Transformation::KeyDown(unsigned char key)
 
 	Component::KeyDown(key);
 }
-
-/*void Transformation::AddAction(unsigned char key, std::function<void()> func)
-{
-	m_gameObject->AddAction(key, func);
-
-	Component::AddAction(key, func);
-}*/
 
 void Transformation::UpdateInput()
 {

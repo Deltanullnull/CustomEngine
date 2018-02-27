@@ -22,6 +22,8 @@ Camera::~Camera()
 
 void Camera::LookAt(glm::vec3 eye, glm::vec3 direction, glm::vec3 up)
 {
+	//cout << "looking at" << endl;
+
 	m_viewMatrix = glm::lookAt(eye, eye + direction, glm::normalize(up));
 }
 
@@ -42,9 +44,17 @@ void Camera::PushCameraMatrix(Renderer * renderer)
 
 	//m_transform->m_worldOrientation = renderer->GetModel();
 
-	glm::mat4 transformedView = m_transform->m_worldOrientation * m_viewMatrix;
+	//cout << m_transform->m_worldOrientation[3][0] << ", " << m_transform->m_worldOrientation[3][1] << ", " << m_transform->m_worldOrientation[3][2] << endl;
 
-	renderer->PushViewMatrix(transformedView * m_viewMatrix);
+	glm::mat4 transformedView = m_transform->m_worldOrientation /** m_viewMatrix*/;
+
+	//cout << transformedView[3][0] << ", " << transformedView[3][1] << ", " << transformedView[3][2] << endl;
+	/*cout << "View:" << endl;
+	cout << transformedView[0][0] << ", " << transformedView[1][0] << ", " << transformedView[2][0] << ", " << transformedView[3][0] << endl;
+	cout << transformedView[0][1] << ", " << transformedView[1][1] << ", " << transformedView[2][1] << ", " << transformedView[3][1] << endl;
+	cout << transformedView[0][2] << ", " << transformedView[1][2] << ", " << transformedView[2][2] << ", " << transformedView[3][2] << endl;*/
+
+	renderer->PushViewMatrix(transformedView);
 	renderer->PushProjectionMatrix(m_projectionMatrix);
 }
 

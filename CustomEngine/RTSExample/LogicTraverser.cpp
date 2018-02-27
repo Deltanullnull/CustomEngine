@@ -47,6 +47,8 @@ void LogicTraverser::PostVisit(GameObject * gameObject)
 
 void LogicTraverser::Visit(Transformation * transformation)
 {
+	transformation->PushTransformation(m_pRenderer);
+
 	transformation->SetWorldOrientation(m_pRenderer);
 
 	transformation->m_gameObject->Accept(this);
@@ -54,6 +56,7 @@ void LogicTraverser::Visit(Transformation * transformation)
 
 void LogicTraverser::PostVisit(Transformation * transformation)
 {
+	transformation->PopTransformation(m_pRenderer);
 }
 
 void LogicTraverser::Visit(Light * light)
