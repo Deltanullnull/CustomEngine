@@ -1,6 +1,7 @@
 #include ".\..\RTSExample\Viewer.h"
 #include "CustomObject.h"
 #include "CustomObject0.h"
+#include "CustomCamera.h"
 #include <Windows.h>
 
 void DoSth(Viewer * viewer)
@@ -39,8 +40,8 @@ void AddSampleGameObject(Viewer * viewer)
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
 
-	viewer->AddObjectToScene(obj);
-	viewer->AddObjectToScene(obj0);
+	viewer->AddObjectToScene(obj->m_transform);
+	viewer->AddObjectToScene(obj0->m_transform);
 
 }
 
@@ -49,6 +50,7 @@ void AddLight(Viewer * viewer)
 	Light * light0 = new Light();
 
 	light0->UpdateOrientation(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
+	light0->UpdateProjection(-10, 10, -10, 10, 0.1, 100);
 
 	viewer->AddLightToScene(light0);
 }
@@ -61,10 +63,17 @@ int main(int argc, char ** argv)
 
 	AddLight(mainViewer);
 
-	//std::function<void(Viewer*)> testFunc = std::bind(&DoSth, std::placeholders::_1);
-	//mainViewer->BindFunctionToKey(32, testFunc);
-
 	AddSampleGameObject(mainViewer);
+
+	CustomCamera * mainCamera = new CustomCamera();
+	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	mainCamera->CreateProjection(70.f, 800.f / 600.f, 0.1f, 1000.f);
+
+	mainCamera->m_transform->AddTranslation(glm::vec3(0, 0, -10));
+
+	mainViewer->AddObjectToScene(mainCamera->m_transform);
+
+	mainViewer->SetMainCamera(mainCamera);
 
 	mainViewer->Start();
 

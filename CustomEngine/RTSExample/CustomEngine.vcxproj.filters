@@ -102,11 +102,14 @@
     <ClCompile Include="LightTraverser.cpp">
       <Filter>Source Files\Traverser</Filter>
     </ClCompile>
-    <ClCompile Include="LogicTraverser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicTraverser.cpp">
+      <Filter>Source Files\Traverser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,11 +221,14 @@
     <ClInclude Include="LightTraverser.h">
       <Filter>Header Files\Traverser</Filter>
     </ClInclude>
-    <ClInclude Include="LogicTraverser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicTraverser.h">
+      <Filter>Header Files\Traverser</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

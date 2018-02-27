@@ -4,18 +4,22 @@
 #include "ShaderCore.h"
 #include "GeometryCore.h"
 
+
+
 #include <glm\glm.hpp>
 
 class Renderer;
 
 #pragma once
-class GameObject : public Component
+class GameObject : public Leaf
 {
 public:
 	GameObject();
 	~GameObject();
 
 	virtual void Render(Renderer * renderer);
+
+	virtual void RenderDepth(Renderer * renderer);
 
 	virtual void Init() { };
 
@@ -40,9 +44,6 @@ public:
 
 	void MoveUp(float distance);
 
-public:
-
-	Transformation * m_transformation = nullptr;
 
 private:
 

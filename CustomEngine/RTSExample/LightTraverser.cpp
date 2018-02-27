@@ -43,7 +43,7 @@ void LightTraverser::PostVisit(Scene * scene)
 
 void LightTraverser::Visit(GameObject * gameObject)
 {
-	gameObject->Render(m_pRenderer);
+	gameObject->RenderDepth(m_pRenderer);
 }
 
 void LightTraverser::PostVisit(GameObject * gameObject)

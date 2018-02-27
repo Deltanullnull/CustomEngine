@@ -40,7 +40,7 @@ public:
 
 	void ToggleMouseLocked(Viewer * viewer);
 
-	void AddObjectToScene(GameObject * obj);
+	void AddObjectToScene(Transformation * obj);
 
 	void AddLightToScene(Light * light);
 
@@ -63,6 +63,8 @@ public:
 
 	void Start();
 
+	void SetMainCamera(Camera * cam);
+
 	void InitViewer(int argc, char ** argv);
 
 	void BindFunctionToKey(unsigned char key, std::function<void(Viewer*)>, KeyInputType inputType);
@@ -72,23 +74,16 @@ public:
 
 private:
 
-	bool keyPressedW = false;
-	bool keyPressedA = false;
-	bool keyPressedS = false;
-	bool keyPressedD = false;
-
 	bool fastForward = false;
 
 	const float moveSpeed = 0.1f;
 
-	bool mouseLocked = true;
+	bool mouseLocked = false;
 
 	std::map<unsigned char, bool> keyMap;
 	std::map<unsigned char, bool> keyMapTap; // key, active
 
 	std::map<unsigned char, std::vector<std::pair<std::function<void(Viewer*)>, KeyInputType>>> keyFunctionMap;
-
-	std::map<unsigned char, void(*) (int)> mouseFuncMap;
 
 	std::chrono::time_point < std::chrono::steady_clock> start_time, end_time;
 

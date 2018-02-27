@@ -4,9 +4,9 @@
 
 GameObject::GameObject()
 {
-	m_transformation = new Transformation();
+	m_transform = new Transformation();
 
-	m_transformation->m_gameObject = this;
+	m_transform->Attach(this);
 
 	GenerateID();
 
@@ -33,6 +33,8 @@ void GameObject::Render(Renderer * renderer)
 
 	glm::mat4 mvp = projection * modelView;
 
+	glm::mat4 lightMatrix = renderer->GetLight();
+
 	glm::vec3 lightPosition = renderer->GetLightPosition();
 
 	if (m_pShaderCore != nullptr)
@@ -41,7 +43,34 @@ void GameObject::Render(Renderer * renderer)
 		m_pShaderCore->SetUniformMatrix4f("view", 1, &view[0][0]);
 		m_pShaderCore->SetUniformMatrix4f("mvp", 1, &mvp[0][0]);
 
+		m_pShaderCore->SetUniformMatrix4f("light", 1, &lightMatrix[0][0]);
+
 		m_pShaderCore->SetUniformVector3f("lightPosition", 1, &lightPosition[0]);
+	}
+	if (m_pGeometryCore != nullptr)
+		m_pGeometryCore->Render();
+}
+
+void GameObject::RenderDepth(Renderer * renderer)
+{
+	if (m_pShadowShaderCore != nullptr)
+		m_pShadowShaderCore->BindShader();
+
+	
+	// bind uniform to shader
+	glm::mat4 modelView = renderer->GetView() * renderer->GetModel();
+	glm::mat4 view = renderer->GetView();
+	glm::mat4 projection = renderer->GetProjection();
+
+	glm::mat4 mvp = projection * modelView;
+
+	if (m_pShadowShaderCore != nullptr)
+	{
+		m_pShadowShaderCore->SetUniformMatrix4f("modelView", 1, &modelView[0][0]);
+		m_pShadowShaderCore->SetUniformMatrix4f("view", 1, &view[0][0]);
+		m_pShadowShaderCore->SetUniformMatrix4f("mvp", 1, &mvp[0][0]);
+
+		
 	}
 	if (m_pGeometryCore != nullptr)
 		m_pGeometryCore->Render();
@@ -49,17 +78,17 @@ void GameObject::Render(Renderer * renderer)
 
 void GameObject::AddTranslation(glm::vec3 translation)
 {
-	if (m_transformation)
+	if (m_transform)
 	{
-		m_transformation->AddTranslation(translation);
+		m_transform->AddTranslation(translation);
 	}
 }
 
 void GameObject::AddRotation(glm::vec3 euler)
 {
-	if (m_transformation)
+	if (m_transform)
 	{
-		m_transformation->AddRotation(euler);
+		m_transform->AddRotation(euler);
 	}
 }
 

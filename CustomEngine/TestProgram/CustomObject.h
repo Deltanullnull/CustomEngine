@@ -11,9 +11,8 @@ public:
 	virtual void Update() override;
 	virtual void Init() override;
 
-	void MoveForward(Component * comp);
-	void MoveDown(Component * comp);
-
+	void MoveForward();
+	void MoveDown();
 	
 
 };

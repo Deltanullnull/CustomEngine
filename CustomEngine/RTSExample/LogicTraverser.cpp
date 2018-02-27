@@ -21,6 +21,7 @@ void LogicTraverser::PostVisit(Component * component)
 
 void LogicTraverser::Visit(Camera * camera)
 {
+	camera->Update();
 }
 
 void LogicTraverser::PostVisit(Camera * camera)
@@ -46,6 +47,8 @@ void LogicTraverser::PostVisit(GameObject * gameObject)
 
 void LogicTraverser::Visit(Transformation * transformation)
 {
+	transformation->SetWorldOrientation(m_pRenderer);
+
 	transformation->m_gameObject->Accept(this);
 }
 

@@ -81,12 +81,19 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 						7, 3, 2, 7, 2, 6 // down
 	};
 
-	GLuint facesNormals[nIndices] = {	5, 5, 5, 5, 5, 5, // back
-										4, 4, 4, 4, 4, 4, // front
-										0, 0, 0, 0, 0, 0, // left
-										1, 1, 1, 1, 1, 1, // right
-										2, 2, 2, 2, 2, 2, // down						
-										3, 3, 3, 3, 3, 3  };
+	//GLuint facesNormals[nIndices] = {	5, 5, 5, 5, 5, 5, // back
+	//									4, 4, 4, 4, 4, 4, // front
+	//									0, 0, 0, 0, 0, 0, // left
+	//									1, 1, 1, 1, 1, 1, // right
+	//									2, 2, 2, 2, 2, 2, // down						
+	//									3, 3, 3, 3, 3, 3  };
+
+	GLuint facesNormals[nIndices] = { 4, 4, 4, 4, 4, 4, // back
+										5, 5, 5, 5, 5, 5, // front
+										1, 1, 1, 1, 1, 1, // left
+										0, 0, 0, 0, 0, 0, // right
+										3, 3, 3, 3, 3, 3, // down						
+										2, 2, 2, 2, 2, 2 };
 
 	vector<glm::vec3> vertexList;
 

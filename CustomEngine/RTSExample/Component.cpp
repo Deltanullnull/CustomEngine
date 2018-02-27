@@ -25,19 +25,31 @@ void Component::UpdateInput()
 
 		if (m_keyMap[key])
 		{
-			//cout << "Update input " << to_string((int)key) << " at " << to_string(id) << endl;
-			if (functions.find(key) != functions.end())
+			if (m_keyFunctionMap.find(key) != m_keyFunctionMap.end())
 			{
-				for (std::function<void(Component*)> func : functions[key])
+				for (std::function<void()> func : m_keyFunctionMap[key])
 				{
-					cout << "Updating" << endl;
-					func(this);
+					func();
 				}
-
 			}
-
 		}
 	}
+
+	/*for (auto it : m_mouseBtnMap)
+	{
+		int btn = it.first;
+
+		if (m_keyMap[btn])
+		{
+			if (m_mouseFunctionMap.find(btn) != m_mouseFunctionMap.end())
+			{
+				for (std::function<void()> func : m_mouseFunctionMap[btn])
+				{
+					func();
+				}
+			}
+		}
+	}*/
 
 	for (Component * child : m_listChildren)
 	{
@@ -66,6 +78,28 @@ void Component::KeyDown(unsigned char key)
 	{
 		child->KeyDown(key);
 	}
+}
+
+void Component::GetMouseInput(int& x, int& y)
+{
+	x = mouseX;
+	y = mouseY;
+}
+
+void Component::SetMousePosition(int x, int y)
+{
+	mouseX = x;
+	mouseY = y;
+
+	for (Component * child : m_listChildren)
+	{
+		child->SetMousePosition(x, y);
+	}
+}
+
+void Component::MouseDown(int key)
+{
+
 }
 
 void Component::AddChild(Component * child)
@@ -122,11 +156,17 @@ void Component::Accept(Traverser * traverser)
 	traverser->PostVisit(this);
 }
 
-void Component::AddAction(unsigned char key, std::function<void(Component*)> func)
+//void Component::AddAction(unsigned char key, std::function<void(Component*)> func)
+void Component::AddAction(unsigned char key, std::function<void()> func)
 {
 	int keyC = (int)key;
 
 	cout << "Adding action for " << to_string(keyC) << " at " << to_string(id) << endl;
 
-	functions[key].push_back(func);
+	m_keyFunctionMap[key].push_back(func);
+}
+
+void Component::AddAction(int mouseButton, MouseInput inputType, std::function<void()> func)
+{
+	m_mouseFunctionMap[mouseButton].push_back(func);
 }

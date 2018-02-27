@@ -54,7 +54,7 @@ void MoveForward()
 
 	if (camera)
 	{
-		camera->Move(camera->GetForwardVector()  * deltaTimeSeconds);
+		//camera->Move(camera->GetForwardVector()  * deltaTimeSeconds);
 	}
 }
 
@@ -64,7 +64,7 @@ void MoveBackwards()
 
 	if (camera)
 	{
-		camera->Move(-camera->GetForwardVector()  * deltaTimeSeconds);
+		//camera->Move(-camera->GetForwardVector()  * deltaTimeSeconds);
 	}
 }
 
@@ -74,7 +74,7 @@ void MoveUp()
 
 	if (camera)
 	{
-		camera->Move(camera->GetUpVector()  * deltaTimeSeconds);
+		//camera->Move(camera->GetUpVector()  * deltaTimeSeconds);
 	}
 }
 
@@ -84,7 +84,7 @@ void MoveDown()
 
 	if (camera)
 	{
-		camera->Move(-camera->GetUpVector()  * deltaTimeSeconds);
+		//camera->Move(-camera->GetUpVector()  * deltaTimeSeconds);
 	}
 }
 
@@ -94,7 +94,7 @@ void MoveLeft()
 
 	if (camera)
 	{
-		camera->Move(-camera->GetRightVector() * deltaTimeSeconds);
+		//camera->Move(-camera->GetRightVector() * deltaTimeSeconds);
 	}
 }
 
@@ -104,7 +104,7 @@ void MoveRight()
 
 	if (camera)
 	{
-		camera->Move(camera->GetRightVector() * deltaTimeSeconds);
+		//camera->Move(camera->GetRightVector() * deltaTimeSeconds);
 	}
 }
 
@@ -167,7 +167,7 @@ void Display(void)
 	{
 		//m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * 0.005f, mouseAxisYDelta * 0.005f);
 
-		m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds, mouseAxisYDelta * deltaTimeSeconds);
+		//m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds, mouseAxisYDelta * deltaTimeSeconds);
 	}
 
 	if (m_pMainScene != nullptr && m_pRenderTraverser != nullptr)
@@ -207,11 +207,11 @@ void CreateSampleObject()
 
 	//object0 = new CustomObject();
 
-	m_pMainScene->AddChild(object0->m_transformation);
+	m_pMainScene->AddChild(object0->m_transform);
 
 	//object1 = new GameObject();
 
-	object0->m_transformation->AddChild(object1->m_transformation);
+	object0->m_transform->AddChild(object1->m_transform);
 	//object0->AddInput('w', &GameObject::MoveForward);
 
 	object1->AddTranslation(glm::vec3(5.f, 10.f, 0.f));

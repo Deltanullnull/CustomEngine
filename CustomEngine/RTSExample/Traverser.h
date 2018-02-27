@@ -7,6 +7,7 @@ class Camera;
 class Scene;
 class Transformation;
 class Light;
+class Renderer;
 
 #pragma once
 class Traverser
@@ -32,6 +33,10 @@ public:
 
 	virtual void Visit(Light * light) = 0;
 	virtual void PostVisit(Light * light) = 0;
+
+public:
+
+	Renderer * m_pRenderer = nullptr;
 };
 
 
