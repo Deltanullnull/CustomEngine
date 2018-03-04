@@ -18,6 +18,10 @@ public:
 
 	void MoveRight();
 
+	void MoveDown();
+
+	void MoveUp();
+
 
 };
 
