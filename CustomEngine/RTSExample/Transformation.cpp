@@ -18,7 +18,7 @@ void Transformation::AddTranslation(glm::vec3 translation)
 	m_orientation[3][1] += translation.y;
 	m_orientation[3][2] += translation.z;
 
-	m_translation = translation;
+	m_translation += translation;
 }
 
 void Transformation::AddRotation(glm::vec3 euler)
@@ -27,15 +27,20 @@ void Transformation::AddRotation(glm::vec3 euler)
 
 	m_rotation = rot3x3 * m_rotation;
 
-	/*m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], m_translation.x,
-								m_rotation[1][0], m_rotation[1][1], m_rotation[1][2], m_translation.y,
-								m_rotation[2][0], m_rotation[2][1], m_rotation[2][2], m_translation.z,
-								0.f, 0.f, 0.f, 1.f);*/
+	m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], 0,
+							m_rotation[1][0], m_rotation[1][1], m_rotation[1][2], 0,
+							m_rotation[2][0], m_rotation[2][1], m_rotation[2][2], 0,
+							m_translation.x, m_translation.y, m_translation.z, 1.f);
 
-	m_orientation = glm::mat4(m_rotation[0][0], m_rotation[1][0], m_rotation[2][0], m_translation.x,
+	/*m_orientation = glm::mat4(-1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		m_translation.x, m_translation.y, m_translation.z, 1.f);*/
+
+	/*m_orientation = glm::mat4(m_rotation[0][0], m_rotation[1][0], m_rotation[2][0], m_translation.x,
 								m_rotation[0][1], m_rotation[1][1], m_rotation[2][1], m_translation.y,
 								m_rotation[0][2], m_rotation[1][2], m_rotation[2][2], m_translation.z,
-								0.f, 0.f, 0.f, 1.f);
+								0.f, 0.f, 0.f, 1.f);*/
 }
 
 void Transformation::Accept(Traverser * traverser)

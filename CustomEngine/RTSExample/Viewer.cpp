@@ -85,6 +85,8 @@ void Viewer::Display()
 	{
 		
 
+		m_pMainScene->SetMouseDelta(mouseAxisXDelta, mouseAxisYDelta);
+
 		m_pMainScene->UpdateInput();
 
 		if (m_pLogicTraverser != nullptr)
@@ -92,14 +94,14 @@ void Viewer::Display()
 			m_pMainScene->Accept(m_pLogicTraverser);
 		}
 
-		
-
-		if (m_pMainScene->m_pMainCamera && mouseLocked)
+		if (mouseLocked)
 		{
-			//m_pMainScene->m_pMainCamera->Rotate(-mouseAxisXDelta * deltaTimeSeconds * lookSpeed, mouseAxisYDelta * deltaTimeSeconds* lookSpeed);
-
 			glutWarpPointer(400, 300);
 		}
+
+		
+
+		
 
 		if (m_pLightTraverser != nullptr)
 		{
@@ -145,6 +147,9 @@ void Viewer::Display()
 	Sleep(sleepTime);
 
 	start_time = std::chrono::high_resolution_clock::now();
+
+	mouseAxisXDelta = 0;
+	mouseAxisYDelta = 0;
 }
 
 void Viewer::ProcessMouseButton(int x, int y, int a, int b)
@@ -295,10 +300,12 @@ void Viewer::PassiveMotionFunc(int x, int y)
 	mouseAxisYPre = mouseAxisY;
 
 
-	//cout << "Mouse: " << mouseAxisX << ", " << mouseAxisY << endl;
+	//cout << "Mouse: " << mouseAxisXDelta << ", " << mouseAxisYDelta << endl;
 	
 	// update mouse position
 	m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
+
+	//m_pMainScene->SetMouseDelta(mouseAxisXDelta, mouseAxisYDelta);
 
 }
 

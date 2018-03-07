@@ -24,7 +24,17 @@ void CameraSocket::Init()
 
 void CameraSocket::Update()
 {
-	// TODO rotation
+	int deltaX, deltaY;
+
+	GetMouseDelta(deltaX, deltaY);
+
+	if (deltaX != 0 || deltaY != 0)
+		printf("DeltaX: %d, %d\n", deltaX, deltaY);
+
+	AddRotation(glm::vec3(0, deltaY, 0) * turnRate);
+
+
+
 }
 
 void CameraSocket::MoveForward()

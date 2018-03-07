@@ -22,6 +22,12 @@ public:
 
 	void MoveUp();
 
+private:
+
+	int mouseX = -1, mouseY = -1;
+
+	float turnRate = 0.01f;
+
 
 };
 

@@ -86,6 +86,12 @@ void Component::GetMouseInput(int& x, int& y)
 	y = mouseY;
 }
 
+void Component::GetMouseDelta(int& x, int& y)
+{
+	x = mouseDeltaX;
+	y = mouseDeltaY;
+}
+
 void Component::SetMousePosition(int x, int y)
 {
 	mouseX = x;
@@ -94,6 +100,17 @@ void Component::SetMousePosition(int x, int y)
 	for (Component * child : m_listChildren)
 	{
 		child->SetMousePosition(x, y);
+	}
+}
+
+void Component::SetMouseDelta(int x, int y)
+{
+	mouseDeltaX = x;
+	mouseDeltaY = y;
+
+	for (Component * child : m_listChildren)
+	{
+		child->SetMouseDelta(x, y);
 	}
 }
 

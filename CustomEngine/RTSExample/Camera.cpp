@@ -47,7 +47,7 @@ void Camera::PushCameraMatrix(Renderer * renderer)
 	//cout << m_transform->m_worldOrientation[3][0] << ", " << m_transform->m_worldOrientation[3][1] << ", " << m_transform->m_worldOrientation[3][2] << endl;
 
 	//glm::mat4 transformedView = m_transform->m_worldOrientation * m_viewMatrix;
-	glm::mat4 transformedView = m_viewMatrix * glm::inverse(m_transform->m_worldOrientation);
+	glm::mat4 transformedView =  m_viewMatrix * glm::inverse(m_transform->m_worldOrientation);
 
 	//cout << transformedView[3][0] << ", " << transformedView[3][1] << ", " << transformedView[3][2] << endl;
 	/*cout << "View:" << endl;

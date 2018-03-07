@@ -36,7 +36,11 @@ public:
 
 	virtual void GetMouseInput(int & x, int & y);
 
+	virtual void GetMouseDelta(int & x, int & y);
+
 	void SetMousePosition(int deltaX, int deltaY);
+
+	void SetMouseDelta(int x, int y);
 
 	virtual void MouseDown(int key);
 
@@ -77,5 +81,8 @@ protected:
 
 	int mouseX = 0;
 	int mouseY = 0;
+
+	int mouseDeltaX = 0;
+	int mouseDeltaY = 0;
 };
 
