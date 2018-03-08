@@ -20,10 +20,14 @@ void CustomObject0::Update()
 
 void CustomObject0::Init()
 {
-	cout << "Init " << endl;
+	
 }
 
 void CustomObject0::Rotate()
 {
-	AddRotation(glm::vec3(0, 0, 0.01f));
+	AddRotation(m_transform->rightVector, 0.01f);
+
+	//cout << "Rotating right: " << m_transform->rightVector.x << ", " << m_transform->rightVector.y << ", " << m_transform->rightVector.z << endl;
+	//AddRotation(glm::vec3(0, 0, 1), 0.01f);
+	//AddRotation(glm::vec3(0, 0, 0.01f));
 }

@@ -41,8 +41,30 @@ void AddSampleGameObject(Viewer * viewer)
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
 
+	//obj->m_transform->AddChild(obj0->m_transform);
+
 	viewer->AddObjectToScene(obj->m_transform);
-	//viewer->AddObjectToScene(obj0->m_transform);
+	
+	viewer->AddObjectToScene(obj0->m_transform);
+
+	CustomCamera * mainCamera = new CustomCamera();
+	mainCamera->LookAt(glm::vec3(0, 0, -20), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	mainCamera->CreateProjection(45.f, 800.f / 600.f, 0.1f, 1000.f);
+
+
+	CameraSocket * camSocket = new CameraSocket();
+
+	//camSocket->m_transform->AddTranslation(glm::vec3(0, 0, 0));
+
+	camSocket->m_transform->AddChild(mainCamera->m_transform);
+
+	//obj->m_transform->AddChild(mainCamera->m_transform);
+
+	obj->m_transform->AddChild(camSocket->m_transform);
+
+	//viewer->AddObjectToScene(camSocket->m_transform);
+
+	viewer->SetMainCamera(mainCamera);
 
 }
 
@@ -66,20 +88,7 @@ int main(int argc, char ** argv)
 
 	AddSampleGameObject(mainViewer);
 
-	CustomCamera * mainCamera = new CustomCamera();
-	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
-	mainCamera->CreateProjection(45.f, 800.f / 600.f, 0.1f, 1000.f);
-
 	
-	CameraSocket * camSocket = new CameraSocket();
-
-	camSocket->m_transform->AddTranslation(glm::vec3(0, 0, 0));
-
-	camSocket->m_transform->AddChild(mainCamera->m_transform);
-
-	mainViewer->AddObjectToScene(camSocket->m_transform);
-
-	mainViewer->SetMainCamera(mainCamera);
 
 	mainViewer->Start();
 

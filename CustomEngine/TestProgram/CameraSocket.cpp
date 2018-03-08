@@ -31,8 +31,11 @@ void CameraSocket::Update()
 	if (deltaX != 0 || deltaY != 0)
 		printf("DeltaX: %d, %d\n", deltaX, deltaY);
 
-	//AddRotation(glm::vec3(0, deltaY, 0) * turnRate);
+	//AddRotation(glm::vec3(deltaX, 0, 0) * 0.01f);
 
+	AddRotation(m_transform->rightVector, deltaY * 0.01f);
+
+	//AddRotation(glm::vec3(1, 0, 0), deltaY * 0.01f);
 
 
 }

@@ -23,7 +23,7 @@ void CustomObject::Update()
 
 	//AddRotation(glm::vec3(deltaX, 0, 0) * 0.01f);
 
-	AddRotation(glm::vec3(0, 1, 0), deltaX * 0.01f);
+	AddRotation(m_transform->upVector, -deltaX * 0.01f);
 }
 
 void CustomObject::Init()

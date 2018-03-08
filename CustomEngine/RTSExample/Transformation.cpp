@@ -27,27 +27,12 @@ void Transformation::AddRotation(glm::vec3 euler)
 {
 	glm::mat3 rot3x3 = glm::mat3(glm::yawPitchRoll(euler.x, euler.y, euler.z));
 
-	
-
 	m_rotMat = glm::yawPitchRoll(euler.x, euler.y, euler.z) * m_rotMat;
 
-	//m_rotation = rot3x3 * m_rotation;
+	forwardVector = glm::normalize(glm::vec3(m_rotMat[2][0], m_rotMat[2][1], m_rotMat[2][2]));
+	rightVector = -glm::normalize(glm::vec3(m_rotMat[0][0], m_rotMat[0][1], m_rotMat[0][2]));
+	upVector = glm::normalize(glm::vec3(m_rotMat[1][0], m_rotMat[1][1], m_rotMat[1][2]));
 
-
-	/*m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], 0,
-							m_rotation[1][0], m_rotation[1][1], m_rotation[1][2], 0,
-							m_rotation[2][0], m_rotation[2][1], m_rotation[2][2], 0,
-							m_translation.x, m_translation.y, m_translation.z, 1.f);*/
-
-	/*m_orientation = glm::mat4(-1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		m_translation.x, m_translation.y, m_translation.z, 1.f);*/
-
-	/*m_orientation = glm::mat4(m_rotation[0][0], m_rotation[1][0], m_rotation[2][0], m_translation.x,
-								m_rotation[0][1], m_rotation[1][1], m_rotation[2][1], m_translation.y,
-								m_rotation[0][2], m_rotation[1][2], m_rotation[2][2], m_translation.z,
-								0.f, 0.f, 0.f, 1.f);*/
 }
 
 void Transformation::AddRotation(glm::vec3 axis, float angle)

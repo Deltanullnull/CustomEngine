@@ -19,7 +19,8 @@ void Renderer::PushModelMatrix(mat4 matrix)
 {
 	glm::mat4 matTop = ModelTop();
 
-	modelStack.push(matrix * matTop);
+	//modelStack.push(matrix * matTop);
+	modelStack.push(matTop * matrix);
 }
 
 void Renderer::PushViewMatrix(mat4 matrix)
