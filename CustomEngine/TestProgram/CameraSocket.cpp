@@ -14,12 +14,12 @@ CameraSocket::~CameraSocket()
 
 void CameraSocket::Init()
 {
-	AddAction('w', std::bind(&CameraSocket::MoveForward, this));
+	/*AddAction('w', std::bind(&CameraSocket::MoveForward, this));
 	AddAction('s', std::bind(&CameraSocket::MoveBackwards, this));
 	AddAction('a', std::bind(&CameraSocket::MoveLeft, this));
 	AddAction('d', std::bind(&CameraSocket::MoveRight, this));
 	AddAction('e', std::bind(&CameraSocket::MoveUp, this));
-	AddAction('q', std::bind(&CameraSocket::MoveDown, this));
+	AddAction('q', std::bind(&CameraSocket::MoveDown, this));*/
 }
 
 void CameraSocket::Update()
@@ -31,7 +31,7 @@ void CameraSocket::Update()
 	if (deltaX != 0 || deltaY != 0)
 		printf("DeltaX: %d, %d\n", deltaX, deltaY);
 
-	AddRotation(glm::vec3(0, deltaY, 0) * turnRate);
+	//AddRotation(glm::vec3(0, deltaY, 0) * turnRate);
 
 
 

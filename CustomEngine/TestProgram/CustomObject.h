@@ -12,7 +12,12 @@ public:
 	virtual void Init() override;
 
 	void MoveForward();
+	void MoveBackwards();
+	void MoveLeft();
+	void MoveRight();
 	void MoveDown();
+
+	void MoveUp();
 	
 
 };

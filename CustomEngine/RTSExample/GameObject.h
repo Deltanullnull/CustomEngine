@@ -28,6 +28,8 @@ public:
 	virtual void AddTranslation(glm::vec3 translation);
 
 	virtual void AddRotation(glm::vec3 euler);
+
+	void AddRotation(glm::vec3 axis, float angle);
 	
 	/// Shader
 	virtual void AddCore(ShaderCore * core);

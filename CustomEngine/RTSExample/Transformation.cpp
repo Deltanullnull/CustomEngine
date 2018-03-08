@@ -14,9 +14,11 @@ Transformation::~Transformation()
 
 void Transformation::AddTranslation(glm::vec3 translation)
 {
-	m_orientation[3][0] += translation.x;
+	/*m_orientation[3][0] += translation.x;
 	m_orientation[3][1] += translation.y;
-	m_orientation[3][2] += translation.z;
+	m_orientation[3][2] += translation.z;*/
+
+	m_transMat = glm::translate(m_transMat, translation);
 
 	m_translation += translation;
 }
@@ -25,12 +27,17 @@ void Transformation::AddRotation(glm::vec3 euler)
 {
 	glm::mat3 rot3x3 = glm::mat3(glm::yawPitchRoll(euler.x, euler.y, euler.z));
 
-	m_rotation = rot3x3 * m_rotation;
+	
 
-	m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], 0,
+	m_rotMat = glm::yawPitchRoll(euler.x, euler.y, euler.z) * m_rotMat;
+
+	//m_rotation = rot3x3 * m_rotation;
+
+
+	/*m_orientation = glm::mat4(m_rotation[0][0], m_rotation[0][1], m_rotation[0][2], 0,
 							m_rotation[1][0], m_rotation[1][1], m_rotation[1][2], 0,
 							m_rotation[2][0], m_rotation[2][1], m_rotation[2][2], 0,
-							m_translation.x, m_translation.y, m_translation.z, 1.f);
+							m_translation.x, m_translation.y, m_translation.z, 1.f);*/
 
 	/*m_orientation = glm::mat4(-1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -41,6 +48,15 @@ void Transformation::AddRotation(glm::vec3 euler)
 								m_rotation[0][1], m_rotation[1][1], m_rotation[2][1], m_translation.y,
 								m_rotation[0][2], m_rotation[1][2], m_rotation[2][2], m_translation.z,
 								0.f, 0.f, 0.f, 1.f);*/
+}
+
+void Transformation::AddRotation(glm::vec3 axis, float angle)
+{
+	m_rotMat = glm::rotate(angle, axis) * m_rotMat;
+
+	forwardVector = glm::normalize(glm::vec3(m_rotMat[2][0], m_rotMat[2][1], m_rotMat[2][2]));
+	rightVector = -glm::normalize(glm::vec3(m_rotMat[0][0], m_rotMat[0][1], m_rotMat[0][2]));
+	upVector = glm::normalize(glm::vec3(m_rotMat[1][0], m_rotMat[1][1], m_rotMat[1][2]));
 }
 
 void Transformation::Accept(Traverser * traverser)
@@ -103,6 +119,8 @@ void Transformation::Foo()
 
 void Transformation::PushTransformation(Renderer * renderer)
 {
+	m_orientation = m_transMat * m_rotMat;
+
 	renderer->PushModelMatrix(m_orientation);
 }
 

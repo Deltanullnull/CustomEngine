@@ -20,16 +20,16 @@ Camera::~Camera()
 }
 
 
-void Camera::LookAt(glm::vec3 eye, glm::vec3 direction, glm::vec3 up)
+void Camera::LookAt(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 {
 	//cout << "looking at" << endl;
 
-	m_viewMatrix = glm::lookAt(eye, eye + direction, glm::normalize(up));
+	m_viewMatrix = glm::lookAt(eye, center, up);
 }
 
 void Camera::CreateProjection(float fov, float ratio, float zNear, float zFar)
 {
-	m_projectionMatrix = glm::perspective(fov / 180.f * glm::pi<float>(), ratio, zNear, zFar);
+	m_projectionMatrix = glm::perspective(glm::radians(fov), ratio, zNear, zFar);
 }
 
 void Camera::CreateProjection(float left, float right, float bottom, float top, float zNear, float zFar)
@@ -47,8 +47,10 @@ void Camera::PushCameraMatrix(Renderer * renderer)
 	//cout << m_transform->m_worldOrientation[3][0] << ", " << m_transform->m_worldOrientation[3][1] << ", " << m_transform->m_worldOrientation[3][2] << endl;
 
 	//glm::mat4 transformedView = m_transform->m_worldOrientation * m_viewMatrix;
-	glm::mat4 transformedView =  m_viewMatrix * glm::inverse(m_transform->m_worldOrientation);
+	//glm::mat4 transformedView =  m_viewMatrix * glm::inverse(m_transform->m_worldOrientation);
+	glm::mat4 transformedView = m_viewMatrix;
 
+	
 	//cout << transformedView[3][0] << ", " << transformedView[3][1] << ", " << transformedView[3][2] << endl;
 	/*cout << "View:" << endl;
 	cout << transformedView[0][0] << ", " << transformedView[1][0] << ", " << transformedView[2][0] << ", " << transformedView[3][0] << endl;

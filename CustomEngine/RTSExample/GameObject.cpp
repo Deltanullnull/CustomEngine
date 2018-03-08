@@ -27,9 +27,12 @@ void GameObject::Render(Renderer * renderer)
 		m_pTextureCore->BindTexture();
 
 	// bind uniform to shader
-	glm::mat4 modelView = renderer->GetView() * renderer->GetModel();
+
+	glm::mat4 modelMatrix = renderer->GetModel();
 	glm::mat4 view = renderer->GetView();
 	glm::mat4 projection = renderer->GetProjection();
+
+	glm::mat4 modelView = view * modelMatrix;
 
 	glm::mat4 mvp = projection * modelView;
 
@@ -89,6 +92,14 @@ void GameObject::AddRotation(glm::vec3 euler)
 	if (m_transform)
 	{
 		m_transform->AddRotation(euler);
+	}
+}
+
+void GameObject::AddRotation(glm::vec3 axis, float angle)
+{
+	if (m_transform)
+	{
+		m_transform->AddRotation(axis, angle);
 	}
 }
 
