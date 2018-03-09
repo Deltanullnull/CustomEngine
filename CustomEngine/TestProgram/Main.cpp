@@ -22,20 +22,22 @@ void AddSampleGameObject(Viewer * viewer)
 {
 	cout << "Creating a new object" << endl;
 
+
 	CustomObject * obj = new CustomObject();
-	CustomObject0 * obj0 = new CustomObject0();
+	GameObject * obj0 = new GameObject();
 
 
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
 
-	GeometryCore * gCore = Geometry::CreatePlane(10.f, 10.f);
+	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
 	GeometryCore * gCoreBox = Geometry::CreateBox(5.f, 5.f, 5.f);
 
 	obj->AddCore(sCore);
 	obj->AddCore(gCoreBox);
 
-	//obj->AddRotation(glm::vec3(0, glm::pi<float>() / 2, 0));
+	obj0->AddRotation(glm::vec3(1, 0, 0), -glm::pi<float>() / 2);
+	obj0->AddTranslation(glm::vec3(0, -2.5f, 0));
 	//obj->MoveUp(-1.f);
 
 	obj0->AddCore(sCore);
@@ -72,7 +74,7 @@ void AddLight(Viewer * viewer)
 {
 	Light * light0 = new Light();
 
-	light0->UpdateOrientation(glm::vec3(-10, -10, -10), glm::vec3(1, 1, 1), glm::vec3(0, 1, 0));
+	light0->UpdateOrientation(glm::vec3(-10, 10, -10), glm::vec3(1, -1, 1), glm::vec3(0, 1, 0));
 	light0->UpdateProjection(-10, 10, -10, 10, 0.1, 100);
 
 	viewer->AddLightToScene(light0);

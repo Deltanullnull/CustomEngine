@@ -132,7 +132,6 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightTraverser.cpp" />
     <ClCompile Include="LogicTraverser.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MatrixStack.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Randomizer.cpp" />

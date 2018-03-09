@@ -52,6 +52,8 @@ public:
 
 	void SpecialFuncUp(int key, int x, int y);
 
+	void TimerFunc(int val);
+
 
 	void PassiveMotionFunc(int x, int y);
 
@@ -75,6 +77,8 @@ public:
 private:
 
 	bool fastForward = false;
+
+	bool warp = false;
 
 	const float moveSpeed = 0.1f;
 

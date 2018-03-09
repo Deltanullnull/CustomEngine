@@ -26,6 +26,14 @@ void PassiveMotionFuncCallback(int x, int y)
 	}
 }
 
+void TimerFuncCallback(int val)
+{
+	if (view != nullptr)
+	{
+		
+	}
+}
+
 void SpecialFuncCallback(int key, int x, int y)
 {
 	if (view != nullptr)
@@ -96,7 +104,9 @@ void Viewer::Display()
 
 		if (mouseLocked)
 		{
+			warp = true;
 			glutWarpPointer(400, 300);
+			warp = false;
 		}
 
 		
@@ -144,7 +154,7 @@ void Viewer::Display()
 	deltaTimeSeconds = std::min(std::max(deltaTimeSeconds, 1.f / 30.f), 1.f);
 
 
-	Sleep(sleepTime);
+	//Sleep(sleepTime);
 
 	start_time = std::chrono::high_resolution_clock::now();
 
@@ -245,8 +255,13 @@ void Viewer::ToggleMouseLocked(Viewer * viewer)
 
 	if (mouseLocked)
 	{
+		glutSetCursor(GLUT_CURSOR_NONE);
 		mouseAxisX = 400;
 		mouseAxisY = 300;
+	}
+	else
+	{
+		glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 	}
 }
 
@@ -288,9 +303,68 @@ void Viewer::SpecialFuncUp(int key, int x, int y)
 	fastForward = glutGetModifiers() & GLUT_ACTIVE_SHIFT;
 }
 
+void Viewer::TimerFunc(int val)
+{
+	glutTimerFunc(16, ::TimerFuncCallback, 0);
+	glutPostRedisplay();
+}
+
 void Viewer::PassiveMotionFunc(int x, int y)
 {
-	mouseAxisX = x;
+	if (mouseLocked)
+	{
+		if (!warp)
+		{
+			mouseAxisX = x;
+			mouseAxisY = 600 - y;
+
+			mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
+			mouseAxisYDelta = mouseAxisY - mouseAxisYPre;
+
+			cout << "Delta: " << mouseAxisXDelta << ", " << mouseAxisYDelta << endl;
+
+			mouseAxisXPre = mouseAxisX;
+			mouseAxisYPre = mouseAxisY;
+
+			// update mouse position
+			m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
+
+			//m_pMainScene->SetMouseDelta(mouseAxisXDelta, mouseAxisYDelta);
+
+			//warp = true;
+
+			
+			//glutWarpPointer(400, 300);
+			
+		}
+		else
+		{
+			cout << "Skipping" << endl;
+
+			//warp = false;
+		}
+	}
+	else
+	{
+		warp = false;
+
+		mouseAxisX = x;
+		mouseAxisY = 600 - y;
+
+		mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
+		mouseAxisYDelta = mouseAxisY - mouseAxisYPre;
+
+		mouseAxisXPre = mouseAxisX;
+		mouseAxisYPre = mouseAxisY;
+
+		// update mouse position
+		m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
+	}
+
+	
+	
+
+	/*mouseAxisX = x;
 	mouseAxisY = 600 - y;
 
 	mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
@@ -299,14 +373,8 @@ void Viewer::PassiveMotionFunc(int x, int y)
 	mouseAxisXPre = mouseAxisX;
 	mouseAxisYPre = mouseAxisY;
 
-
-	//cout << "Mouse: " << mouseAxisXDelta << ", " << mouseAxisYDelta << endl;
-	
 	// update mouse position
-	m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
-
-	//m_pMainScene->SetMouseDelta(mouseAxisXDelta, mouseAxisYDelta);
-
+	m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);*/
 }
 
 void Viewer::Exit()
@@ -388,6 +456,7 @@ void Viewer::InitViewer(int argc, char ** argv)
 	glutKeyboardFunc(::KeyDownCallback);
 	glutSpecialFunc(::SpecialFuncCallback);
 	glutSpecialUpFunc(::SpecialFuncUpCallback);
+	glutTimerFunc(16, ::TimerFuncCallback, 0);
 	//glutReshapeFunc(ReshapeWindow);
 
 	GLenum err = glewInit();
