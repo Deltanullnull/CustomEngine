@@ -18,11 +18,11 @@ void ProcessMouseButtonCallback(int x, int y, int a, int b)
 	}
 }
 
-void PassiveMotionFuncCallback(int x, int y)
+void PassiveMotionFuncCallback(GLFWwindow * window, double x, double y)
 {
 	if (view != nullptr)
 	{
-		view->PassiveMotionFunc(x, y);
+		view->PassiveMotionFunc(window, x, y);
 	}
 }
 
@@ -30,7 +30,7 @@ void TimerFuncCallback(int val)
 {
 	if (view != nullptr)
 	{
-		
+		view->TimerFunc(val);
 	}
 }
 
@@ -61,6 +61,19 @@ void KeyUpCallback(unsigned char key, int x, int y)
 	}
 }
 
+void KeyGlfwCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
+{
+	if (view != nullptr)
+	{
+		
+
+		if (key >= 'A' && key <= 'Z')
+			key = key + 32;
+
+		view->KeyGlfw(window, key, scancode, action, mods);
+	}
+}
+
 void KeyDownCallback(unsigned char key, int x, int y)
 {
 	if (view != nullptr)
@@ -84,6 +97,8 @@ Viewer::~Viewer()
 
 void Viewer::Display()
 {
+	//cout << "start render" << endl;
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -102,12 +117,14 @@ void Viewer::Display()
 			m_pMainScene->Accept(m_pLogicTraverser);
 		}
 
-		if (mouseLocked)
+		/*if (mouseLocked)
 		{
 			warp = true;
 			glutWarpPointer(400, 300);
-			warp = false;
-		}
+			
+		}*/
+
+	
 
 		
 
@@ -139,19 +156,20 @@ void Viewer::Display()
 	
 
 	glFlush();
-	glFinish();
+
+	glfwSwapBuffers(m_pWindow);
 
 	end_time = std::chrono::high_resolution_clock::now();
 
 	auto time = end_time - start_time;
 
-	deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(time).count();
+	//deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(time).count();
 
-	deltaTimeSeconds = deltaTime / 1000.f;
+	//deltaTimeSeconds = deltaTime / 1000.f;
 
-	int sleepTime = std::max(0, (int)(1000 / 60 - deltaTime));
+	//int sleepTime = std::max(0, (int)(1000 / 60 - deltaTime));
 
-	deltaTimeSeconds = std::min(std::max(deltaTimeSeconds, 1.f / 30.f), 1.f);
+	//deltaTimeSeconds = std::min(std::max(deltaTimeSeconds, 1.f / 30.f), 1.f);
 
 
 	//Sleep(sleepTime);
@@ -160,6 +178,12 @@ void Viewer::Display()
 
 	mouseAxisXDelta = 0;
 	mouseAxisYDelta = 0;
+
+	//warp = false;
+
+	//cout << "finsih render" << endl;
+
+	glfwPollEvents();
 }
 
 void Viewer::ProcessMouseButton(int x, int y, int a, int b)
@@ -170,78 +194,6 @@ void Viewer::ProcessMouseButton(int x, int y, int a, int b)
 void Viewer::ToggleFastForward(Viewer * viewer)
 {
 	fastForward = !fastForward;
-}
-
-void Viewer::MoveForward(Viewer * viewer)
-{
-	Camera * camera = m_pMainScene->m_pMainCamera;
-
-	float speed = fastForward ? moveSpeed * 2.0 : moveSpeed;
-
-	if (camera)
-	{
-		//camera->Move(camera->GetForwardVector()  * deltaTimeSeconds * speed);
-	}
-}
-
-void Viewer::MoveBackwards(Viewer * viewer)
-{
-	Camera * camera = m_pMainScene->m_pMainCamera;
-
-	float speed = fastForward ? moveSpeed * 2.0 : moveSpeed;
-
-	if (camera)
-	{
-		//camera->Move(-camera->GetForwardVector()  * deltaTimeSeconds* speed);
-	}
-}
-
-void Viewer::MoveUp(Viewer * viewer)
-{
-	Camera * camera = m_pMainScene->m_pMainCamera;
-
-	float speed = fastForward ? moveSpeed * 2.0 : moveSpeed;
-
-	if (camera)
-	{
-		//camera->Move(camera->GetUpVector()  * deltaTimeSeconds* speed);
-	}
-}
-
-void Viewer::MoveDown(Viewer * viewer)
-{
-	Camera * camera = m_pMainScene->m_pMainCamera;
-
-	float speed = fastForward ? moveSpeed * 2.0 : moveSpeed;
-
-	if (camera)
-	{
-		//camera->Move(-camera->GetUpVector()  * deltaTimeSeconds* speed);
-	}
-}
-
-void Viewer::MoveLeft(Viewer * viewer)
-{
-	Camera * camera = m_pMainScene->m_pMainCamera;
-
-	float speed = fastForward ? moveSpeed * 2.0 : moveSpeed;
-
-	if (camera)
-	{
-		//camera->Move(-camera->GetRightVector() * deltaTimeSeconds* speed);
-	}
-}
-
-void Viewer::MoveRight(Viewer * viewer)
-{
-	Camera * camera = m_pMainScene->m_pMainCamera;
-
-	float speed = fastForward ? moveSpeed * 2.0 : moveSpeed;
-
-	if (camera)
-	{
-		//camera->Move(camera->GetRightVector() * deltaTimeSeconds * speed);
-	}
 }
 
 void Viewer::ExitF(Viewer * viewer)
@@ -255,13 +207,13 @@ void Viewer::ToggleMouseLocked(Viewer * viewer)
 
 	if (mouseLocked)
 	{
-		glutSetCursor(GLUT_CURSOR_NONE);
+		glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		mouseAxisX = 400;
 		mouseAxisY = 300;
 	}
 	else
 	{
-		glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+		glfwSetInputMode(m_pWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 	}
 }
 
@@ -284,6 +236,27 @@ void Viewer::KeyDown(unsigned char key, int x, int y)
 	m_pMainScene->KeyDown(key);
 }
 
+void Viewer::KeyGlfw(GLFWwindow * window, int keyI, int scancode, int action, int mods)
+{
+
+	unsigned char key = (unsigned char)keyI;
+
+	if (action == GLFW_RELEASE)
+	{
+		keyMap[key] = false;
+
+		keyMapTap[key] = false;
+
+		m_pMainScene->KeyUp(key);
+	}
+	else if (action == GLFW_PRESS)
+	{
+		keyMap[key] = true;
+
+		m_pMainScene->KeyDown(key);
+	}
+}
+
 void Viewer::KeyUp(unsigned char key, int x, int y)
 {
 	keyMap[key] = false;
@@ -295,76 +268,24 @@ void Viewer::KeyUp(unsigned char key, int x, int y)
 
 void Viewer::SpecialFunc(int key, int x, int y)
 {
-	fastForward = glutGetModifiers() & GLUT_ACTIVE_SHIFT;
+	//fastForward = glutGetModifiers() & GLUT_ACTIVE_SHIFT;
 }
 
 void Viewer::SpecialFuncUp(int key, int x, int y)
 {
-	fastForward = glutGetModifiers() & GLUT_ACTIVE_SHIFT;
+	//fastForward = glutGetModifiers() & GLUT_ACTIVE_SHIFT;
 }
 
 void Viewer::TimerFunc(int val)
 {
-	glutTimerFunc(16, ::TimerFuncCallback, 0);
-	glutPostRedisplay();
+	//glutTimerFunc(33, ::TimerFuncCallback, 0);
+	//glutPostRedisplay();
 }
 
-void Viewer::PassiveMotionFunc(int x, int y)
+void Viewer::PassiveMotionFunc(GLFWwindow * window, double x, double y)
 {
-	if (mouseLocked)
-	{
-		if (!warp)
-		{
-			mouseAxisX = x;
-			mouseAxisY = 600 - y;
 
-			mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
-			mouseAxisYDelta = mouseAxisY - mouseAxisYPre;
-
-			cout << "Delta: " << mouseAxisXDelta << ", " << mouseAxisYDelta << endl;
-
-			mouseAxisXPre = mouseAxisX;
-			mouseAxisYPre = mouseAxisY;
-
-			// update mouse position
-			m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
-
-			//m_pMainScene->SetMouseDelta(mouseAxisXDelta, mouseAxisYDelta);
-
-			//warp = true;
-
-			
-			//glutWarpPointer(400, 300);
-			
-		}
-		else
-		{
-			cout << "Skipping" << endl;
-
-			//warp = false;
-		}
-	}
-	else
-	{
-		warp = false;
-
-		mouseAxisX = x;
-		mouseAxisY = 600 - y;
-
-		mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
-		mouseAxisYDelta = mouseAxisY - mouseAxisYPre;
-
-		mouseAxisXPre = mouseAxisX;
-		mouseAxisYPre = mouseAxisY;
-
-		// update mouse position
-		m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
-	}
-
-	
-	
-
-	/*mouseAxisX = x;
+	mouseAxisX = x;
 	mouseAxisY = 600 - y;
 
 	mouseAxisXDelta = mouseAxisX - mouseAxisXPre;
@@ -374,7 +295,10 @@ void Viewer::PassiveMotionFunc(int x, int y)
 	mouseAxisYPre = mouseAxisY;
 
 	// update mouse position
-	m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);*/
+	m_pMainScene->SetMousePosition(mouseAxisX, mouseAxisY);
+	
+
+	
 }
 
 void Viewer::Exit()
@@ -419,9 +343,13 @@ void Viewer::Start()
 {
 	mouseAxisX = 400;
 	mouseAxisY = 300;
-	glutWarpPointer(400, 300);
 
-	glutMainLoop();
+
+	while (!glfwWindowShouldClose(m_pWindow))
+	{
+		::DisplayCallback();
+	}
+
 }
 
 void Viewer::SetMainCamera(Camera * cam)
@@ -433,7 +361,11 @@ void Viewer::InitViewer(int argc, char ** argv)
 {
 	Randomizer::Init();
 
-	glutInit(&argc, argv);
+	if (!glfwInit())
+	{
+		return;
+	}
+
 
 	int width, height;
 
@@ -442,21 +374,23 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 	deltaTimeSeconds = 0.03;
 
-	glutInitWindowSize(width, height);
-	glutInitDisplayMode(GLUT_RGBA);
+	m_pWindow = glfwCreateWindow(width, height, "Kwox", NULL, NULL);
 
-	glutCreateWindow("Kwox");
+	glfwMakeContextCurrent(m_pWindow);
+
+	glfwSwapInterval(1);
+
 
 	view = this;
-	glutDisplayFunc(::DisplayCallback);
-	glutIdleFunc(::DisplayCallback);
-	glutMouseFunc(::ProcessMouseButtonCallback);
-	glutPassiveMotionFunc(::PassiveMotionFuncCallback);
-	glutKeyboardUpFunc(::KeyUpCallback);
-	glutKeyboardFunc(::KeyDownCallback);
-	glutSpecialFunc(::SpecialFuncCallback);
-	glutSpecialUpFunc(::SpecialFuncUpCallback);
-	glutTimerFunc(16, ::TimerFuncCallback, 0);
+
+	glfwSetCursorPosCallback(m_pWindow, ::PassiveMotionFuncCallback);
+	glfwSetKeyCallback(m_pWindow, ::KeyGlfwCallback);
+
+	//glutMouseFunc(::ProcessMouseButtonCallback);
+	
+	//glutSpecialFunc(::SpecialFuncCallback);
+	//glutSpecialUpFunc(::SpecialFuncUpCallback);
+	//glutTimerFunc(33, ::TimerFuncCallback, 0);
 	//glutReshapeFunc(ReshapeWindow);
 
 	GLenum err = glewInit();
@@ -482,17 +416,8 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 	InitKeyMap();
 
-	BindFunctionToKey('a', std::bind(&Viewer::MoveLeft, this, this), KeyInputType::Hold);
-	BindFunctionToKey('d', std::bind(&Viewer::MoveRight, this, this), KeyInputType::Hold);
-
-	BindFunctionToKey('w', std::bind(&Viewer::MoveForward, this, this), KeyInputType::Hold);
-	BindFunctionToKey('s', std::bind(&Viewer::MoveBackwards, this, this), KeyInputType::Hold);
-
-	BindFunctionToKey('q', std::bind(&Viewer::MoveDown, this, this), KeyInputType::Hold);
-	BindFunctionToKey('e', std::bind(&Viewer::MoveUp, this, this), KeyInputType::Hold);
-
 	BindFunctionToKey(32, std::bind(&Viewer::ToggleMouseLocked, this, this), KeyInputType::Tap);
-	BindFunctionToKey(27, std::bind(&Viewer::ExitF, this, this), KeyInputType::Tap);
+	BindFunctionToKey(0, std::bind(&Viewer::ExitF, this, this), KeyInputType::Tap);
 
 
 	m_pRenderTraverser = new RenderTraverser();

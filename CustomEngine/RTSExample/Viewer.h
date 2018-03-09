@@ -8,6 +8,7 @@
 #include "Light.h"
 #include <functional>
 
+
 #pragma once
 class Viewer
 {
@@ -24,18 +25,6 @@ public:
 
 	void ToggleFastForward(Viewer * viewer);
 
-	void MoveForward(Viewer * viewer);
-
-	void MoveBackwards(Viewer * viewer);
-
-	void MoveUp(Viewer * viewer);
-
-	void MoveDown(Viewer * viewer);
-
-	void MoveLeft(Viewer * viewer);
-
-	void MoveRight(Viewer * viewer);
-
 	void ExitF(Viewer * viewer);
 
 	void ToggleMouseLocked(Viewer * viewer);
@@ -46,6 +35,8 @@ public:
 
 	void KeyDown(unsigned char key, int x, int y);
 
+	void KeyGlfw(GLFWwindow * window, int key, int scancode, int action, int mods);
+
 	void KeyUp(unsigned char key, int x, int y);
 
 	void SpecialFunc(int key, int x, int y);
@@ -55,7 +46,7 @@ public:
 	void TimerFunc(int val);
 
 
-	void PassiveMotionFunc(int x, int y);
+	void PassiveMotionFunc(GLFWwindow * window, double x, double y);
 
 	void Exit();
 
@@ -91,7 +82,7 @@ private:
 
 	std::chrono::time_point < std::chrono::steady_clock> start_time, end_time;
 
-	INT64 deltaTime = 0;
+	//INT64 deltaTime = 0;
 
 	float deltaTimeSeconds = 0.f;
 
@@ -107,5 +98,7 @@ private:
 	LightTraverser * m_pLightTraverser = nullptr;
 
 	Scene * m_pMainScene = nullptr;
+
+	GLFWwindow * m_pWindow;
 };
 
