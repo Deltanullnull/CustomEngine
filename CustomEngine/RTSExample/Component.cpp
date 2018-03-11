@@ -17,6 +17,19 @@ void Component::GenerateID()
 	cout << "ID " << to_string(id) << " created" << endl;
 }
 
+Component * Component::GetChild(int idx)
+{
+	if (m_listChildren.size() > idx)
+	{
+		std::list<Component*>::iterator it = std::next(m_listChildren.begin(), idx);
+
+		return *it;
+	}
+
+	return nullptr;
+	
+}
+
 void Component::UpdateInput()
 {
 	for (std::map<unsigned char, bool>::iterator it = m_keyMap.begin(); it != m_keyMap.end(); it++)

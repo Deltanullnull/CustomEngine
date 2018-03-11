@@ -49,4 +49,13 @@ void ShaderCore::SetUniformVector3f(string name, GLsizei count, const GLfloat *p
 	glUniform3fv(loc, count, parameter);
 }
 
+void ShaderCore::SetUniform1i(string name, int val)
+{
+	int loc = glGetUniformLocation(m_shader, name.c_str());
+
+	//cout << "Setting uniform matrix at " << loc << endl;
+
+	glUniform1i(loc, val);
+}
+
 

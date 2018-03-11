@@ -18,11 +18,6 @@ void CustomObject::Update()
 
 	GetMouseDelta(deltaX, deltaY);
 
-	/*if (deltaX != 0 || deltaY != 0)
-		printf("DeltaX: %d, %d\n", deltaX, deltaY);*/
-
-	//AddRotation(glm::vec3(deltaX, 0, 0) * 0.01f);
-
 	AddRotation(m_transform->upVector, -deltaX * 0.01f);
 }
 
@@ -39,34 +34,68 @@ void CustomObject::Init()
 
 void CustomObject::MoveForward()
 {
-	m_transform->AddTranslation(m_transform->forwardVector * 0.1f);
-	//m_transform->AddTranslation(vec3(0, 0, 0.1f));
+	Transformation * childTransform = (Transformation *) (m_transform->GetChild(0));
+
+	if (childTransform != nullptr)
+	{
+		glm::mat4 childOrientation = m_transform->m_orientation * childTransform->m_orientation;
+		glm::vec3 forward = glm::normalize(glm::vec3(childOrientation[2][0], childOrientation[2][1], childOrientation[2][2]));
+		//glm::vec3  up = glm::normalize(glm::vec3(childOrientation[1][0], childOrientation[1][1], childOrientation[1][2]));
+		m_transform->AddTranslation(forward * 0.1f);
+	}
+	
+	/*m_transform->AddTranslation(m_transform->forwardVector * 0.1f);*/
 }
 
 void CustomObject::MoveBackwards()
 {
-	m_transform->AddTranslation(m_transform->forwardVector * -0.1f);
-	//m_transform->AddTranslation(vec3(0, 0, -0.1f));
+	Transformation * childTransform = (Transformation *)(m_transform->GetChild(0));
+
+	if (childTransform != nullptr)
+	{
+		glm::mat4 childOrientation = m_transform->m_orientation * childTransform->m_orientation;
+		glm::vec3 forward = glm::normalize(glm::vec3(childOrientation[2][0], childOrientation[2][1], childOrientation[2][2]));
+		//glm::vec3  up = glm::normalize(glm::vec3(childOrientation[1][0], childOrientation[1][1], childOrientation[1][2]));
+		m_transform->AddTranslation(forward * -0.1f);
+	}
+
+	//m_transform->AddTranslation(m_transform->forwardVector * -0.1f);
 }
 
 void CustomObject::MoveLeft()
 {
 	m_transform->AddTranslation(m_transform->rightVector * -0.1f);
-	//m_transform->AddTranslation(vec3(-0.1f, 0, 0));
 }
 
 void CustomObject::MoveRight()
 {
 	m_transform->AddTranslation(m_transform->rightVector * 0.1f);
-	//m_transform->AddTranslation(vec3(0.1f, 0, 0));
 }
 
 void CustomObject::MoveDown()
 {
-	m_transform->AddTranslation(vec3(0, -0.1f, 0));
+	Transformation * childTransform = (Transformation *)(m_transform->GetChild(0));
+
+	if (childTransform != nullptr)
+	{
+		glm::mat4 childOrientation = m_transform->m_orientation * childTransform->m_orientation;
+		glm::vec3  up = glm::normalize(glm::vec3(childOrientation[1][0], childOrientation[1][1], childOrientation[1][2]));
+		m_transform->AddTranslation(up * -0.1f);
+	}
+
+	//m_transform->AddTranslation(vec3(0, -0.1f, 0));
 }
 
 void CustomObject::MoveUp()
 {
-	m_transform->AddTranslation(vec3(0, 0.1f, 0));
+	Transformation * childTransform = (Transformation *)(m_transform->GetChild(0));
+
+	if (childTransform != nullptr)
+	{
+		glm::mat4 childOrientation = m_transform->m_orientation * childTransform->m_orientation;
+		glm::vec3  up = glm::normalize(glm::vec3(childOrientation[1][0], childOrientation[1][1], childOrientation[1][2]));
+		m_transform->AddTranslation(up * 0.1f);
+	}
+
+	//m_transform->AddTranslation(vec3(0, 0.1f, 0));
 }

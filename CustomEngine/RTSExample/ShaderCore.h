@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Renderer.h"
+#include "Core.h"
 
 using namespace std;
 
-class ShaderCore
+class ShaderCore : Core
 {
 public:
 	ShaderCore();
@@ -15,6 +15,8 @@ public:
 
 	void SetUniformMatrix4f(string name, GLsizei count, const GLfloat * parameter);
 	void SetUniformVector3f(string name, GLsizei count, const GLfloat *parameter);
+
+	void SetUniform1i(string name, int val);
 		
 public:
 	string m_pVertexShader, m_pGeometryShader, m_pTesselationShader, m_pFragmentShader;

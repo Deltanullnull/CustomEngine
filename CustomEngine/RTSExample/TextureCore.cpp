@@ -34,12 +34,14 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
-void TextureCore::BindTexture()
+void TextureCore::BindTexture(ShaderCore * shaderCore)
 {
 	for (int i = 0; i < m_listTextures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, m_listTextures[i]);
+
+		shaderCore->SetUniform1i("tex" + to_string(i), i);
 	}
 	
 }

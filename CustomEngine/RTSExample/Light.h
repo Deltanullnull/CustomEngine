@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Component.h"
+#include "Leaf.h"
+#include "Renderer.h"
+#include "Transformation.h"
 
-class Light : public Component
+class Light : public Leaf
 {
 public:
 	Light();
@@ -12,6 +14,16 @@ public:
 	void UpdateProjection(float left, float right, float bottom, float top, float zNear, float zFar);
 
 	void Accept(Traverser * traverser) override;
+
+	void Init() override
+	{
+
+	}
+
+	void Update() override
+	{
+
+	}
 
 	void PushTransformation(Renderer * renderer);
 	void PopTransformation(Renderer * renderer);

@@ -133,7 +133,6 @@
     <ClCompile Include="LightTraverser.cpp" />
     <ClCompile Include="LogicTraverser.cpp" />
     <ClCompile Include="MatrixStack.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderState.cpp" />
@@ -176,7 +175,6 @@
     <ClInclude Include="LightTraverser.h" />
     <ClInclude Include="LogicTraverser.h" />
     <ClInclude Include="MatrixStack.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="Randomizer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderState.h" />

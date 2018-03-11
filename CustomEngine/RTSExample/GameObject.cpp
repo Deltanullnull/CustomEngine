@@ -21,10 +21,12 @@ GameObject::~GameObject()
 void GameObject::Render(Renderer * renderer)
 {
 	if (m_pShaderCore != nullptr)
+	{
 		m_pShaderCore->BindShader();
+		if (m_pTextureCore != nullptr)
+			m_pTextureCore->BindTexture(m_pShaderCore);
+	}
 	
-	if (m_pTextureCore != nullptr)
-		m_pTextureCore->BindTexture();
 
 	// bind uniform to shader
 
@@ -49,6 +51,7 @@ void GameObject::Render(Renderer * renderer)
 		m_pShaderCore->SetUniformMatrix4f("light", 1, &lightMatrix[0][0]);
 
 		m_pShaderCore->SetUniformVector3f("lightPosition", 1, &lightPosition[0]);
+
 	}
 	if (m_pGeometryCore != nullptr)
 		m_pGeometryCore->Render();

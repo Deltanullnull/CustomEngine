@@ -31,6 +31,7 @@ void Light::Accept(Traverser * traverser)
 	traverser->Visit(this);
 }
 
+
 void Light::PushTransformation(Renderer * renderer)
 {
 	if (renderer == nullptr)

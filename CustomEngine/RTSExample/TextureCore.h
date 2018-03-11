@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "ShaderCore.h"
 
 class TextureCore : Core
 {
@@ -10,7 +10,7 @@ public:
 
 	void AddTexture(GLubyte * imageBuffer, int width, int height);
 
-	void BindTexture();
+	void BindTexture(ShaderCore * shaderCore);
 
 	void UnbindTexture();
 

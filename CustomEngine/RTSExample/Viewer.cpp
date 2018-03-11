@@ -50,23 +50,11 @@ void SpecialFuncUpCallback(int key, int x, int y)
 	}
 }
 
-void KeyUpCallback(unsigned char key, int x, int y)
-{
-	if (view != nullptr)
-	{
-		if (key >= 'A' && key <= 'Z')
-			key = key + 32;
-
-		view->KeyUp(key, x, y);
-	}
-}
 
 void KeyGlfwCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	if (view != nullptr)
 	{
-		
-
 		if (key >= 'A' && key <= 'Z')
 			key = key + 32;
 
@@ -74,16 +62,6 @@ void KeyGlfwCallback(GLFWwindow * window, int key, int scancode, int action, int
 	}
 }
 
-void KeyDownCallback(unsigned char key, int x, int y)
-{
-	if (view != nullptr)
-	{
-		if (key >= 'A' && key <= 'Z')
-			key = key + 32;
-
-		view->KeyDown(key, x, y);
-	}
-}
 
 
 Viewer::Viewer()
@@ -379,7 +357,6 @@ void Viewer::InitViewer(int argc, char ** argv)
 	glfwMakeContextCurrent(m_pWindow);
 
 	glfwSwapInterval(1);
-
 
 	view = this;
 

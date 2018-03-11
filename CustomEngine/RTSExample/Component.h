@@ -42,6 +42,8 @@ public:
 
 	void SetMouseDelta(int x, int y);
 
+	Component * GetChild(int idx);
+
 	virtual void MouseDown(int key);
 
 	virtual void AddChild(Component * child);
