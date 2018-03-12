@@ -10,7 +10,7 @@ public:
 	~GeometryCore();
 
 	void SetVertices(GLfloat * buffer, int size);
-	void SetUV(glm::vec2 * buffer, int size);
+	void SetUV(GLfloat * buffer, int size);
 	void SetNormals(GLfloat * buffer, int size);
 	void SetFaces(GLuint * buffer, int size);
 

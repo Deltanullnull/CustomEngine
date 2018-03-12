@@ -1,8 +1,11 @@
 #pragma once
 
+#include <stdio.h>
+
+
 #include <setjmp.h>
 
-#include <stdio.h>
+#include "TextureCore.h"
 
 class Texture
 {
@@ -10,6 +13,6 @@ public:
 	Texture();
 	~Texture();
 
-	static void LoadTexture(const char * fileName);
+	static TextureCore * LoadTexture(const char * fileName);
 };
 

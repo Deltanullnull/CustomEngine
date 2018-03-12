@@ -5,6 +5,7 @@
 #include "Core.h"
 #include "Scene.h"
 #include "Geometry.h"
+#include "Texture.h"
 #include "Light.h"
 #include <functional>
 

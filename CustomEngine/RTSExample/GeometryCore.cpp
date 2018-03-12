@@ -29,7 +29,7 @@ void GeometryCore::SetVertices(GLfloat * buffer, int size)
 	BindBuffer((void*)buffer, size, 3, 0);
 }
 
-void GeometryCore::SetUV(glm::vec2 * buffer, int size)
+void GeometryCore::SetUV(GLfloat * buffer, int size)
 {
 	glBindVertexArray(m_vao);
 

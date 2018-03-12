@@ -15,6 +15,7 @@ uniform vec3 lightPosition;
 out vec4 Vertex_Normal;
 out vec4 Vertex_Position;
 out vec4 Light_Position;
+out vec2 Vertex_UV;
 
 mat4 biasMatrix = mat4(
 	0.5, 0.0, 0.0, 0.0,
@@ -35,5 +36,7 @@ void main()
 	gl_Position = mvp * vec4(position, 1.0);
 
 	Light_Position = view * vec4(lightPosition, 1.0f);
+
+	Vertex_UV = uv;
 
 }
