@@ -245,3 +245,6 @@ ModelManifest.xml
 RTSExample/RTSExample/RTSExample.vcxproj
 RTSExample/RTSExample/RTSExample.vcxproj
 CustomEngine/TestProgram/BobaFett.png
+*.sln
+*.vcxproj
+*.filters
