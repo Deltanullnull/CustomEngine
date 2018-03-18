@@ -18,6 +18,8 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 
 	glm::vec3 normals[1];
 
+	glm::vec2 texels[4];
+
 	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, 0);
 	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, 0);
 	vertices[2] = glm::vec3(width / 2.f, height / 2.f, 0);
@@ -25,12 +27,19 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 
 	normals[0] = glm::vec3(0.f, 0.f, 1.f);
 
+	texels[0] = glm::vec2(0, 0);
+	texels[1] = glm::vec2(1, 0);
+	texels[2] = glm::vec2(1, 1);
+	texels[3] = glm::vec2(0, 1);
+
 	GLuint facesVertices[6] = {0, 1, 3, 1, 2, 3};
+	GLuint facesTexels[6] = { 0, 1, 3, 1, 2, 3 };
 	GLuint facesNormals[6] = { 0, 0, 0, 0, 0, 0 };
 
 	GeometryCore * core = new GeometryCore();
 
 	vector<glm::vec3> vertexList, normalList;
+	vector<glm::vec2> texelList;
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -38,12 +47,17 @@ GeometryCore * Geometry::CreatePlane(float width, float height)
 
 		vertexList.push_back(vertices[idx]);
 
+		idx = facesTexels[i];
+
+		texelList.push_back(texels[idx]);
+
 		idx = facesNormals[i];
 
 		normalList.push_back(normals[idx]);
 	}
 
 	core->SetVertices((GLfloat*)&vertexList[0], vertexList.size() * sizeof(glm::vec3));
+	core->SetUV((GLfloat*)&texelList[0], texelList.size() * sizeof(glm::vec2));
 	core->SetNormals((GLfloat*)&normalList[0], normalList.size() * sizeof(glm::vec3));
 	  
 	return core;

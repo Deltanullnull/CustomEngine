@@ -32,7 +32,7 @@ void AddSampleGameObject(Viewer * viewer)
 
 	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
 	GeometryCore * gCoreBox = Geometry::CreateBox(5.f, 5.f, 5.f);
-	TextureCore * texCore = Texture::LoadTexture("BobaFett.png");
+	TextureCore * texCore = Texture::LoadTexture("lena.jpg");
 
 	obj->AddCore(sCore);
 	obj->AddCore(gCoreBox);

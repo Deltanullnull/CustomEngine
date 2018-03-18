@@ -248,3 +248,5 @@ CustomEngine/TestProgram/BobaFett.png
 *.sln
 *.vcxproj
 *.filters
+CustomEngine/RTSExample/bb.jpg
+CustomEngine/TestProgram/bb.jpg
