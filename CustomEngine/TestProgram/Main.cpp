@@ -31,11 +31,14 @@ void AddSampleGameObject(Viewer * viewer)
 	sCore->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
 
 	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
-	GeometryCore * gCoreBox = Geometry::CreateBox(5.f, 5.f, 5.f);
+	GeometryCore * gCoreBox = Geometry::CreateBox(1.f, 1.f, 1.f);
+
 	TextureCore * texCore = Texture::LoadTexture("lena.jpg");
+	TextureCore * texCoreEmpty = Texture::CreateEmpty();
 
 	obj->AddCore(sCore);
 	obj->AddCore(gCoreBox);
+	obj->AddCore(texCoreEmpty);
 
 	obj0->AddRotation(glm::vec3(1, 0, 0), -glm::pi<float>() / 2);
 	obj0->AddTranslation(glm::vec3(0, -2.5f, 0));
@@ -43,6 +46,7 @@ void AddSampleGameObject(Viewer * viewer)
 
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
+	obj0->AddCore(texCore);
 
 	//obj->m_transform->AddChild(obj0->m_transform);
 

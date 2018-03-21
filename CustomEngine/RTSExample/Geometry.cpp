@@ -89,25 +89,25 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 
 	texels[0] = glm::vec2(0, 0);
 	texels[1] = glm::vec2(1, 0);
-	texels[2] = glm::vec2(0, 1);
-	texels[3] = glm::vec2(1, 1);
+	texels[2] = glm::vec2(1, 1);
+	texels[3] = glm::vec2(0, 1);
 
 	const int nIndices = 36;
 
 	GLuint facesVertices[nIndices] = { 0, 1, 3, 1, 2, 3, // front
-						5, 4, 7, 5, 7, 6, // back
-						0, 3, 4, 4, 3, 7, // left
+						4, 5, 7, 5, 6, 7, // back
+						0, 3, 4, 4, 7, 3, // left
 						1, 5, 6, 1, 6, 2, // right
 						0, 4, 1, 4, 5, 1, // up
-						7, 3, 2, 7, 2, 6 // down
+						3, 2, 7, 2, 6, 7 // down
 	};
 
-	GLuint facesTexels[nIndices] = { 0, 1, 2, 1, 3, 2, // back
-										0, 1, 2, 1, 3, 2, // front
-										0, 1, 2, 1, 3, 2, // left
-										0, 1, 2, 1, 3, 2, // right
-										0, 1, 2, 1, 3, 2, // down						
-										0, 1, 2, 1, 3, 2 };
+	GLuint facesTexels[nIndices] = { 0, 1, 3, 1, 2, 3, // back
+		0, 1, 3, 1, 2, 3, // front
+		0, 1, 3, 1, 2, 3, // left
+		0, 1, 3, 1, 2, 3, // right
+		0, 1, 3, 1, 2, 3, // down						
+		0, 1, 3, 1, 2, 3 };
 
 	GLuint facesNormals[nIndices] = { 4, 4, 4, 4, 4, 4, // back
 										5, 5, 5, 5, 5, 5, // front

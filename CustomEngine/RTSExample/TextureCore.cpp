@@ -21,17 +21,27 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 
 	m_listTextures.push_back(indexTexture);
 
-	glActiveTexture(GL_TEXTURE0);
+	if (imageBuffer != nullptr && width > 0 && height > 0)
+	{
+		glActiveTexture(GL_TEXTURE0 + nTextures);
 
-	glBindTexture(GL_TEXTURE_2D, indexTexture);
+	
+		glBindTexture(GL_TEXTURE_2D, indexTexture);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageBuffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageBuffer);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+}
+
+void TextureCore::AddTextureCubemap(GLubyte * imageBuffer, int width, int height)
+{
 }
 
 void TextureCore::BindTexture(ShaderCore * shaderCore)
@@ -48,9 +58,9 @@ void TextureCore::BindTexture(ShaderCore * shaderCore)
 
 void TextureCore::UnbindTexture()
 {
-	/*for (int i = 0; i < m_listTextures.size(); i++)
+	for (int i = 0; i < m_listTextures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, 0);
-	}*/
+	}
 }

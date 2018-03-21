@@ -55,6 +55,13 @@ void GameObject::Render(Renderer * renderer)
 	}
 	if (m_pGeometryCore != nullptr)
 		m_pGeometryCore->Render();
+
+	if (m_pShaderCore != nullptr)
+	{
+		
+		if (m_pTextureCore != nullptr)
+			m_pTextureCore->UnbindTexture();
+	}
 }
 
 void GameObject::RenderDepth(Renderer * renderer)

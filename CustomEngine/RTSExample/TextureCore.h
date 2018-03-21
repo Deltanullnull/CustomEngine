@@ -10,6 +10,8 @@ public:
 
 	void AddTexture(GLubyte * imageBuffer, int width, int height);
 
+	void AddTextureCubemap(GLubyte * imageBuffer, int width, int height);
+
 	void BindTexture(ShaderCore * shaderCore);
 
 	void UnbindTexture();

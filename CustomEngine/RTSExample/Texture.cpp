@@ -11,6 +11,15 @@ Texture::~Texture()
 {
 }
 
+TextureCore * Texture::CreateEmpty()
+{
+	TextureCore * tex = new TextureCore();
+
+	tex->AddTexture(nullptr, 0, 0);
+
+	return tex;
+}
+
 TextureCore * Texture::LoadTexture(const char * fileName)
 {
 
@@ -89,4 +98,9 @@ TextureCore * Texture::LoadTexture(const char * fileName)
 	tex->AddTexture(imageBuffer, cinfo.image_width, cinfo.image_height);
 
 	return tex;
+}
+
+TextureCore * Texture::LoadCubemap(const char * fileName)
+{
+	return nullptr;
 }
