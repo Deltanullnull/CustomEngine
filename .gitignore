@@ -243,7 +243,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 RTSExample/RTSExample/RTSExample.vcxproj
-RTSExample/RTSExample/RTSExample.vcxproj
 CustomEngine/TestProgram/BobaFett.png
 *.sln
 *.vcxproj

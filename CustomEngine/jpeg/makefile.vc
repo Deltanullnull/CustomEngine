@@ -8,8 +8,6 @@
 # Read installation instructions before saying "nmake" !!
 # To build an optimized library without debug info, say "nmake nodebug=1".
 
-# Pull in standard variable definitions
-
 # You may want to adjust these compiler options:
 CFLAGS= $(cflags) $(cdebug) $(cvars) -I.
 # Generally, we recommend defining any configuration symbols in jconfig.h,
