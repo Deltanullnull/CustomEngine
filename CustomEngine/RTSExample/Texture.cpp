@@ -15,7 +15,7 @@ TextureCore * Texture::CreateEmpty()
 {
 	TextureCore * tex = new TextureCore();
 
-	tex->AddTexture(new GLubyte[0], 0, 0);
+	tex->AddTexture(new GLubyte[3]{ (GLubyte)(0.2 * 255), (GLubyte)(0.2 * 255), (GLubyte) (0.2 * 255) }, 1, 1);
 
 	return tex;
 }

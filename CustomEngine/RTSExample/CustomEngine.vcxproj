@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)glm;$(ASSIMP_ROOT)\include;$(LIBJPEG);$(IncludePath)</IncludePath>
-    <LibraryPath>$(ASSIMP_ROOT)\lib\$(Platform)\$(Configuration)\;$(LIBJPEG)\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ASSIMP_ROOT)\lib\$(Platform)\$(Configuration)\;$(SolutionDir)jpeg\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

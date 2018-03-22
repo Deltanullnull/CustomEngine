@@ -27,9 +27,9 @@ void main()
 	vec3 R = normalize(-reflect(L, Vertex_Normal.xyz));
 
 
-	vec4 ambient = vec4(0.1f, 0.1f, 0.1f, 1.0f);
+	vec4 ambient = vec4(0.5f, 0.5f, 0.5f, 1.0f);
 	
-	if (textureSize(tex0, 0).x > 0)
+	if (textureSize(tex0, 0).y > 0)
 	{
 	    texFrag = texture2D(tex0, Vertex_UV);
 		ambient = vec4(texFrag.x * 0.1f, texFrag.y * 0.1f, texFrag.z * 0.1f, texFrag.w);
@@ -49,7 +49,7 @@ void main()
 	vec3 colorGammaCorrected;
 
 
-	if (textureSize(tex0, 0).x > 0)
+	if (textureSize(tex0, 0).y > 0)
 	{
 		colorGammaCorrected = texFrag.xyz *(ambient.xyz + diffuse.xyz + specular.xyz);
 	}
