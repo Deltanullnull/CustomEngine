@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <IncludePath>$(SolutionDir)glm;$(ASSIMP_ROOT)\include;$(LIBJPEG);$(IncludePath)</IncludePath>
-    <LibraryPath>$(ASSIMP_ROOT)\lib\$(Platform)\$(Configuration)\;$(LIBJPEG)\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)glm;$(ASSIMP_ROOT)\include;$(SolutionDir)jpeg;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ASSIMP_ROOT)\lib\$(Platform)\$(Configuration)\;$(SolutionDir)jpeg\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)glm;$(ASSIMP_ROOT)\include;$(LIBJPEG);$(IncludePath)</IncludePath>
