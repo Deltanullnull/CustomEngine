@@ -21,7 +21,7 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 
 	m_listTextures.push_back(indexTexture);
 
-	if (imageBuffer != nullptr && width > 0 && height > 0)
+	if (imageBuffer != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE0 + nTextures);
 

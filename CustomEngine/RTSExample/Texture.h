@@ -13,6 +13,7 @@ public:
 	Texture();
 	~Texture();
 
+	
 	static TextureCore * CreateEmpty();
 
 	static TextureCore * LoadTexture(const char * fileName);
