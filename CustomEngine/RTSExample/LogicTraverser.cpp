@@ -45,6 +45,16 @@ void LogicTraverser::PostVisit(GameObject * gameObject)
 {
 }
 
+void LogicTraverser::Visit(Skybox * transformation)
+{
+	
+}
+
+void LogicTraverser::PostVisit(Skybox * transformation)
+{
+	
+}
+
 void LogicTraverser::Visit(Transformation * transformation)
 {
 	transformation->PushTransformation(m_pRenderer);

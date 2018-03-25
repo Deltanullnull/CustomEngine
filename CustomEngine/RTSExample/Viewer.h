@@ -7,6 +7,7 @@
 #include "Geometry.h"
 #include "Texture.h"
 #include "Light.h"
+#include "Skybox.h"
 #include <functional>
 
 

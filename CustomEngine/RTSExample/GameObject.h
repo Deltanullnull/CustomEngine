@@ -47,7 +47,7 @@ public:
 	void MoveUp(float distance);
 
 
-private:
+protected:
 
 	ShaderCore * m_pShaderCore, * m_pShadowShaderCore = NULL;
 	TextureCore * m_pTextureCore = NULL;

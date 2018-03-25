@@ -27,47 +27,66 @@ void AddSampleGameObject(Viewer * viewer)
 	GameObject * obj0 = new GameObject();
 
 
+	Skybox * skybox = new Skybox();
+
+
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
 
+	ShaderCore * sCoreSkybox = new ShaderCore();
+	sCoreSkybox->GenerateShader("./../glsl/skybox.vert", "", "./../glsl/skybox.frag");
+
 	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
-	GeometryCore * gCoreBox = Geometry::CreateBox(1.f, 1.f, 1.f);
+	GeometryCore * gCoreBox = Geometry::CreateBox(500.f, 500.f, 500.f);
 
 	TextureCore * texCore = Texture::LoadTexture("lena.jpg");
+	TextureCore * texCoreSpace = Texture::LoadTexture("space.jpg");
 	TextureCore * texCoreEmpty = Texture::CreateEmpty();
 
 	obj->AddCore(sCore);
-	obj->AddCore(gCoreBox);
-	obj->AddCore(texCoreEmpty);
+	
+	skybox->AddCore(sCoreSkybox);
+	skybox->AddCore(gCoreBox);
+	skybox->AddCore(texCoreSpace);
 
 	obj0->AddRotation(glm::vec3(1, 0, 0), -glm::pi<float>() / 2);
 	obj0->AddTranslation(glm::vec3(0, -2.5f, 0));
-	//obj->MoveUp(-1.f);
-
+	
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
 	obj0->AddCore(texCore);
 
 	//obj->m_transform->AddChild(obj0->m_transform);
 
+	viewer->AddObjectToScene(skybox->m_transform);
+
 	viewer->AddObjectToScene(obj->m_transform);
 	
 	viewer->AddObjectToScene(obj0->m_transform);
 
+	
+
 	CustomCamera * mainCamera = new CustomCamera();
-	mainCamera->LookAt(glm::vec3(0, 0, -20), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	//mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 	mainCamera->CreateProjection(45.f, 800.f / 600.f, 0.1f, 1000.f);
 
+	
 
-	CameraSocket * camSocket = new CameraSocket();
+	CameraSocket * elevation = new CameraSocket();
+
+	GameObject * camSocket = new GameObject();
 
 	//camSocket->m_transform->AddTranslation(glm::vec3(0, 0, 0));
 
+	elevation->m_transform->AddChild(camSocket->m_transform);
 	camSocket->m_transform->AddChild(mainCamera->m_transform);
+	
+	//camSocket->AddTranslation(glm::vec3(0, 0, -20));
 
 	//obj->m_transform->AddChild(mainCamera->m_transform);
 
-	obj->m_transform->AddChild(camSocket->m_transform);
+	obj->m_transform->AddChild(elevation->m_transform);
 
 	//viewer->AddObjectToScene(camSocket->m_transform);
 

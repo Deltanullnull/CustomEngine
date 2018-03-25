@@ -21,6 +21,8 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 
 	m_listTextures.push_back(indexTexture);
 
+	m_mapTextures.at(indexTexture) = GL_TEXTURE_2D;
+
 	if (imageBuffer != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE0 + nTextures);
@@ -42,6 +44,30 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 
 void TextureCore::AddTextureCubemap(GLubyte * imageBuffer, int width, int height)
 {
+	GLenum target[] = {
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
+		GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+	};
+	GLuint indexTexture;
+
+	glGenTextures(1, &indexTexture);
+
+	m_mapTextures.at(indexTexture) = GL_TEXTURE_CUBE_MAP;
+
+	m_listTextures.push_back(indexTexture);
+
+	glBindTexture(GL_TEXTURE_CUBE_MAP, indexTexture);
+
+
+	for (int i = 0; i < 6; i++)
+	{
+
+		glTexImage2D(target[i], 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageBuffer);
+	}
 }
 
 void TextureCore::BindTexture(ShaderCore * shaderCore)

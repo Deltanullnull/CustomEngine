@@ -2,6 +2,8 @@
 
 #include "ShaderCore.h"
 
+#include <map>
+
 class TextureCore : Core
 {
 public:
@@ -21,6 +23,7 @@ private:
 
 	vector<GLuint> m_listTextures;
 
+	map<GLuint, GLenum> m_mapTextures;
 
 };
 

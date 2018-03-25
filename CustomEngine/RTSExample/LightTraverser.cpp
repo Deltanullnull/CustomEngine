@@ -50,6 +50,16 @@ void LightTraverser::PostVisit(GameObject * gameObject)
 {
 }
 
+void LightTraverser::Visit(Skybox * transformation)
+{
+
+}
+
+void LightTraverser::PostVisit(Skybox * transformation)
+{
+
+}
+
 void LightTraverser::Visit(Transformation * transformation)
 {
 	transformation->PushTransformation(m_pRenderer);

@@ -108,6 +108,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -151,6 +154,12 @@
       <Filter>glsl</Filter>
     </None>
     <None Include="..\glsl\phong.vert">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="..\glsl\skybox.frag">
+      <Filter>glsl</Filter>
+    </None>
+    <None Include="..\glsl\skybox.vert">
       <Filter>glsl</Filter>
     </None>
   </ItemGroup>
@@ -225,6 +234,9 @@
       <Filter>Header Files\Traverser</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

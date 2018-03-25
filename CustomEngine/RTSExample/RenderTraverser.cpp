@@ -61,6 +61,18 @@ void RenderTraverser::PostVisit(GameObject * transformation)
 	//cout << "Post visit: object" << endl;
 }
 
+void RenderTraverser::Visit(Skybox * transformation)
+{
+	//cout << "Visit: object" << endl;
+
+	transformation->Render(m_pRenderer);
+}
+
+void RenderTraverser::PostVisit(Skybox * transformation)
+{
+	//cout << "Post visit: object" << endl;
+}
+
 void RenderTraverser::Visit(Transformation * transformation)
 {
 	//cout << "Visit: transformation" << endl;

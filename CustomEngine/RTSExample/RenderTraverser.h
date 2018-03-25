@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Scene.h"
 #include "Light.h"
+#include "Skybox.h"
 
 #pragma once
 class RenderTraverser : public Traverser
@@ -26,6 +27,10 @@ public:
 	
 	virtual void Visit(GameObject * transformation) override;
 	virtual void PostVisit(GameObject * transformation) override;
+
+	void Visit(Skybox * transformation);
+
+	void PostVisit(Skybox * transformation);
 	
 	virtual void Visit(Transformation * transformation) override;
 	virtual void PostVisit(Transformation * transformation) override;

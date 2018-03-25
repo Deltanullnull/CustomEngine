@@ -142,6 +142,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderCore.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCore.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -162,6 +163,8 @@
     <None Include="..\glsl\shadow.vert" />
     <None Include="..\glsl\skeleton.frag" />
     <None Include="..\glsl\skeleton.vert" />
+    <None Include="..\glsl\skybox.frag" />
+    <None Include="..\glsl\skybox.vert" />
     <None Include="..\glsl\texture.frag" />
     <None Include="..\glsl\texture.vert" />
     <None Include="packages.config" />
@@ -185,6 +188,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderCore.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCore.h" />
     <ClInclude Include="GameObject.h" />
