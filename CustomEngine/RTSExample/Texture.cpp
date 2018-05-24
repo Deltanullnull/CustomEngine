@@ -40,8 +40,6 @@ TextureCore * Texture::LoadTexture(const char * fileName)
 
 	cinfo.err = jpeg_std_error(&jerr.pub);
 
-	
-
 	if ((inFile = fopen(fileName, "rb")) == nullptr)
 	{
 		printf("Error opening the file!\n");

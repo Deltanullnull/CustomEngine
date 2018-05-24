@@ -41,7 +41,7 @@ void AddSampleGameObject(Viewer * viewer)
 
 	TextureCore * texCore = Texture::LoadTexture("lena.jpg");
 	TextureCore * texCoreSpace = Texture::LoadTexture("space.jpg");
-	TextureCore * texCoreEmpty = Texture::CreateEmpty();
+	//TextureCore * texCoreEmpty = Texture::CreateEmpty();
 
 	obj->AddCore(sCore);
 	

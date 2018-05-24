@@ -21,7 +21,9 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 
 	m_listTextures.push_back(indexTexture);
 
-	m_mapTextures.at(indexTexture) = GL_TEXTURE_2D;
+	m_mapTextures.insert(make_pair(indexTexture, GL_TEXTURE_2D));
+
+	//m_mapTextures.at(indexTexture) = GL_TEXTURE_2D;
 
 	if (imageBuffer != nullptr)
 	{
