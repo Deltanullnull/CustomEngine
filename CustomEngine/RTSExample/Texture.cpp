@@ -20,13 +20,12 @@ TextureCore * Texture::CreateEmpty()
 	return tex;
 }
 
-TextureCore * Texture::LoadTexture(const char * fileName)
+bool Texture::LoadTexture(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight)
 {
-
 	struct my_error_mgr {
-		struct jpeg_error_mgr pub;	
+		struct jpeg_error_mgr pub;
 
-		jmp_buf setjmp_buffer;	
+		jmp_buf setjmp_buffer;
 	};
 
 
@@ -43,14 +42,14 @@ TextureCore * Texture::LoadTexture(const char * fileName)
 	if ((inFile = fopen(fileName, "rb")) == nullptr)
 	{
 		printf("Error opening the file!\n");
-		return nullptr;
+		return false;
 	}
 
 	if (setjmp(jerr.setjmp_buffer))
 	{
 		jpeg_destroy_decompress(&cinfo);
 		fclose(inFile);
-		return nullptr;
+		return false;
 	}
 
 	jpeg_create_decompress(&cinfo);
@@ -62,7 +61,7 @@ TextureCore * Texture::LoadTexture(const char * fileName)
 	jpeg_start_decompress(&cinfo);
 
 	int rowStride = cinfo.output_width * cinfo.output_components;
-	
+
 	JSAMPARRAY buffer = (*cinfo.mem->alloc_sarray) ((j_common_ptr)&cinfo, JPOOL_IMAGE, rowStride, 1);
 
 	BYTE * imageBuffer = new BYTE[cinfo.image_width * cinfo.image_height * cinfo.num_components];
@@ -79,8 +78,6 @@ TextureCore * Texture::LoadTexture(const char * fileName)
 		{
 			imageBuffer[j++] = buffer[0][i];
 		}
-
-
 	}
 
 	jpeg_finish_decompress(&cinfo);
@@ -89,16 +86,39 @@ TextureCore * Texture::LoadTexture(const char * fileName)
 
 	fclose(inFile);
 
+	*outWidth = cinfo.image_width;
+	*outHeight = cinfo.image_height;
+	*outBuffer = imageBuffer;
+
+	return true;
+}
+
+TextureCore * Texture::CreateTextureCoreFromFile(const char * fileName)
+{
+	BYTE * imageBuffer;
+	int width, height;
+
+	LoadTexture(fileName, &imageBuffer, &width, &height);
+
 	cout << "Image loaded" << endl;
 
 	TextureCore * tex = new TextureCore();
 
-	tex->AddTexture(imageBuffer, cinfo.image_width, cinfo.image_height);
+	tex->AddTexture(imageBuffer, width, height);
 
 	return tex;
 }
 
 TextureCore * Texture::LoadCubemap(const char * fileName)
 {
-	return nullptr;
+	BYTE * imageBuffer;
+	int width, height;
+
+	LoadTexture(fileName, &imageBuffer, &width, &height);
+
+	TextureCore * tex = new TextureCore();
+
+	tex->AddTextureCubemap(imageBuffer, width, height);
+
+	return tex;
 }

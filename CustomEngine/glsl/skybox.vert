@@ -13,7 +13,7 @@ uniform mat4 mvpDepth;
 uniform vec3 lightPosition;
 
 out vec4 Vertex_Position;
-out vec2 Vertex_UV;
+out vec3 Vertex_UV;
 
 
 void main()
@@ -26,6 +26,6 @@ void main()
 
 	gl_Position = mvp * vec4(position, 1.0);
 
-	Vertex_UV = uv;
+	Vertex_UV = position;
 
 }

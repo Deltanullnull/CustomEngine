@@ -44,6 +44,31 @@ void TextureCore::AddTexture(GLubyte * imageBuffer, int width, int height)
 	}
 }
 
+void TextureCore::GetSubTexture(GLubyte * imageBuffer, int width, int height, int channels, int x, int y, GLubyte ** outBuffer, int * outWidth, int * outHeight)
+{
+	int subWidth = width / 4;
+	int subHeight = height / 3;
+
+	GLubyte * subBuffer = new GLubyte[subWidth * subHeight * channels];
+
+	for (int v = 0; v < subHeight; v++)
+	{
+		for (int u = 0; u < subWidth; u++)
+		{
+			int subIdx = u + v * subWidth;
+
+			int idx = (x * subWidth + u) + (y * subHeight + v) * width;
+
+
+			subBuffer[subIdx] = imageBuffer[idx];
+		}
+	}
+	
+	*outBuffer = subBuffer;
+	*outWidth = subWidth;
+	*outHeight = subHeight;
+}
+
 void TextureCore::AddTextureCubemap(GLubyte * imageBuffer, int width, int height)
 {
 	GLenum target[] = {
@@ -64,11 +89,19 @@ void TextureCore::AddTextureCubemap(GLubyte * imageBuffer, int width, int height
 
 	glBindTexture(GL_TEXTURE_CUBE_MAP, indexTexture);
 
+	int batchCoordinatesX[6] = { 0, 1, 2, 3, 3, 3 };
+	int batchCoordinatesY[6] = { 1, 1, 1, 1, 0, 2 };
 
 	for (int i = 0; i < 6; i++)
 	{
+		// TODO get subset of image
+		GLubyte * subTexture;
+		int subWidth, subHeight;
+		int x = batchCoordinatesX[i];
+		int y = batchCoordinatesY[i];
+		TextureCore::GetSubTexture(imageBuffer, width, height, 3, x, y, &subTexture, &subWidth, &subHeight);
 
-		glTexImage2D(target[i], 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageBuffer);
+		glTexImage2D(target[i], 0, GL_RGB, subWidth, subHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, subTexture);
 	}
 }
 

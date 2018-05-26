@@ -16,7 +16,9 @@ public:
 	
 	static TextureCore * CreateEmpty();
 
-	static TextureCore * LoadTexture(const char * fileName);
+	static bool LoadTexture(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight);
+
+	static TextureCore * CreateTextureCoreFromFile(const char * fileName);
 
 	static TextureCore * LoadCubemap(const char * fileName);
 };
