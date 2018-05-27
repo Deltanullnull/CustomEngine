@@ -20,6 +20,8 @@ public:
 
 	static TextureCore * CreateTextureCoreFromFile(const char * fileName);
 
-	static TextureCore * LoadCubemap(const char * fileName);
+	static TextureCore * CreateCubemapCoreFromFile(const char * fileName[6]);
+
+	static TextureCore * CreateCubemapCoreFromFile(const char * fileName);
 };
 

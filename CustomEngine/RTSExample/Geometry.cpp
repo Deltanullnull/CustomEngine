@@ -69,15 +69,17 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 
 	glm::vec2 texels[4];
 
-	vertices[0] = glm::vec3(-width / 2.f, -height / 2.f, depth / 2.f);
-	vertices[1] = glm::vec3(width / 2.f, -height / 2.f, depth / 2.f);
-	vertices[2] = glm::vec3(width / 2.f, height / 2.f, depth / 2.f);
-	vertices[3] = glm::vec3(-width / 2.f, height / 2.f, depth / 2.f);
+	vertices[0] = glm::vec3(-width / 2.f, height / 2.f, -depth / 2.f);
+	vertices[1] = glm::vec3(-width / 2.f, -height / 2.f, -depth / 2.f);
+	vertices[2] = glm::vec3(width / 2.f, -height / 2.f, -depth / 2.f);
+	vertices[3] = glm::vec3(width / 2.f, height / 2.f, -depth / 2.f);
+	
+	vertices[4] = glm::vec3(-width / 2.f, -height / 2.f, depth / 2.f);
+	vertices[5] = glm::vec3(-width / 2.f, height / 2.f, depth / 2.f);
+	vertices[6] = glm::vec3(width / 2.f, -height / 2.f, depth / 2.f);
+	vertices[7] = glm::vec3(width / 2.f, height / 2.f, depth / 2.f);
 
-	vertices[4] = glm::vec3(-width / 2.f, -height / 2.f, -depth / 2.f);
-	vertices[5] = glm::vec3(width / 2.f, -height / 2.f, -depth / 2.f);
-	vertices[6] = glm::vec3(width / 2.f, height / 2.f, -depth / 2.f);
-	vertices[7] = glm::vec3(-width / 2.f, height / 2.f, -depth / 2.f);
+	
 
 
 	normals[0] = glm::vec3(1.f, 0.f, 0.f);
@@ -94,12 +96,12 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 
 	const int nIndices = 36;
 
-	GLuint facesVertices[nIndices] = { 0, 1, 3, 1, 2, 3, // front
-						4, 5, 7, 5, 6, 7, // back
-						0, 3, 4, 4, 7, 3, // left
-						1, 5, 6, 1, 6, 2, // right
-						0, 4, 1, 4, 5, 1, // up
-						3, 2, 7, 2, 6, 7 // down
+	GLuint facesVertices[nIndices] = {	0, 1, 2, 2, 3, 0, // front
+										4, 1, 0, 0, 5, 4, // back
+										2, 6, 7, 7, 3, 2, // left
+										4, 5, 7, 7, 6, 4, // right
+										0, 3, 7, 7, 5, 0, // up
+										1, 4, 2, 2, 4, 6 // down
 	};
 
 	GLuint facesTexels[nIndices] = { 0, 1, 3, 1, 2, 3, // back

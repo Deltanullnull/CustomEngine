@@ -34,7 +34,8 @@ void Skybox::Render(Renderer * renderer)
 	view[3][1] = 0;
 	view[3][2] = 0;
 
-	glm::mat4 projection = glm::ortho<float>(-100.0, 100.0, -100.0, 100.0, 0, 1000);
+	//glm::mat4 projection = glm::ortho<float>(-100.0, 100.0, -100.0, 100.0, 0, 1000);
+	glm::mat4 projection = renderer->GetProjection();
 
 	glm::mat4 modelView = view * modelMatrix;
 

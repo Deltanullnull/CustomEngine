@@ -12,8 +12,7 @@ public:
 
 	void AddTexture(GLubyte * imageBuffer, int width, int height);
 
-	
-
+	void AddTextureCubemap(GLubyte * imageBuffer[6], int width, int height);
 	void AddTextureCubemap(GLubyte * imageBuffer, int width, int height);
 
 	void BindTexture(ShaderCore * shaderCore);
@@ -22,6 +21,8 @@ public:
 
 private:
 	static void GetSubTexture(GLubyte * imageBuffer, int width, int height, int channels, int x, int y, GLubyte ** outBuffer, int * outWidth, int * outHeight);
+
+	
 
 private:
 	GLuint m_texture;

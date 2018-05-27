@@ -40,7 +40,10 @@ void AddSampleGameObject(Viewer * viewer)
 	GeometryCore * gCoreBox = Geometry::CreateBox(500.f, 500.f, 500.f);
 
 	TextureCore * texCore = Texture::CreateTextureCoreFromFile("lena.jpg");
-	TextureCore * texCoreSpace = Texture::CreateTextureCoreFromFile("space.jpg");
+
+	const char * skyboxFiles[6] = {"skybox/left.jpg", "skybox/front.jpg", "skybox/top.jpg", "skybox/bottom.jpg","skybox/right.jpg", "skybox/back.jpg"};
+	TextureCore * texCoreSpace = Texture::CreateCubemapCoreFromFile(skyboxFiles);
+	//TextureCore * texCoreSpace = Texture::CreateCubemapCoreFromFile("skybox_texture_0.jpg");
 	//TextureCore * texCoreEmpty = Texture::CreateEmpty();
 
 	obj->AddCore(sCore);

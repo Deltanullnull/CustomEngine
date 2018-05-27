@@ -109,16 +109,40 @@ TextureCore * Texture::CreateTextureCoreFromFile(const char * fileName)
 	return tex;
 }
 
-TextureCore * Texture::LoadCubemap(const char * fileName)
+TextureCore * Texture::CreateCubemapCoreFromFile(const char * fileName[6])
+{
+	BYTE * imageBuffers[6];
+
+	BYTE * imageBuffer;
+	int width, height;
+
+
+	for (int i = 0; i < 6; i++)
+	{
+		if (!LoadTexture(fileName[i], &imageBuffers[i], &width, &height))
+			return nullptr;
+	}
+	
+	TextureCore * tex = new TextureCore();
+
+	tex->AddTextureCubemap(imageBuffers, width, height);
+
+	return tex;
+}
+
+TextureCore * Texture::CreateCubemapCoreFromFile(const char * fileName)
 {
 	BYTE * imageBuffer;
 	int width, height;
 
-	LoadTexture(fileName, &imageBuffer, &width, &height);
+	if (LoadTexture(fileName, &imageBuffer, &width, &height))
+	{
+		TextureCore * tex = new TextureCore();
 
-	TextureCore * tex = new TextureCore();
+		tex->AddTextureCubemap(imageBuffer, width, height);
 
-	tex->AddTextureCubemap(imageBuffer, width, height);
+		return tex;
+	}
 
-	return tex;
+	return nullptr;
 }
