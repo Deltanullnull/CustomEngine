@@ -148,6 +148,10 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 	return core;
 }
 
+void Geometry::LoadTextureInfo(aiMaterial * mat, aiTextureType type, string typeName)
+{
+	
+}
 
 GeometryCore * Geometry::LoadFile(string file)
 {
@@ -160,23 +164,64 @@ GeometryCore * Geometry::LoadFile(string file)
 
 	GeometryCore * core = new GeometryCore();
 
-	vector<glm::vec3> vertices;
+	vector<glm::vec3> verticesTotal, normalsTotal;
+	vector<glm::vec2> uvTotal;
 
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
+		vector<glm::vec3> vertices, normals;
+		vector<glm::vec2> uvs;
+
+		vector<unsigned int> faces;
+
 		aiMesh * mesh = scene->mMeshes[i];
 
 		for (int v = 0; v < mesh->mNumVertices; v++)
 		{
 			aiVector3D vertex = mesh->mVertices[v];
+			aiVector3D normal = mesh->mNormals[v];
+			aiVector3D texCoord = mesh->mTextureCoords[v][0];
 
 			glm::vec3 vertex3(vertex.x, vertex.y, vertex.z);
+			glm::vec3 normal3(normal.x, normal.y, normal.z);
+			glm::vec2 uv2(texCoord.x, texCoord.y);
 
 			vertices.push_back(vertex3);
+			normals.push_back(normal3);
+			uvs.push_back(uv2);
 		}
+
+		if (mesh->mNumFaces > 0)
+		{
+			for (int f = 0; f < mesh->mNumFaces; f++)
+			{
+				aiFace face = mesh->mFaces[f];
+
+				for (int i = 0; i < face.mNumIndices; i++)
+				{
+					faces.push_back(face.mIndices[i]);
+				}
+			}
+
+			for (unsigned int face : faces)
+			{
+				verticesTotal.push_back(vertices.at(face));
+				uvTotal.push_back(uvs.at(face));
+				normalsTotal.push_back(normals.at(face));
+			}
+		}
+		else
+		{
+			verticesTotal.insert(verticesTotal.end(), vertices.begin(), vertices.end());
+			uvTotal.insert(uvTotal.end(), uvs.begin(), uvs.end());
+			normalsTotal.insert(normalsTotal.end(), normals.begin(), normals.end());
+		}
+		
 	}
 
-	core->SetVertices((GLfloat*)&vertices[0], vertices.size() * sizeof(glm::vec3));
+	core->SetVertices((GLfloat*)&verticesTotal[0], verticesTotal.size() * sizeof(glm::vec3));
+	core->SetUV((GLfloat*)&uvTotal[0], uvTotal.size() * sizeof(glm::vec2));
+	core->SetNormals((GLfloat*)&normalsTotal[0], normalsTotal.size() * sizeof(glm::vec3));
 
 	return core;
 }
