@@ -131,6 +131,7 @@
     <ClCompile Include="CustomObject.cpp" />
     <ClCompile Include="CustomObject0.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MovementScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -140,6 +141,7 @@
     <ClInclude Include="CustomCamera.h" />
     <ClInclude Include="CustomObject.h" />
     <ClInclude Include="CustomObject0.h" />
+    <ClInclude Include="MovementScript.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
