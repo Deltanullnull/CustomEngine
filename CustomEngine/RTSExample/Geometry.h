@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GeometryCore.h"
-
+#include "TextureCore.h"
 
 
 class Geometry
@@ -14,14 +14,12 @@ public:
 
 	static GeometryCore * CreateBox(float width, float height, float depth);
 
-	static GeometryCore * LoadFile(string file);
+	
+
+	//static GeometryCore * LoadFile(string file);
 
 private:
-	GLuint m_vao;
-	GLuint m_vbo[3];
+	static vector<glm::vec3> CreateNormals(vector<glm::vec3> vertices, vector<int> faces);
 
-	void bindBuffer(void * buffer, int size, int stride, int attrib_pointer);
-
-	int m_nFaces;
 };
 

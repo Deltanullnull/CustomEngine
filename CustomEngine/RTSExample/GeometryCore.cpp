@@ -18,10 +18,10 @@ void GeometryCore::SetVertices(GLfloat * buffer, int size)
 {
 	glBindVertexArray(m_vao);
 
-	for (int i = 0; i < size / sizeof(GLfloat); i += 3)
+	/*for (int i = 0; i < size / sizeof(GLfloat); i += 3)
 	{
 		cout << buffer[i] << " " << buffer[i + 1] << " " << buffer[i + 2] << endl;
-	}
+	}*/
 
 	
 	m_nVertices = size / sizeof(GLfloat);

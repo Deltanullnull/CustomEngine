@@ -2,6 +2,8 @@
 #include <assimp\Importer.hpp>
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
+#include <map>
+#include <set>
 
 Geometry::Geometry()
 {
@@ -148,81 +150,50 @@ GeometryCore * Geometry::CreateBox(float width, float height, float depth)
 	return core;
 }
 
-void Geometry::LoadTextureInfo(aiMaterial * mat, aiTextureType type, string typeName)
+//void Geometry::LoadTextureInfo(aiMaterial * mat, aiTextureType type, string typeName)
+//{
+//	
+//}
+
+vector<glm::vec3> Geometry::CreateNormals(vector<glm::vec3> vertices, vector<int> faces)
 {
-	
-}
+	vector<pair<int, glm::vec3>> normalMap;
+	normalMap.resize(vertices.size());
 
-GeometryCore * Geometry::LoadFile(string file)
-{
-	Assimp::Importer importer;
+	int nFaces = faces.size() / 3;
 
-	const aiScene * scene = importer.ReadFile(file, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
-
-	if (!scene)
-		return nullptr;
-
-	GeometryCore * core = new GeometryCore();
-
-	vector<glm::vec3> verticesTotal, normalsTotal;
-	vector<glm::vec2> uvTotal;
-
-	for (int i = 0; i < scene->mNumMeshes; i++)
+	for (int f = 0; f < nFaces; f++)
 	{
-		vector<glm::vec3> vertices, normals;
-		vector<glm::vec2> uvs;
+		int f0 = faces.at(f * 3 + 0);
+		int f1 = faces.at(f * 3 + 1);
+		int f2 = faces.at(f * 3 + 2);
 
-		vector<unsigned int> faces;
+		glm::vec3 v0 = vertices.at(f0);
+		glm::vec3 v1 = vertices.at(f1);
+		glm::vec3 v2 = vertices.at(f2);
 
-		aiMesh * mesh = scene->mMeshes[i];
+		glm::vec3 normal = glm::normalize(glm::cross((v2 - v0), (v1 - v0)));
 
-		for (int v = 0; v < mesh->mNumVertices; v++)
-		{
-			aiVector3D vertex = mesh->mVertices[v];
-			aiVector3D normal = mesh->mNormals[v];
-			aiVector3D texCoord = mesh->mTextureCoords[v][0];
+		normalMap.at(f0).first += 1;
+		normalMap.at(f0).second += normal;
 
-			glm::vec3 vertex3(vertex.x, vertex.y, vertex.z);
-			glm::vec3 normal3(normal.x, normal.y, normal.z);
-			glm::vec2 uv2(texCoord.x, texCoord.y);
+		normalMap.at(f1).first += 1;
+		normalMap.at(f1).second += normal;
 
-			vertices.push_back(vertex3);
-			normals.push_back(normal3);
-			uvs.push_back(uv2);
-		}
-
-		if (mesh->mNumFaces > 0)
-		{
-			for (int f = 0; f < mesh->mNumFaces; f++)
-			{
-				aiFace face = mesh->mFaces[f];
-
-				for (int i = 0; i < face.mNumIndices; i++)
-				{
-					faces.push_back(face.mIndices[i]);
-				}
-			}
-
-			for (unsigned int face : faces)
-			{
-				verticesTotal.push_back(vertices.at(face));
-				uvTotal.push_back(uvs.at(face));
-				normalsTotal.push_back(normals.at(face));
-			}
-		}
-		else
-		{
-			verticesTotal.insert(verticesTotal.end(), vertices.begin(), vertices.end());
-			uvTotal.insert(uvTotal.end(), uvs.begin(), uvs.end());
-			normalsTotal.insert(normalsTotal.end(), normals.begin(), normals.end());
-		}
+		normalMap.at(f2).first += 1;
+		normalMap.at(f2).second += normal;
 		
 	}
 
-	core->SetVertices((GLfloat*)&verticesTotal[0], verticesTotal.size() * sizeof(glm::vec3));
-	core->SetUV((GLfloat*)&uvTotal[0], uvTotal.size() * sizeof(glm::vec2));
-	core->SetNormals((GLfloat*)&normalsTotal[0], normalsTotal.size() * sizeof(glm::vec3));
+	vector<glm::vec3> normals;
 
-	return core;
+	for (int i = 0; i < normalMap.size(); i++)
+	{
+		normals.push_back(glm::normalize(normalMap.at(i).second / (float) normalMap.at(i).first));
+	}
+
+	return normals;
 }
+
+	
 
