@@ -1,6 +1,7 @@
 #include "GameObject.h"
 
 #include "Renderer.h"
+#include "Behavior.h"
 
 GameObject::GameObject()
 {
@@ -10,7 +11,7 @@ GameObject::GameObject()
 
 	GenerateID();
 
-	Init();
+	//Init();
 }
 
 
@@ -88,6 +89,30 @@ void GameObject::RenderDepth(Renderer * renderer)
 		m_pGeometryCore->Render();
 }
 
+void GameObject::Scale(glm::vec3 scale)
+{
+	if (m_transform)
+	{
+		m_transform->Scale(scale);
+	}
+}
+
+void GameObject::Init()
+{
+	for (auto behavior : m_pListBehaviors)
+	{
+		behavior->Init();
+	}
+}
+
+void GameObject::Update()
+{
+	for (auto behavior : m_pListBehaviors)
+	{
+		behavior->Update();
+	}
+}
+
 void GameObject::AddTranslation(glm::vec3 translation)
 {
 	if (m_transform)
@@ -153,4 +178,9 @@ void GameObject::MoveForward(float distance)
 void GameObject::MoveUp(float distance)
 {
 	AddTranslation(glm::vec3(0.f, distance, 0.f));
+}
+
+void GameObject::AddBehavior(Behavior * behavior)
+{
+	m_pListBehaviors.push_back(behavior);
 }

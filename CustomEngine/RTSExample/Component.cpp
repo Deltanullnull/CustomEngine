@@ -138,6 +138,8 @@ void Component::AddChild(Component * child)
 
 	child->m_pParent = this;
 
+	child->Init();
+
 	// TODO traverse through subtree and collect all lights
 }
 

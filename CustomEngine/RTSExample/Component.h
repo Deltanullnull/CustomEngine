@@ -30,6 +30,10 @@ public:
 
 	virtual void UpdateInput();
 
+	virtual void Init() {};
+
+	virtual void Update() { };
+
 	virtual void KeyUp(unsigned char key);
 
 	virtual void KeyDown(unsigned char key);

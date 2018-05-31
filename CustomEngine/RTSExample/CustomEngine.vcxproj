@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="LightTraverser.cpp" />
     <ClCompile Include="LogicTraverser.cpp" />
     <ClCompile Include="MatrixStack.cpp" />
+    <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="Randomizer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderState.cpp" />
@@ -170,6 +172,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="LightTraverser.h" />
     <ClInclude Include="LogicTraverser.h" />
     <ClInclude Include="MatrixStack.h" />
+    <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="Randomizer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderState.h" />

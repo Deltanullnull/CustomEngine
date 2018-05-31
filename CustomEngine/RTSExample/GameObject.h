@@ -5,10 +5,10 @@
 #include "GeometryCore.h"
 
 
-
 #include <glm\glm.hpp>
 
 class Renderer;
+class Behavior;
 
 #pragma once
 class GameObject : public Leaf
@@ -21,9 +21,11 @@ public:
 
 	virtual void RenderDepth(Renderer * renderer);
 
-	virtual void Init() { };
+	void Scale(glm::vec3 scale);
 
-	virtual void Update() { };
+	virtual void Init();
+
+	virtual void Update();
 
 	virtual void AddTranslation(glm::vec3 translation);
 
@@ -46,6 +48,8 @@ public:
 
 	void MoveUp(float distance);
 
+	void AddBehavior(Behavior * behavior);
+
 
 protected:
 
@@ -54,6 +58,7 @@ protected:
 	GeometryCore * m_pGeometryCore = NULL;
 
 	list<GameObject*> m_listChildren;
+	list<Behavior*> m_pListBehaviors;
 
 };
 
