@@ -35,6 +35,13 @@ void Transformation::AddRotation(glm::vec3 euler)
 
 }
 
+void Transformation::Scale(glm::vec3 euler)
+{
+	m_scaleMat[0][0] = euler.x;
+	m_scaleMat[1][1] = euler.y;
+	m_scaleMat[2][2] = euler.z;
+}
+
 void Transformation::AddRotation(glm::vec3 axis, float angle)
 {
 	m_rotMat = glm::rotate(angle, axis) * m_rotMat;
@@ -104,7 +111,7 @@ void Transformation::Foo()
 
 void Transformation::PushTransformation(Renderer * renderer)
 {
-	m_orientation = m_transMat * m_rotMat;
+	m_orientation = m_scaleMat * m_transMat * m_rotMat;
 
 	renderer->PushModelMatrix(m_orientation);
 }

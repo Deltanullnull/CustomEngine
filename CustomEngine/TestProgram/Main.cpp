@@ -1,6 +1,7 @@
 #include ".\..\RTSExample\Viewer.h"
 #include "CustomObject.h"
 #include "CustomObject0.h"
+#include "MovementScript.h"
 #include "CustomCamera.h"
 #include "CameraSocket.h"
 #include <Windows.h>
@@ -23,12 +24,17 @@ void AddSampleGameObject(Viewer * viewer)
 	cout << "Creating a new object" << endl;
 
 
-	CustomObject * obj = new CustomObject();
+	//CustomObject * obj = new CustomObject();
+	GameObject * obj = new GameObject();
+	obj->AddBehavior(new MovementScript());
 	GameObject * obj0 = new GameObject();
-
+	GameObject * obj2 = ObjectFactory::LoadFile("./../assets/mesh/stormtrooper/source/EP7 ST.obj");
 
 	Skybox * skybox = new Skybox();
 
+	//GeometryCore * gCoreModel = Geometry::LoadFile("./../assets/mesh/stormtrooper/source/EP7 ST.obj");
+	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
+	GeometryCore * gCoreBox = Geometry::CreateBox(500.f, 500.f, 500.f);
 
 	ShaderCore * sCore = new ShaderCore();
 	sCore->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
@@ -36,15 +42,22 @@ void AddSampleGameObject(Viewer * viewer)
 	ShaderCore * sCoreSkybox = new ShaderCore();
 	sCoreSkybox->GenerateShader("./../glsl/skybox.vert", "", "./../glsl/skybox.frag");
 
-	GeometryCore * gCore = Geometry::CreatePlane(100.f, 100.f);
-	GeometryCore * gCoreBox = Geometry::CreateBox(500.f, 500.f, 500.f);
+	
+	//GeometryCore * gCoreModel = Geometry::LoadFile("./../assets/mesh/stormtrooper/source/EP7 ST.obj");
 
-	TextureCore * texCore = Texture::CreateTextureCoreFromFile("lena.jpg");
+	TextureCore * texCore = Texture::CreateTextureCoreFromFile("./../assets/textures/lena.jpg");
 
-	const char * skyboxFiles[6] = {"skybox/left.jpg", "skybox/front.jpg", "skybox/top.jpg", "skybox/bottom.jpg","skybox/right.jpg", "skybox/back.jpg"};
+	const char * skyboxFiles[6] = {
+		"./../assets/textures/skybox/left.jpg", 
+		"./../assets/textures/skybox/front.jpg", 
+		"./../assets/textures/skybox/top.jpg", 
+		"./../assets/textures/skybox/bottom.jpg",
+		"./../assets/textures/skybox/right.jpg", 
+		"./../assets/textures/skybox/back.jpg"
+	};
 	TextureCore * texCoreSpace = Texture::CreateCubemapCoreFromFile(skyboxFiles);
 	//TextureCore * texCoreSpace = Texture::CreateCubemapCoreFromFile("skybox_texture_0.jpg");
-	//TextureCore * texCoreEmpty = Texture::CreateEmpty();
+	TextureCore * texCoreEmpty = Texture::CreateEmpty();
 
 	obj->AddCore(sCore);
 	
@@ -55,9 +68,13 @@ void AddSampleGameObject(Viewer * viewer)
 	obj0->AddRotation(glm::vec3(1, 0, 0), -glm::pi<float>() / 2);
 	obj0->AddTranslation(glm::vec3(0, -2.5f, 0));
 	
+	obj0->Scale(glm::vec3(1.0f) * 0.001f);
+	
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
+	//obj0->AddCore(gCoreModel);
 	obj0->AddCore(texCore);
+	//obj0->AddCore(texCoreEmpty);
 
 	//obj->m_transform->AddChild(obj0->m_transform);
 
