@@ -2,9 +2,9 @@
 
 
 
-CameraSocket::CameraSocket() : GameObject()
+CameraSocket::CameraSocket()
 {
-	Init();
+	//Init();
 }
 
 
@@ -33,7 +33,11 @@ void CameraSocket::Update()
 
 	//AddRotation(glm::vec3(deltaX, 0, 0) * 0.01f);
 
-	AddRotation(m_transform->rightVector, deltaY * 0.01f);
+	if (m_transform)
+	{
+		m_transform->AddRotation(m_transform->rightVector, deltaY * 0.01f);
+	}
+	//AddRotation(m_transform->rightVector, deltaY * 0.01f);
 
 	//AddRotation(glm::vec3(1, 0, 0), deltaY * 0.01f);
 

@@ -1,8 +1,5 @@
 #include ".\..\RTSExample\Viewer.h"
-#include "CustomObject.h"
-#include "CustomObject0.h"
 #include "MovementScript.h"
-#include "CustomCamera.h"
 #include "CameraSocket.h"
 #include <Windows.h>
 
@@ -21,14 +18,57 @@ void Foo(Component * comp)
 
 void AddSampleGameObject(Viewer * viewer)
 {
+	const string assetPath = "./../assets/";
+
 	cout << "Creating a new object" << endl;
 
-
-	//CustomObject * obj = new CustomObject();
 	GameObject * obj = new GameObject();
 	obj->AddBehavior(new MovementScript());
 	GameObject * obj0 = new GameObject();
-	GameObject * obj2 = ObjectFactory::LoadFile("./../assets/mesh/stormtrooper/source/EP7 ST.obj");
+
+	GameObject * obj2;
+	vector<GeometryCore*> geomList;
+	vector<TextureCore*> texList;
+	
+	if (ObjectFactory::LoadFile(assetPath + "mesh/stormtrooper/source/EP7 ST.obj", &obj2, &geomList, &texList))
+	{
+		// TODO make list of textures (must have same size like texList
+
+		string texturePath = assetPath + "mesh/stormtrooper/textures/";
+
+		cout << "Number of materials: " << texList.size() << endl;
+		
+		string texListPath[11] = {
+			texturePath + "chest.png", // OK
+			texturePath + "Rubber_joints.png",
+			texturePath + "Belt.png",
+			texturePath + "ArmNLeg.png", // OK
+			texturePath + "Back_crotch.png", // OK
+			texturePath + "Helmet.png", // OK
+			texturePath + "Helmet.png", // Forehead
+			texturePath + "Rubber_joints.png", // Arms joints
+			texturePath + "HandsNFeet.png", // Hands and feet
+			texturePath + "Rubber_joints.png",
+			assetPath + "textures/lena.jpg", 
+		};
+
+		for (int i = 0; i < 11; i++)
+		{
+			BYTE * buffer;
+			int width, height;
+			//if (Texture::LoadTexture(texListPath[i].c_str(), &buffer, &width, &height))
+			//if (Texture::LoadTexture((assetPath + "textures/lena.jpg").c_str(), &buffer, &width, &height))
+			
+			if (Texture::LoadTexture(texListPath[i].c_str(), &buffer, &width, &height))
+			{
+				texList.at(i)->AddTexture(buffer, width, height);
+			}
+			
+			
+		}
+	}
+
+	//GameObject * obj2 = ObjectFactory::LoadFile("./../assets/mesh/stormtrooper/source/EP7 ST.obj");
 
 	Skybox * skybox = new Skybox();
 
@@ -45,7 +85,8 @@ void AddSampleGameObject(Viewer * viewer)
 	
 	//GeometryCore * gCoreModel = Geometry::LoadFile("./../assets/mesh/stormtrooper/source/EP7 ST.obj");
 
-	TextureCore * texCore = Texture::CreateTextureCoreFromFile("./../assets/textures/lena.jpg");
+	TextureCore * texCore = Texture::CreateTextureCoreFromFile((assetPath + "mesh/stormtrooper/textures/Back_crotch.png").c_str());
+	//TextureCore * texCore = Texture::CreateTextureCoreFromFile("./../assets/textures/kai.png");
 
 	const char * skyboxFiles[6] = {
 		"./../assets/textures/skybox/left.jpg", 
@@ -56,7 +97,7 @@ void AddSampleGameObject(Viewer * viewer)
 		"./../assets/textures/skybox/back.jpg"
 	};
 	TextureCore * texCoreSpace = Texture::CreateCubemapCoreFromFile(skyboxFiles);
-	//TextureCore * texCoreSpace = Texture::CreateCubemapCoreFromFile("skybox_texture_0.jpg");
+
 	TextureCore * texCoreEmpty = Texture::CreateEmpty();
 
 	obj->AddCore(sCore);
@@ -68,7 +109,7 @@ void AddSampleGameObject(Viewer * viewer)
 	obj0->AddRotation(glm::vec3(1, 0, 0), -glm::pi<float>() / 2);
 	obj0->AddTranslation(glm::vec3(0, -2.5f, 0));
 	
-	obj0->Scale(glm::vec3(1.0f) * 0.001f);
+	obj2->Scale(glm::vec3(1.0f) * 0.001f);
 	
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
@@ -76,25 +117,27 @@ void AddSampleGameObject(Viewer * viewer)
 	obj0->AddCore(texCore);
 	//obj0->AddCore(texCoreEmpty);
 
+	//obj2->AddCore(sCore);
+
 	//obj->m_transform->AddChild(obj0->m_transform);
 
 	viewer->AddObjectToScene(skybox->m_transform);
 
+	cout << "Adding object to scene" << endl;
 	viewer->AddObjectToScene(obj->m_transform);
 	
 	viewer->AddObjectToScene(obj0->m_transform);
-
+	viewer->AddObjectToScene(obj2->m_transform);
 	
 
-	CustomCamera * mainCamera = new CustomCamera();
+	Camera * mainCamera = new Camera();
 	//mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 	mainCamera->LookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 	mainCamera->CreateProjection(45.f, 800.f / 600.f, 0.1f, 1000.f);
 
 	
-
-	CameraSocket * elevation = new CameraSocket();
-
+	GameObject * elevation = new GameObject();
+	elevation->AddBehavior(new CameraSocket());
 	GameObject * camSocket = new GameObject();
 
 	//camSocket->m_transform->AddTranslation(glm::vec3(0, 0, 0));

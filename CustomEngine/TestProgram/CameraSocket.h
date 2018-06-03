@@ -1,6 +1,7 @@
 #pragma once
-#include ".\..\RTSExample\GameObject.h"
-class CameraSocket : public GameObject
+#include "./../RTSExample/Behavior.h"
+
+class CameraSocket : public Behavior
 {
 public:
 	CameraSocket();

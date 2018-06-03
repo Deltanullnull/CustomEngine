@@ -14,6 +14,8 @@ public:
 
 
 
+	static bool LoadFile(string file, GameObject ** gameObject, vector<GeometryCore*>* geometryCore, vector<TextureCore*>* textureCore);
+
 	static GameObject * LoadFile(string file);
 
 private:

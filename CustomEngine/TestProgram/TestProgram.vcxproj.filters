@@ -33,10 +33,10 @@
     <ClCompile Include="CustomCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CameraSocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MovementScript.cpp">
+      <Filter>Source Files\Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSocket.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,10 +53,10 @@
     <ClInclude Include="CustomCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraSocket.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MovementScript.h">
+      <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSocket.h">
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>

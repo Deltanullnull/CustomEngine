@@ -16,6 +16,10 @@ public:
 	
 	static TextureCore * CreateEmpty();
 
+	static bool LoadJPG(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight);
+
+	static bool LoadPNG(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight);
+
 	static bool LoadTexture(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight);
 
 	static TextureCore * CreateTextureCoreFromFile(const char * fileName);

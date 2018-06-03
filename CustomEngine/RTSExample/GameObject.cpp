@@ -99,6 +99,8 @@ void GameObject::Scale(glm::vec3 scale)
 
 void GameObject::Init()
 {
+	cout << "init game object. Behaviors: " << m_pListBehaviors.size() << endl;
+
 	for (auto behavior : m_pListBehaviors)
 	{
 		behavior->Init();
@@ -110,6 +112,36 @@ void GameObject::Update()
 	for (auto behavior : m_pListBehaviors)
 	{
 		behavior->Update();
+	}
+}
+
+void GameObject::UpdateInput()
+{
+	Component::UpdateInput();
+
+	for (auto behavior : m_pListBehaviors)
+	{
+		behavior->UpdateInput();
+	}
+}
+
+void GameObject::KeyUp(unsigned char key)
+{
+	Component::KeyUp(key);
+
+	for (auto behavior : m_pListBehaviors)
+	{
+		behavior->KeyUp(key);
+	}
+}
+
+void GameObject::KeyDown(unsigned char key)
+{
+	Component::KeyDown(key);
+
+	for (auto behavior : m_pListBehaviors)
+	{
+		behavior->KeyDown(key);
 	}
 }
 
@@ -183,4 +215,8 @@ void GameObject::MoveUp(float distance)
 void GameObject::AddBehavior(Behavior * behavior)
 {
 	m_pListBehaviors.push_back(behavior);
+
+	behavior->m_transform = m_transform;
+
+	behavior->Init();
 }

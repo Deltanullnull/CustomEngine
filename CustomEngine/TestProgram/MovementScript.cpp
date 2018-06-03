@@ -13,10 +13,8 @@ MovementScript::~MovementScript()
 
 void MovementScript::Init()
 {
-}
+	cout << "Initialized custom behavior" << endl;
 
-void MovementScript::Update()
-{
 	AddAction('w', std::bind(&MovementScript::MoveForward, this));
 	AddAction('s', std::bind(&MovementScript::MoveBackwards, this));
 	AddAction('a', std::bind(&MovementScript::MoveLeft, this));
@@ -25,9 +23,24 @@ void MovementScript::Update()
 	AddAction('q', std::bind(&MovementScript::MoveDown, this));
 }
 
+void MovementScript::Update()
+{
+	int deltaX, deltaY;
+
+	GetMouseDelta(deltaX, deltaY);
+
+	if (m_transform)
+	{
+		m_transform->AddRotation(m_transform->upVector, -deltaX * 0.01f);
+	}
+
+
+}
+
 
 void MovementScript::MoveForward()
 {
+	cout << "Moving forward" << endl;
 	Transformation * childTransform = (Transformation *)(m_transform->GetChild(0));
 
 	if (childTransform != nullptr)

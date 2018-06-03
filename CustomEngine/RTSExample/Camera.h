@@ -23,7 +23,7 @@ public:
 
 	virtual void Init() {}
 
-	virtual void Update() { cout << "Default camera update" << endl; }
+	virtual void Update() { }
 
 	
 

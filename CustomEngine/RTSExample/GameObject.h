@@ -10,6 +10,11 @@
 class Renderer;
 class Behavior;
 
+struct Material
+{
+
+};
+
 #pragma once
 class GameObject : public Leaf
 {
@@ -23,9 +28,15 @@ public:
 
 	void Scale(glm::vec3 scale);
 
-	virtual void Init();
+	virtual void Init() override;
 
-	virtual void Update();
+	virtual void Update() override;
+
+	virtual void UpdateInput() override;
+
+	virtual void KeyUp(unsigned char key) override;
+
+	virtual void KeyDown(unsigned char key) override;
 
 	virtual void AddTranslation(glm::vec3 translation);
 

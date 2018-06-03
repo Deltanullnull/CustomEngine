@@ -2,6 +2,10 @@
 
 #include <jpeglib.h>
 
+#define PNG_DEBUG 3
+#include <png.h>
+#include <boost/filesystem.hpp>
+
 Texture::Texture()
 {
 }
@@ -20,7 +24,7 @@ TextureCore * Texture::CreateEmpty()
 	return tex;
 }
 
-bool Texture::LoadTexture(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight)
+bool Texture::LoadJPG(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight)
 {
 	struct my_error_mgr {
 		struct jpeg_error_mgr pub;
@@ -93,20 +97,116 @@ bool Texture::LoadTexture(const char * fileName, BYTE ** outBuffer, int * outWid
 	return true;
 }
 
+bool Texture::LoadPNG(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight)
+{
+	
+	FILE * fp = fopen(fileName, "rb");
+	if (!fp)
+		return false;
+
+	png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+	if (!png)
+		return false;
+
+	png_infop info = png_create_info_struct(png);
+	if (!info)
+		return false;
+
+	if (setjmp(png_jmpbuf(png)))
+		return false;
+
+	png_init_io(png, fp);
+
+	png_read_info(png, info);
+
+	int width = png_get_image_width(png, info);
+	int height = png_get_image_height(png, info);
+	int colorType = png_get_color_type(png, info);
+	int bitDepth = png_get_bit_depth(png, info);
+
+	cout << "PNG has" << width << ", " << height << ", " << colorType << ", " << bitDepth << endl;
+
+	if (bitDepth == 16)
+		png_set_strip_16(png);
+
+	if (colorType == PNG_COLOR_TYPE_PALETTE)
+		png_set_palette_to_rgb(png);
+
+	if (colorType == PNG_COLOR_TYPE_GRAY && bitDepth < 8)
+	{
+		png_set_expand_gray_1_2_4_to_8(png);
+	}
+
+	png_read_update_info(png, info);
+
+	png_bytep * row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
+	for (int y = 0; y < height; y++)
+	{
+		row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png, info));
+	}
+
+	png_read_image(png, row_pointers);
+
+	fclose(fp);
+
+	BYTE * buffer = new BYTE[width * height * 3];
+
+	for (int y = 0; y < height; y++)
+	{
+		png_byte * row = row_pointers[y];
+		for (int x = 0; x < width; x++)
+		{
+			int idx = (height - y - 1) * width + ( x ) ;
+			png_byte * ptr = &(row[x * 4]);
+			buffer[idx * 3 + 0] = ptr[0];
+			buffer[idx * 3 + 1] = ptr[1];
+			buffer[idx * 3 + 2] = ptr[2];
+			//buffer[idx * 4 + 3] = ptr[3];
+		}
+	}
+
+	*outBuffer = buffer;
+	*outWidth = width;
+	*outHeight = height;
+
+	return true;
+}
+
+bool Texture::LoadTexture(const char * fileName, BYTE ** outBuffer, int * outWidth, int * outHeight)
+{
+	// TODO get extension
+	string ext = boost::filesystem::extension(fileName);
+
+	cout << "Extension of file: " << ext << endl;
+	if (ext == ".jpg")
+	{
+		return LoadJPG(fileName, outBuffer, outWidth, outHeight);
+	}
+	else if (ext == ".png")
+	{
+		return LoadPNG(fileName, outBuffer, outWidth, outHeight);
+	}
+
+	return false;
+}
+
 TextureCore * Texture::CreateTextureCoreFromFile(const char * fileName)
 {
 	BYTE * imageBuffer;
 	int width, height;
 
-	LoadTexture(fileName, &imageBuffer, &width, &height);
+	if (LoadTexture(fileName, &imageBuffer, &width, &height))
+	{
+		cout << "Image loaded" << endl;
 
-	cout << "Image loaded" << endl;
+		TextureCore * tex = new TextureCore();
 
-	TextureCore * tex = new TextureCore();
+		tex->AddTexture(imageBuffer, width, height);
 
-	tex->AddTexture(imageBuffer, width, height);
+		return tex;
+	}
 
-	return tex;
+	return nullptr;
 }
 
 TextureCore * Texture::CreateCubemapCoreFromFile(const char * fileName[6])

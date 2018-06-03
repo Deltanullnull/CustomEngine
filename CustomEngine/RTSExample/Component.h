@@ -30,7 +30,7 @@ public:
 
 	virtual void UpdateInput();
 
-	virtual void Init() {};
+	virtual void Init() { };
 
 	virtual void Update() { };
 
