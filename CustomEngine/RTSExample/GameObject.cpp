@@ -177,7 +177,7 @@ void GameObject::AddCore(ShaderCore * core)
 	string geometryShader = m_pShaderCore->m_pGeometryShader;
 	
 
-	string shaderRoot = "./../glsl/"; // TODO get root of other shaders
+	string shaderRoot = "./../glsl/"; // get root of other shaders
 	string fragmentShader = shaderRoot + "default.frag";
 
 	m_pShadowShaderCore = new ShaderCore();

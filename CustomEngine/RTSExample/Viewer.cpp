@@ -405,6 +405,8 @@ void Viewer::InitViewer(int argc, char ** argv)
 
 	m_pLightTraverser->m_pRenderer = m_pRenderTraverser->m_pRenderer = m_pLogicTraverser->m_pRenderer = renderer;
 
+	//glEnable(GL_FLAT);
+
 	m_pMainScene = new Scene();
 }
 

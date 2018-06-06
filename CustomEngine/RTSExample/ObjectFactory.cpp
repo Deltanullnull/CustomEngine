@@ -51,7 +51,7 @@ bool ObjectFactory::LoadFile(string file, GameObject ** gameObject, vector<Geome
 		aiMesh * mesh = scene->mMeshes[i];
 
 		aiString meshName = mesh->mName;
-		int mIdx = mesh->mMaterialIndex - 1;
+		int mIdx = mesh->mMaterialIndex;
 
 		cout << meshName.C_Str() << " has material " << mIdx << endl;
 	}
@@ -138,7 +138,7 @@ bool ObjectFactory::LoadFile(string file, GameObject ** gameObject, vector<Geome
 			normalsTotal.insert(normalsTotal.end(), normals.begin(), normals.end());
 		}
 
-		int mIdx = mesh->mMaterialIndex - 1;
+		int mIdx = mesh->mMaterialIndex;
 
 		ShaderCore * sCore = new ShaderCore();
 		sCore->GenerateShader("./../glsl/phong.vert", "", "./../glsl/phong.frag");
@@ -158,11 +158,17 @@ bool ObjectFactory::LoadFile(string file, GameObject ** gameObject, vector<Geome
 			core->SetNormals((GLfloat*)&normalsTotal[0], normalsTotal.size() * sizeof(glm::vec3));
 		}
 
-		TextureCore * tex = listTextures.at(mIdx);
+		
+		
 
 		part->AddCore(sCore);
 		part->AddCore(core);
-		part->AddCore(tex);
+		
+		if (mIdx >= 0)
+		{
+			TextureCore * tex = listTextures.at(mIdx);
+			part->AddCore(tex);
+		}
 
 		root->m_transform->AddChild(part);
 	}

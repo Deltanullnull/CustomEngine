@@ -30,15 +30,23 @@ void AddSampleGameObject(Viewer * viewer)
 	vector<GeometryCore*> geomList;
 	vector<TextureCore*> texList;
 	
-	if (ObjectFactory::LoadFile(assetPath + "mesh/stormtrooper/source/EP7 ST.obj", &obj2, &geomList, &texList))
+	if (ObjectFactory::LoadFile(assetPath + "source/CB_Knight/low.fbx", &obj2, &geomList, &texList))
+	//if (ObjectFactory::LoadFile(assetPath + "mesh/stormtrooper/source/EP7 ST.obj", &obj2, &geomList, &texList))
 	{
 		// TODO make list of textures (must have same size like texList
 
-		string texturePath = assetPath + "mesh/stormtrooper/textures/";
+		//string texturePath = assetPath + "mesh/stormtrooper/textures/";
+		string texturePath = assetPath + "source/CB_Knight/Textures/";
 
 		cout << "Number of materials: " << texList.size() << endl;
 		
-		string texListPath[11] = {
+		string texListPath[2] =
+		{
+			texturePath + "textures.png",
+			texturePath + "textures.png"
+		};
+
+		/*string texListPath[11] = {
 			texturePath + "chest.png", // OK
 			texturePath + "Rubber_joints.png",
 			texturePath + "Belt.png",
@@ -50,9 +58,9 @@ void AddSampleGameObject(Viewer * viewer)
 			texturePath + "HandsNFeet.png", // Hands and feet
 			texturePath + "Rubber_joints.png",
 			assetPath + "textures/lena.jpg", 
-		};
+		};*/
 
-		for (int i = 0; i < 11; i++)
+		for (int i = 0; i < texList.size(); i++)
 		{
 			BYTE * buffer;
 			int width, height;
@@ -109,7 +117,7 @@ void AddSampleGameObject(Viewer * viewer)
 	obj0->AddRotation(glm::vec3(1, 0, 0), -glm::pi<float>() / 2);
 	obj0->AddTranslation(glm::vec3(0, -2.5f, 0));
 	
-	obj2->Scale(glm::vec3(1.0f) * 0.001f);
+	//obj2->Scale(glm::vec3(1.0f) * 0.001f);
 	
 	obj0->AddCore(sCore);
 	obj0->AddCore(gCore);
