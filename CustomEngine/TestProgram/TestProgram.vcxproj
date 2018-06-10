@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)glm;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)assimp\build\install\lib\;$(SolutionDir)jpeg-9c\$(Platform)\$(Configuration);C:\Users\kaiza\Documents\Libs\boost_1_67_0\lib64-msvc-14.1;$(SolutionDir)lpng1634\install\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)assimp\build\install\lib;$(SolutionDir)jpeg-9c\$(Platform)\$(Configuration);C:\Users\kaiza\Documents\Libs\boost_1_67_0\lib64-msvc-14.1;$(SolutionDir)lpng1634\install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)glm;$(IncludePath)</IncludePath>

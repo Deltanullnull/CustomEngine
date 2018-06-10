@@ -185,8 +185,6 @@ int main(int argc, char ** argv)
 
 	AddSampleGameObject(mainViewer);
 
-	
-
 	mainViewer->Start();
 
 }

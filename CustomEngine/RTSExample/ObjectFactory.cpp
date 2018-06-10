@@ -71,8 +71,26 @@ bool ObjectFactory::LoadFile(string file, GameObject ** gameObject, vector<Geome
 
 		aiMesh * mesh = scene->mMeshes[i];
 
+		cout << "Mesh has " << mesh->mNumBones << " bones" << endl;
+
+		vector<int> boneIdxList;
+
+		for (int b = 0; b < mesh->mNumBones; b++)
+		{
+			auto bone = mesh->mBones[b];
+
+			aiMatrix4x4 boneMat = bone->mOffsetMatrix;
+
+			boneIdxList.push_back(b);
+
+			string boneName = bone->mName.data;
+
+			cout << "Bone: " << boneName << endl;
+		}
+
 		for (int v = 0; v < mesh->mNumVertices; v++)
 		{
+
 			aiVector3D vertex = mesh->mVertices[v];
 			glm::vec3 vertex3(vertex.x, vertex.y, vertex.z);
 			vertices.push_back(vertex3);
@@ -86,13 +104,9 @@ bool ObjectFactory::LoadFile(string file, GameObject ** gameObject, vector<Geome
 
 			if (mesh->mTextureCoords)
 			{
-				//if (mesh->mTextureCoords[v])
-				{
-					aiVector3D texCoord = mesh->mTextureCoords[0][v];
-					glm::vec2 uv2(texCoord.x, texCoord.y);
-					uvs.push_back(uv2);
-				}
-
+				aiVector3D texCoord = mesh->mTextureCoords[0][v];
+				glm::vec2 uv2(texCoord.x, texCoord.y);
+				uvs.push_back(uv2);
 			}
 
 		}
@@ -157,10 +171,7 @@ bool ObjectFactory::LoadFile(string file, GameObject ** gameObject, vector<Geome
 		{
 			core->SetNormals((GLfloat*)&normalsTotal[0], normalsTotal.size() * sizeof(glm::vec3));
 		}
-
 		
-		
-
 		part->AddCore(sCore);
 		part->AddCore(core);
 		

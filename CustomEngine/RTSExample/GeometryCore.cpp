@@ -26,21 +26,21 @@ void GeometryCore::SetVertices(GLfloat * buffer, int size)
 	
 	m_nVertices = size / sizeof(GLfloat);
 
-	BindBuffer((void*)buffer, size, 3, 0);
+	BindBuffer((void*)buffer, size, 3, 0, GL_FLOAT);
 }
 
 void GeometryCore::SetUV(GLfloat * buffer, int size)
 {
 	glBindVertexArray(m_vao);
 
-	BindBuffer((void*)buffer, size, 2, 1);
+	BindBuffer((void*)buffer, size, 2, 1, GL_FLOAT);
 }
 
 void GeometryCore::SetNormals(GLfloat * buffer, int size)
 {
 	glBindVertexArray(m_vao);
 
-	BindBuffer((void*)buffer, size, 3, 2);
+	BindBuffer((void*)buffer, size, 3, 2, GL_FLOAT);
 }
 
 void GeometryCore::SetFaces(GLuint * buffer, int size)
@@ -49,6 +49,20 @@ void GeometryCore::SetFaces(GLuint * buffer, int size)
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vbo[4]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, buffer, GL_DYNAMIC_DRAW);
+}
+
+void GeometryCore::SetBoneIds(GLint * buffer, int size)
+{
+	glBindVertexArray(m_vao);
+
+	BindBuffer((void*)buffer, size, 4, 3, GL_INT);
+}
+
+void GeometryCore::SetWeights(GLfloat * buffer, int size)
+{
+	glBindVertexArray(m_vao);
+
+	BindBuffer((void*)buffer, size, 4, 4, GL_FLOAT);
 }
 
 
@@ -74,7 +88,7 @@ void GeometryCore::SetBufferData(int attrib_pointer, void * buffer, int size)
 	glBufferData(GL_ARRAY_BUFFER, size, buffer, GL_DYNAMIC_DRAW);
 }
 
-void GeometryCore::BindBuffer(void * buffer, int size, int stride, int attrib_pointer)
+void GeometryCore::BindBuffer(void * buffer, int size, int stride, int attrib_pointer, int type)
 {
 	int i = attrib_pointer;
 
@@ -83,7 +97,7 @@ void GeometryCore::BindBuffer(void * buffer, int size, int stride, int attrib_po
 
 	//set attributes
 	glEnableVertexAttribArray(i);
-	glVertexAttribPointer(i, stride, GL_FLOAT, false, 0, 0);
+	glVertexAttribPointer(i, stride, type, false, 0, 0);
 
 	//cout << "Binding buffer at vbo " << m_vbo[i] << endl;
 }

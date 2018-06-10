@@ -13,7 +13,8 @@ public:
 	void SetUV(GLfloat * buffer, int size);
 	void SetNormals(GLfloat * buffer, int size);
 	void SetFaces(GLuint * buffer, int size);
-
+	void SetBoneIds(GLint * buffer, int size);
+	void SetWeights(GLfloat * buffer, int size);
 	
 
 	void Render();
@@ -21,7 +22,7 @@ public:
 private:
 
 	void SetBufferData(int attrib_pointer, void * buffer, int size);
-	void BindBuffer(void * buffer, int size, int stride, int attrib_pointer);
+	void BindBuffer(void * buffer, int size, int stride, int attrib_pointer, int type);
 	void VertexAttribPointer(int attrib_pointer, int stride);
 
 	GLuint m_vao = 0;
